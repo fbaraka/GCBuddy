@@ -18,13 +18,34 @@ public class HomeController {
 
     }
 
-
     @RequestMapping("/RegistrationForm")
 
     public ModelAndView RegistrationForm() {
         return new
-                ModelAndView("RegistrationForm", "message", "");
+                ModelAndView("RegistrationForm", "message", "Test");
 
+    }
+
+    @RequestMapping("/homepage")
+
+    public ModelAndView homePage() {
+        return new
+                ModelAndView("homepage", "message", "Test");
+
+    }
+
+    @RequestMapping("/mentorship")
+
+    public ModelAndView mentorPage() {
+        return new
+                ModelAndView("mentorship", "message", "Test");
+    }
+
+    @RequestMapping("/profilepage")
+
+    public ModelAndView profilePage() {
+        return new
+                ModelAndView("profilepage", "message", "Test");
     }
 
 }
