@@ -12,9 +12,7 @@ public class UsersEntity {
     private String firstName;
     private String lastName;
     private String username;
-    private String userscol;
     private String bootcamp;
-    private String userscol1;
     private String languages;
     private String experience;
     private String bioBlurb;
@@ -79,16 +77,6 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Userscol", nullable = true, length = 45)
-    public String getUserscol() {
-        return userscol;
-    }
-
-    public void setUserscol(String userscol) {
-        this.userscol = userscol;
-    }
-
-    @Basic
     @Column(name = "Bootcamp", nullable = true, length = 45)
     public String getBootcamp() {
         return bootcamp;
@@ -96,16 +84,6 @@ public class UsersEntity {
 
     public void setBootcamp(String bootcamp) {
         this.bootcamp = bootcamp;
-    }
-
-    @Basic
-    @Column(name = "Userscol1", nullable = true, length = 45)
-    public String getUserscol1() {
-        return userscol1;
-    }
-
-    public void setUserscol1(String userscol1) {
-        this.userscol1 = userscol1;
     }
 
     @Basic
@@ -169,9 +147,7 @@ public class UsersEntity {
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
-        if (userscol != null ? !userscol.equals(that.userscol) : that.userscol != null) return false;
         if (bootcamp != null ? !bootcamp.equals(that.bootcamp) : that.bootcamp != null) return false;
-        if (userscol1 != null ? !userscol1.equals(that.userscol1) : that.userscol1 != null) return false;
         if (languages != null ? !languages.equals(that.languages) : that.languages != null) return false;
         if (experience != null ? !experience.equals(that.experience) : that.experience != null) return false;
         if (bioBlurb != null ? !bioBlurb.equals(that.bioBlurb) : that.bioBlurb != null) return false;
@@ -185,9 +161,7 @@ public class UsersEntity {
         result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (userscol != null ? userscol.hashCode() : 0);
         result = 31 * result + (bootcamp != null ? bootcamp.hashCode() : 0);
-        result = 31 * result + (userscol1 != null ? userscol1.hashCode() : 0);
         result = 31 * result + (languages != null ? languages.hashCode() : 0);
         result = 31 * result + (experience != null ? experience.hashCode() : 0);
         result = 31 * result + (bioBlurb != null ? bioBlurb.hashCode() : 0);

@@ -17,14 +17,8 @@
         <property name="username">
             <column name="Username" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
-        <property name="userscol">
-            <column name="Userscol" sql-type="varchar(45)" length="45" not-null="true"/>
-        </property>
         <property name="bootcamp">
             <column name="Bootcamp" sql-type="varchar(45)" length="45" not-null="true"/>
-        </property>
-        <property name="userscol1">
-            <column name="Userscol1" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
         <property name="languages">
             <column name="Languages" sql-type="varchar(140)" length="140" not-null="true"/>
