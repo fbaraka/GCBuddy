@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
 <meta charset="utf-8">
 <!-- if using IE use the latest rendering-->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,32 +36,56 @@
 
 
 
-
-
-<html>
-<head>
     <title>Login</title>
+
+
 </head>
 <body>
-<h1>Welcome to Grand Circus Buddy!</h1>
-<h4>Please sign in</h4>
+<nav class="navbar navbar-inverse">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Grand Circus</a>
+    </div>
+</nav>
+    <div class="jumbotron">
+        <video id="bg-video" autoplay="true" loop="loop" preload="metadata" muted="muted">
+            <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4" type="video/TYPE" />
+        </video>
 
 
-<!--add image -->
-<br>
+        <h1 class="text-center">Welcome to Grand Circus Buddy!</h1>
 
-<h3>Sign in with slack: </h3>
-<a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=219461147683.223751169686"><img alt="Sign in with Slack" height="40" width="172" src="https://platform.slack-edge.com/img/sign_in_with_slack.png" srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x" /></a><br>
-Don't have slack? <a href="/RegistrationForm">Register here</a>
+        <p class="text-center">The app where Alumni and Current Students meet!</p>
 
-<br>
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-        crossorigin="anonymous"></script>
+        <!--add image -->
+        <br>
 
-</body>
+
+        <h3 class="text-center">Sign in with slack: </h3>
+
+        <center><a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=219461147683.223751169686">
+
+            <img
+                    alt="Sign in with Slack" height="40" width="172"
+                    src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+                    srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"/></a>
+            <br>
+            Don't have slack? <a class="text-center" href="/RegistrationForm">
+                <br>
+
+                <button type="button" class="btn btn-primary">Register here</button></center>
+    </div>
+    </div>
+
+
+    <br>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    </body>
 </html>
