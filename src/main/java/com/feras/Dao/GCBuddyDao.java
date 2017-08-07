@@ -11,6 +11,7 @@ Aaron Board
  */
 public interface GCBuddyDao {
     public static final int HIBERNATE_DAO = 1;
+    public static final int NOSQL_DAO = 2;
 
     public ArrayList<UsersEntity> getAllUsers();
     public ArrayList<UsersEntity> getAllMentees();
