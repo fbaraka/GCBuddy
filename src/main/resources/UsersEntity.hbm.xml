@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.feras.Models.UsersEntity" table="Users" schema="GCBuddyData">
+        <id name="userId">
+            <column name="userId" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="firstName">
+            <column name="FirstName" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="lastName">
+            <column name="LastName" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="username">
+            <column name="Username" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="userscol">
+            <column name="Userscol" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="bootcamp">
+            <column name="Bootcamp" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="userscol1">
+            <column name="Userscol1" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="languages">
+            <column name="Languages" sql-type="varchar(140)" length="140" not-null="true"/>
+        </property>
+        <property name="experience">
+            <column name="Experience" sql-type="varchar(140)" length="140" not-null="true"/>
+        </property>
+        <property name="bioBlurb">
+            <column name="BioBlurb" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="isAbleToMentor">
+            <column name="isAbleToMentor" sql-type="bit(1)" not-null="true"/>
+        </property>
+        <property name="isAlumni">
+            <column name="isAlumni" sql-type="bit(1)" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.feras.Models.MenteesEntity" table="Mentees" schema="GCBuddyData">
+        <id name="menteeId">
+            <column name="menteeId" sql-type="int(10) unsigned"/>
+        </id>
+        <property name="mentorscol">
+            <column name="Mentorscol" sql-type="varchar(255)" not-null="true"/>
+        </property>
+        <property name="disciplines">
+            <column name="disciplines" sql-type="varchar(140)" length="140" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
