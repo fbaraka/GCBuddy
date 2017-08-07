@@ -3,6 +3,7 @@ package com.feras.Dao;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
+import org.hibernate.SessionFactory;
 
 import java.util.ArrayList;
 
@@ -10,6 +11,13 @@ import java.util.ArrayList;
 Aaron Board
  */
 public class HibernateDao implements GCBuddyDao{
+
+    private static SessionFactory factory;
+
+    public HibernateDao(SessionFactory factory) {
+        this.factory = factory;
+    }
+
     public ArrayList<UsersEntity> getAllUsers() {
         return null;
     }
