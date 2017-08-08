@@ -38,5 +38,12 @@
         <property name="AuthToken">
             <column name="AuthToken" sql-type="varchar(60)" not-null="false"/>
         </property>
+        <property name="password">
+            <column name="password" sql-type="varchar(45)" not-null="false"/>
+        </property>
+        <property name="email">
+            <column name="email" sql-type="varchar(45)" not-null="false"/>
+        </property>
+
     </class>
 </hibernate-mapping>

@@ -3,11 +3,13 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
+import com.feras.Models.UsersEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -29,7 +31,8 @@ public class HomeController {
         return "dontLook";
     }
 
-    @RequestMapping("/RegistrationForm")
+
+    @RequestMapping(value = "/RegistrationForm", method = RequestMethod.GET)
 
     public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
         String authToken = SlackApiCalls.getOAuthToken(tempCode);
@@ -40,17 +43,22 @@ public class HomeController {
             model.addAttribute("email", userProfile.getJSONObject("profile").getString("email"));
             model.addAttribute("firstName", userProfile.getJSONObject("profile").getString("first_name"));
             model.addAttribute("lastName", userProfile.getJSONObject("profile").getString("last_name"));
+            model.addAttribute("authToken", authToken);
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return new
-                ModelAndView("RegistrationForm", "message", "Test");
+                ModelAndView("RegistrationForm", "command", new UsersEntity());
 
     }
 
-    @RequestMapping("/homepage")
+    @RequestMapping(value = "/homepage", method = RequestMethod.POST)
 
-    public ModelAndView homePage() {
+    public ModelAndView homePage(UsersEntity usersEntity) {
+        System.out.println(usersEntity);
+        usersEntity.setIsAbleToMentor(false);
+        usersEntity.setExperience("a million");
+        dao.addUser(usersEntity);
         return new
                 ModelAndView("homepage", "message", "Test");
 
