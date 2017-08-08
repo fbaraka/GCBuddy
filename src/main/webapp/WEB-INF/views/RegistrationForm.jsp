@@ -110,7 +110,7 @@
 <br>
 <h1 class="page-header">Registration Information</h1>
 <div class="form-container">
-    <form action="/homepage" role="form">
+    <form action="/homepage" role="form" >
         <input id='step2' type='checkbox'>
         <input id='step3' type='checkbox'>
 
@@ -119,7 +119,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Part 1</h3>
                 </div>
-                <input type="text" id="name" class="form-control" placeholder="First Name"
+                <input type="text" id="firstName" class="form-control" placeholder="First Name"
                        aria-describedby="sizing-addon1">
                 <br>
                 <input type="text" id="lastName" class="form-control" placeholder="Last Name"
@@ -181,5 +181,6 @@
         </div>
     </form>
 </div>
+
 </body>
 </html>

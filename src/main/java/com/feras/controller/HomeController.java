@@ -1,9 +1,12 @@
 package com.feras.controller;
 
 import com.feras.Dao.GCBuddyDao;
+import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -18,9 +21,17 @@ public class HomeController {
 
     }
 
+    @RequestMapping("/dontLook")
+
+    public String getToken(){
+        return "dontLook";
+    }
+
     @RequestMapping("/RegistrationForm")
 
-    public ModelAndView RegistrationForm() {
+    public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
+        String authToken = SlackApiCalls.getOAuthToken(tempCode);
+        System.out.println(authToken);
         return new
                 ModelAndView("RegistrationForm", "message", "Test");
 

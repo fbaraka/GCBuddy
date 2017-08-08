@@ -12,7 +12,7 @@ Aaron Board
  */
 public class SlackApiCalls {
 
-    public JSONObject getUserInfo(String token) {
+    public static JSONObject getUserInfo(String token) {
         try {
             URL url = new URL("https://slack.com/api/users.profile.get?token=" + token);
 
@@ -34,7 +34,7 @@ public class SlackApiCalls {
         return null;
     }
 
-    public String getOAuthToken(String code){
+    public static String getOAuthToken(String code){
 
         //TODO always delete before a push
         String clientId = "219461147683.223751169686";
