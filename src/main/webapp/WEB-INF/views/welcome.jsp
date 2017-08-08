@@ -47,6 +47,25 @@
     </div>
 </nav>
     <div class="jumbotron">
+        <div class="video-container">
+            <a id="bgndVideo" class="player" data-property="{videoURL:'http://www.youtube.com/watch?v=iAzGWDOTOjY',containment:'.video-section', quality:'large', autoPlay:true, mute:true, opacity:1}"></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
         <video id="bg-video" autoplay="true" loop="loop" preload="metadata" muted="muted">
             <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4" type="video/TYPE" />
         </video>
