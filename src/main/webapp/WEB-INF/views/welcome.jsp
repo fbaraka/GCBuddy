@@ -67,8 +67,7 @@
     </div>
 </nav>
 <div class="jumbotron">
-    <div class="fullscreen-bg"></div>
-    <div class="container special">
+
     <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
 
 
@@ -84,6 +83,7 @@
 
     <!--add image -->
     <br>
+</div>
 
 
     <h3 class="text-center">Sign in with slack: </h3>
@@ -100,7 +100,7 @@
                 <br>
 
             <button type="button" class="btn btn-primary">Register here</button></center>
-</div>
+
 </div>
 
 
