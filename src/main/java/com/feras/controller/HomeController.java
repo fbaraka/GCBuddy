@@ -54,14 +54,15 @@ public class HomeController {
 
     @RequestMapping(value = "/homepage", method = RequestMethod.POST)
 
-    public ModelAndView homePage(UsersEntity usersEntity) {
+    public String homePage(UsersEntity usersEntity) {
         System.out.println(usersEntity);
+        if (dao.getUser(usersEntity.getUsername()) != null){
+            return "RegistrationForm";
+        }
         usersEntity.setIsAbleToMentor(false);
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
-        return new
-                ModelAndView("homepage", "message", "Test");
-
+        return ("homepage");
     }
 
     @RequestMapping("/mentorship")
