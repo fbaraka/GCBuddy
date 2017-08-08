@@ -3,6 +3,7 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,8 @@ public class HomeController {
     public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
         String authToken = SlackApiCalls.getOAuthToken(tempCode);
         System.out.println(authToken);
+        JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
+        System.out.println(userProfile);
         return new
                 ModelAndView("RegistrationForm", "message", "Test");
 

@@ -37,10 +37,10 @@
     <title>Login</title>
     <style>
         /* CSS used here will be applied after bootstrap.css */
-        .jumbotron{
+        .jumbotron {
             color: darkorange;
             position: relative;
-            z-index:-2;
+            z-index: -2;
         }
 
         #video-background {
@@ -51,9 +51,8 @@
             left: 0;
             overflow: hidden;
             z-index: -1;
-            width:100%;
+            width: 100%;
             opacity: 0.5;
-
 
         }
     </style>
@@ -86,20 +85,21 @@
 </div>
 
 
-    <h3 class="text-center">Sign in with slack: </h3>
+<h3 class="text-center">Sign in with slack: </h3>
 
-    <center><a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=219461147683.223751169686">
+<center><a
+        href="https://slack.com/oauth/authorize?&client_id=219461147683.223751169686&scope=chat:write:user,team:read,users:read,users:read.email,users:write,users.profile:read">
 
-        <img
-                alt="Sign in with Slack" height="40" width="172"
-                src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
-                srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"/></a>
+    <img
+            alt="Sign in with Slack" height="40" width="172"
+            src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
+            srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"/></a>
+    <br>
+
+    Don't have slack? <a class="text-center" href="/dontLook">
         <br>
 
-            Don't have slack? <a class="text-center" href="/dontLook">
-                <br>
-
-            <button type="button" class="btn btn-primary">Register here</button></center>
+        <button type="button" class="btn btn-primary">Register here</button></center>
 
 </div>
 
