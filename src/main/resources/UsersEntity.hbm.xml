@@ -35,5 +35,8 @@
         <property name="isAlumni">
             <column name="isAlumni" sql-type="bit(1)" not-null="true"/>
         </property>
+        <property name="AuthToken">
+            <column name="AuthToken" sql-type="varchar(60)" not-null="false"/>
+        </property>
     </class>
 </hibernate-mapping>

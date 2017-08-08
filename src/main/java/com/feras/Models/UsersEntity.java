@@ -17,6 +17,15 @@ public class UsersEntity {
     private String experience;
     private String bioBlurb;
     private Boolean isAbleToMentor;
+    private String AuthToken;
+
+    public String getAuthToken() {
+        return AuthToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        AuthToken = authToken;
+    }
 
     public Boolean getIsAbleToMentor() {
         return isAbleToMentor;
