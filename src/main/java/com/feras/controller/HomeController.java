@@ -3,6 +3,7 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +36,13 @@ public class HomeController {
         System.out.println(authToken);
         JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
         System.out.println(userProfile);
+        try {
+            model.addAttribute("email", userProfile.getJSONObject("profile").getString("email"));
+            model.addAttribute("firstName", userProfile.getJSONObject("profile").getString("first_name"));
+            model.addAttribute("lastName", userProfile.getJSONObject("profile").getString("last_name"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         return new
                 ModelAndView("RegistrationForm", "message", "Test");
 

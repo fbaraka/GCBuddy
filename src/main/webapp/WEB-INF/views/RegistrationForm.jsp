@@ -119,10 +119,10 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Part 1</h3>
                 </div>
-                <input type="text" id="firstName" class="form-control" placeholder="First Name"
+                <input type="text" id="firstName" class="form-control" placeholder="First Name" value="${firstName}"
                        aria-describedby="sizing-addon1">
                 <br>
-                <input type="text" id="lastName" class="form-control" placeholder="Last Name"
+                <input type="text" id="lastName" class="form-control" placeholder="Last Name" value="${lastName}"
                        aria-describedby="sizing-addon1">
                 <br>
                 <input type="text" id="userName" class="form-control" placeholder="User Name"
@@ -144,7 +144,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Contact Information</h3>
                 </div>
-                <input type="email" id="email" class="form-control" placeholder="Email">
+                <input type="email" id="email" class="form-control" placeholder="Email" value="${email}">
                 <br>
                 <input type="email" id="checkEmail" class="form-control" placeholder="Please Re-enter Email">
                 <br>
