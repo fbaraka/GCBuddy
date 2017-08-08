@@ -119,16 +119,16 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Part 1</h3>
                 </div>
-                <input type="text" id="firstName" class="form-control" placeholder="First Name" value="${firstName}"
+                <input type="text" id="firstName" class="form-control" placeholder="First Name" value="${firstName}" required
                        aria-describedby="sizing-addon1">
                 <br>
-                <input type="text" id="lastName" class="form-control" placeholder="Last Name" value="${lastName}"
+                <input type="text" id="lastName" class="form-control" placeholder="Last Name" value="${lastName}" required
                        aria-describedby="sizing-addon1">
                 <br>
-                <input type="text" id="userName" class="form-control" placeholder="User Name"
+                <input type="text" id="userName" class="form-control" placeholder="User Name"  required
                        aria-describedby="sizing-addon1">
                 <br>
-                <input type="text" id="passWord" class="form-control" placeholder="Password"
+                <input type="password" id="passWord" class="form-control" placeholder="Password" required
                        aria-describedby="sizing-addon1">
                 <br>
                 <div class="btn-group btn-group-lg" role="group" aria-label="...">
@@ -144,13 +144,13 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">Contact Information</h3>
                 </div>
-                <input type="email" id="email" class="form-control" placeholder="Email" value="${email}">
+                <input type="email" id="email" class="form-control" placeholder="Email" value="${email}" required>
                 <br>
-                <input type="email" id="checkEmail" class="form-control" placeholder="Please Re-enter Email">
+                <input type="email" id="checkEmail" class="form-control" placeholder="Please Re-enter Email" required>
                 <br>
-                <input type="phone" id="phone" class="form-control" placeholder="Phone">
+                <input type="phone" id="phone" class="form-control" placeholder="Phone" required>
                 <br>
-                <input type="number" id="zip" class="form-control" placeholder="Zip Code">
+                <input type="number" id="zip" class="form-control" placeholder="Zip Code" required>
                 <br>
                 <div class="btn-group btn-group-lg btn-group-justified" role="group" aria-label="...">
                     <label for='step2' id="back-step2" class="back">
@@ -168,7 +168,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title">About Yourself</h3>
                 </div>
-                <textarea id="message" class="form-control" placeholder="Message"></textarea>
+                <textarea id="message" class="form-control" placeholder="Message" required></textarea>
                 <div class="btn-group btn-group-lg" role="group" aria-label="...">
                     <label for='step3' id="back-step3" class="back">
                         <div class="btn btn-default btn-primary btn-lg">Back</div>
