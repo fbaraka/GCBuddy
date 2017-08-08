@@ -35,6 +35,28 @@
 
 
     <title>Login</title>
+    <style>
+        /* CSS used here will be applied after bootstrap.css */
+        .jumbotron{
+            color: darkorange;
+            position: relative;
+            z-index:-2;
+        }
+
+        #video-background {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            width:100%;
+            opacity: 0.5;
+
+
+        }
+    </style>
 
 
 </head>
@@ -47,7 +69,7 @@
 <div class="jumbotron">
     <div class="fullscreen-bg"></div>
     <div class="container special">
-    <video id="bg-video" autoplay="true" loop="loop" preload="metadata" muted="muted">
+    <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
 
 
         <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"
