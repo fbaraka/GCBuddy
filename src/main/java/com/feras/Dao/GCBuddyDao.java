@@ -17,6 +17,7 @@ public interface GCBuddyDao {
     public ArrayList<UsersEntity> getAllMentees();
     public ArrayList<UsersEntity> getAllMentors();
     public UsersEntity getUser(int userId);
+    public UsersEntity getUser(String userName);
     public UsersEntity getMentor(int userId);
     public UsersEntity getMentee(int userId);
     public void updateUser(UsersEntity user);

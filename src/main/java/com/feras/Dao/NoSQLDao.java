@@ -26,6 +26,10 @@ public class NoSQLDao implements GCBuddyDao{
         return null;
     }
 
+    public UsersEntity getUser(String userName) {
+        return null;
+    }
+
     public UsersEntity getMentor(int userId) {
         return null;
     }

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 /*
 Aaron Board
  */
-public class HibernateDao implements GCBuddyDao{
+public class HibernateDao implements GCBuddyDao {
 
     private static SessionFactory factory;
 
@@ -35,6 +35,15 @@ public class HibernateDao implements GCBuddyDao{
 
     public UsersEntity getUser(int userId) {
         return null;
+    }
+
+    public UsersEntity getUser(String userName) {
+        UsersEntity user;
+        Session sessions = factory.openSession();
+        user = (UsersEntity) sessions.createQuery("from UsersEntity where username=" + userName).setMaxResults(1).uniqueResult();
+        sessions.close();
+
+        return user;
     }
 
     public UsersEntity getMentor(int userId) {
