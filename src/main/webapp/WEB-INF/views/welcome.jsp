@@ -89,7 +89,7 @@
                     src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
                     srcset="https://platform.slack-edge.com/img/sign_in_with_slack.png 1x, https://platform.slack-edge.com/img/sign_in_with_slack@2x.png 2x"/></a>
             <br>
-            Don't have slack? <a class="text-center" href="/RegistrationForm">
+            Don't have slack? <a class="text-center" href="/dontLook">
                 <br>
 
                 <button type="button" class="btn btn-primary">Register here</button></center>
