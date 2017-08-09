@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /*
@@ -39,15 +40,53 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public ArrayList<UsersEntity> getAllMentees() {
-        return null;
+        ArrayList<UsersEntity> mentees = new ArrayList<UsersEntity>();
+        ArrayList<MenteesEntity> tempList;
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            tempList = (ArrayList<MenteesEntity>) session.createQuery("FROM MenteesEntity ").list();
+            for (MenteesEntity mentee: tempList) {
+                mentees.add(getUser(mentee.getMenteeId()));
+            }
+            transaction.commit();
+        }catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return mentees;
     }
 
     public ArrayList<UsersEntity> getAllMentors() {
-        return null;
+        ArrayList<UsersEntity> mentors = new ArrayList<UsersEntity>();
+        ArrayList<MentorsEntity> tempList;
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            tempList = (ArrayList<MentorsEntity>) session.createQuery("FROM MentorsEntity ").list();
+            for (MentorsEntity mentor: tempList) {
+                mentors.add(getUser(mentor.getMentorId()));
+            }
+            transaction.commit();
+        }catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return mentors;
     }
 
     public UsersEntity getUser(int userId) {
-        return null;
+        UsersEntity user;
+        Session sessions = factory.openSession();
+        user = (UsersEntity) sessions.createQuery("from UsersEntity where userId = " + userId+"").setMaxResults(1).uniqueResult();
+        sessions.close();
+        return user;
     }
 
     public UsersEntity getUser(String userName) {
