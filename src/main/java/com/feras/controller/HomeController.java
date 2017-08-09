@@ -3,6 +3,8 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
+import com.feras.Models.MenteesEntity;
+import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,9 +67,32 @@ public class HomeController {
         usersEntity.setIsAbleToMentor(false);
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
-        loginUser=usersEntity;
+        loginUser=dao.getUser(usersEntity.getUsername());
         return ("homepage");
     }
+
+    @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
+
+    public String addMentor(MentorsEntity mentorsEntity) {
+
+        loginUser.setAbleToMentor(true);
+        mentorsEntity.setMentorId(loginUser.getUserId());
+        dao.addMentor(mentorsEntity);
+
+        return ("mmpage");
+    }
+
+
+    @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
+    public String addMentee(MenteesEntity menteesEntity) {
+
+        loginUser.setAbleToMentor(false);
+        menteesEntity.setMenteeId(loginUser.getUserId());
+        dao.addMentee(menteesEntity);
+
+        return ("mmpage");
+    }
+
 
     @RequestMapping("/homepage")
     public String goHome(){
@@ -111,19 +136,20 @@ public class HomeController {
                 ModelAndView("mmpage", "cList", menteeList);
     }
 
-    @RequestMapping("/mentorregistration")
+    @RequestMapping(value = "/mentorregistration", method = RequestMethod.GET)
 
-    public ModelAndView mentorReg() {
-
+    public ModelAndView mentorReg(Model model) {
+        model.addAttribute("action", "addMentor");
         return new
-                ModelAndView("mentorshipRegistration", "action", "mentor");
+                ModelAndView("mentorshipRegistration", "command", new MentorsEntity());
     }
 
-    @RequestMapping("/menteeregistration")
+    @RequestMapping(value = "/menteeregistration", method = RequestMethod.GET)
 
-    public ModelAndView menteeReg() {
+    public ModelAndView menteeReg(Model model) {
+        model.addAttribute("action", "addMentee");
         return new
-                ModelAndView("mentorshipRegistration", "action", "mentee");
+                ModelAndView("mentorshipRegistration", "command", new MenteesEntity());
     }
 
 
