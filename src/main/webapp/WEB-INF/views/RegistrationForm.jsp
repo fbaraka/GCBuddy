@@ -7,49 +7,56 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <style>
+    <meta charset="UTF-8">
+    <title>Multi Step Form with Progress Bar using jQuery and CSS3</title>
 
-    </style>
-    <title>Title</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+
+    <link rel="stylesheet" href="resources/css/style.css">
+
+
 </head>
+
 <body>
-<a href="/homepage">Should Lead to Home Page</a>
-<br>
-<h1 class="page-header">Registration Information</h1>
-<div class="form-container">
-    <form:form action="/addUser" role="form">
-
-
-        <h3>Part 1</h3>
-
-        <input type="text" name="firstName" id="firstName" class="form-control" placeholder="First Name" value="${firstName}" required>
-        <br>
-        <input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name" value="${lastName}" required>
-        <br>
-        <input type="text" name="username" id="username" class="form-control" placeholder="User Name" required>
-        <br>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-        <br>
-
-
-        <h3>Contact Information</h3>
-
-        <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="${email}" required>
-        <br>
-        <input type="email" id="checkEmail" class="form-control" placeholder="Please Re-enter Email" required>
-        <br>
-        <input type="phone" id="phone" class="form-control" placeholder="Phone" required>
-        <br>
-        <input type="number" id="zip" class="form-control" placeholder="Zip Code" required>
-        <br>
-
-
-        <h3>About Yourself</h3>
-
-       Which bootcamp are you in or have taken? :
-        <select name="bootcamp">
+<!-- multistep form -->
+<form:form action="/homepage" role="form" id="msform">
+    <!-- progressbar -->
+    <ul id="progressbar">
+        <li class="active">Identification Information</li>
+        <li>Contact Information</li>
+        <li>About Yourself</li>
+    </ul>
+    <!-- fieldsets -->
+    <fieldset>
+        <h2 class="fs-title">Create your account</h2>
+        <h3 class="fs-subtitle">Identification Information</h3>
+        <input type="text" name="firstName" id="firstName" placeholder="First Name" value="${firstName}" required>
+        <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="${lastName}" required>
+        <input type="text" name="username" id="username" placeholder="User Name" required>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="password" name="checkPassWord" placeholder="Confirm Password" required>
+        <input type="button" name="next" class="next action-button" value="Next"/>
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Create your account</h2>
+        <h3 class="fs-subtitle">Contact Information</h3>
+        <input type="email" name="email" id="email" placeholder="Email" value="${email}" required>
+        <input type="email" name="checkEmail" id="checkEmail" placeholder="Confirm Email" required>
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
+        <input type="number" name="zip" id="zip" placeholder="Zip Code" required>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="button" name="next" class="next action-button" value="Next"/>
+    </fieldset>
+    <fieldset>
+        <h2 class="fs-title">Create your account</h2>
+        <h3 class="fs-subtitle">About Yourself</h3>
+        Which bootcamp are you in or have taken? :
+        <select>
+            <option value="blankChoice" selected disabled>Choose One</option>
             <option value="cNet">C#/.Net</option>
             <option value="facebook">Facebook</option>
             <option value="frontend">Frontend</option>
@@ -57,42 +64,46 @@
         </select>
         <br>
         <br>
-        Are you an Alumni?
-        <input type="radio" name="isAlumni" value="yes" tabindex="4">Yes&nbsp;<input type="radio" name="isAlumni" value="no" tabindex="5">No
+        Are you an Alumnus?
+        <br>
+        <input type="radio" name="isAlumni" value="yes"/><label id="radio"> Yes
+        <input type="radio" name="isAlumni" value="no"/> No </label>
         <br>
         <br>
-        What languages are you experienced in?
+        What Languages are you familiar with?<br>
+        <input name="languages" type="checkbox" value="java"/>
+        <label id="java">- Java</label>
         <br>
-
-        <input name="languages" type="checkbox" value="Java" tabindex="7">
-        <label>Java</label>
         <br>
-        <input name="languages" type="checkbox" value="C#/.Net" tabindex="8">
-        <label>C#/.Net</label>
+        <input name="languages" type="checkbox" name="HTML/CSS"/>
+        <label id="htmlcss">- HTML/CSS</label>
         <br>
-        <input name="languages" type="checkbox" value="Javascript" tabindex="9">
-        <label>Javascript</label>
         <br>
-        <input name="languages" type="checkbox" value="HTML/CSS" tabindex="10">
-        <label>HTML/CSS</label>
+        <input name="languages" type="checkbox" name="Swift"/>
+        <label id="swift">- Swift</label>
         <br>
-        <input name="languages" type="checkbox" value="Python" tabindex="11">
-        <label>Python</label>
         <br>
-        <input name="languages" type="checkbox" value="other" tabindex="12">
+        <input name="languages" type="checkbox" name="javascript"/>
+        <label id="javascript">- Javascript</label>
+        <br>
+        <br>
+        <input name="languages" type="checkbox" value="other">
+        <label id="other">- Other:</label> <input type="text" id="otherLanguage" class="form-control">
+        <br>
+        <br>
+        Bio:
+        <br>
+        <textarea name="bioBlurb" id="bioBlurb" class="form-control" placeholder="Your blurb in at least 140 characters" maxlength="255"
+                  minlength="140" required></textarea><br><br>
+        <input type="button" name="previous" class="previous action-button" value="Previous"/>
+        <input type="submit" name="submit" class="btn btn-default btn-success btn-lg" value="Submit"/>
         <input type="hidden" name="AuthToken" value="${authToken}">
-        <label>Other: <input type="text" id="otherLanguage" class="form-control"></label>
-        <br>
-        Bio Blurb:
-        <br>
-        <textarea name="bioBlurb" id="bioBlurb" class="form-control" placeholder="You're blurb in at least 140 characters" maxlength="255" minlength="140" required></textarea><br><br>
+    </fieldset>
+</form:form>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 
-        <button type="submit" class="btn btn-default btn-success btn-lg">Submit</button>
-        <br><br>
+<script src="resources/js/index.js"></script>
 
-
-    </form:form>
-
-</div>
 </body>
 </html>
