@@ -19,8 +19,9 @@ import java.util.ArrayList;
 
 @Controller
 public class HomeController {
-    GCBuddyDao dao = DaoFactory.getInstance(GCBuddyDao.HIBERNATE_DAO);
-    UsersEntity loginUser;
+    private GCBuddyDao dao = DaoFactory.getInstance(GCBuddyDao.HIBERNATE_DAO);
+    private UsersEntity loginUser;
+    private String message;
 
     @RequestMapping("/")
 
@@ -32,7 +33,7 @@ public class HomeController {
 
     @RequestMapping("/dontLook")
 
-    public String getToken(){
+    public String getToken() {
         return "dontLook";
     }
 
@@ -43,6 +44,10 @@ public class HomeController {
         String authToken = SlackApiCalls.getOAuthToken(tempCode);
         System.out.println(authToken);
         JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
+        if (isUserRegistered(authToken) && !authToken.equalsIgnoreCase("")) {
+            loginUser = dao.getUserByAuth(authToken);
+            return new ModelAndView("homepage", "", "");
+        }
         System.out.println(userProfile);
         try {
             model.addAttribute("email", userProfile.getJSONObject("profile").getString("email"));
@@ -52,22 +57,47 @@ public class HomeController {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new
-                ModelAndView("RegistrationForm", "command", new UsersEntity());
-
+        return new ModelAndView("RegistrationForm", "command", new UsersEntity());
     }
+
+    @RequestMapping(value = "/login")
+    public String login(Model model) {
+        model.addAttribute("button", "Sign in with Slack");
+        model.addAttribute("isLogin", true);
+        model.addAttribute("msg", message);
+        return "login";
+    }
+
+    @RequestMapping(value = "/signUp")
+    public String signUp(Model model) {
+        model.addAttribute("button", "Connect with Slack");
+        model.addAttribute("isLogin", false);
+        return "login";
+    }
+
+    @RequestMapping(value = "/logInUser")
+    public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password, Model model){
+        if (validEmailAndPass(email, password) != null){
+            loginUser = validEmailAndPass(email, password);
+            return "homepage";
+        } else {
+            message = "WORNG EMAIL OR PASSWORD";
+            return "redirect:login";
+        }
+    }
+
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 
     public String homePage(UsersEntity usersEntity) {
         System.out.println(usersEntity);
-        if (dao.getUser(usersEntity.getUsername()) != null){
+        if (dao.getUser(usersEntity.getUsername()) != null) {
             return "RegistrationForm";
         }
         usersEntity.setIsAbleToMentor(false);
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
-        loginUser=dao.getUser(usersEntity.getUsername());
+        loginUser = dao.getUser(usersEntity.getUsername());
         return ("homepage");
     }
 
@@ -95,7 +125,7 @@ public class HomeController {
 
 
     @RequestMapping("/homepage")
-    public String goHome(){
+    public String goHome() {
         return "homepage";
     }
 
@@ -110,10 +140,10 @@ public class HomeController {
 
     public ModelAndView profilePage(Model model) {
         model.addAttribute("userName", loginUser.getUsername());
-        model.addAttribute("firstName",loginUser.getFirstName());
-        model.addAttribute("lastName",loginUser.getLastName());
-        model.addAttribute("email",loginUser.getEmail());
-        model.addAttribute("BioBlurb",loginUser.getBioBlurb());
+        model.addAttribute("firstName", loginUser.getFirstName());
+        model.addAttribute("lastName", loginUser.getLastName());
+        model.addAttribute("email", loginUser.getEmail());
+        model.addAttribute("BioBlurb", loginUser.getBioBlurb());
 
 
         return new
@@ -152,6 +182,18 @@ public class HomeController {
                 ModelAndView("mentorshipRegistration", "command", new MenteesEntity());
     }
 
+    private boolean isUserRegistered(String authToken) {
+        for (UsersEntity user : dao.getAllUsers()) {
+            if (user.getAuthToken().equals(authToken)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private UsersEntity validEmailAndPass(String email, String pass){
+        return dao.getUser(email, pass);
+    }
 
 
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
 <form name="temp" action="RegistrationForm">
-<input type="hidden" id="tempCode" name="tempCode" value="">
+<input type="hidden" id="tempCode" name="tempCode" value="none">
 </form>
 
 <script>

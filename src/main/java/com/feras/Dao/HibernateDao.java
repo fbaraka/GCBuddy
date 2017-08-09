@@ -89,10 +89,27 @@ public class HibernateDao implements GCBuddyDao {
         return user;
     }
 
+    public UsersEntity getUserByAuth(String authToken) {
+        UsersEntity user;
+        Session sessions = factory.openSession();
+        user = (UsersEntity) sessions.createQuery("from UsersEntity where authToken = '" + authToken+"'").setMaxResults(1).uniqueResult();
+        sessions.close();
+        return user;
+    }
+
     public UsersEntity getUser(String userName) {
         UsersEntity user;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where username = '" + userName+"'").setMaxResults(1).uniqueResult();
+        sessions.close();
+
+        return user;
+    }
+
+    public UsersEntity getUser(String email, String pass) {
+        UsersEntity user = null;
+        Session sessions = factory.openSession();
+        user = (UsersEntity) sessions.createQuery("from UsersEntity where email = '" + email+"' and password= '" +pass + "'").setMaxResults(1).uniqueResult();
         sessions.close();
 
         return user;

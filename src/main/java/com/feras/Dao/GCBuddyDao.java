@@ -18,6 +18,7 @@ public interface GCBuddyDao {
     public ArrayList<UsersEntity> getAllMentors();
     public UsersEntity getUser(int userId);
     public UsersEntity getUser(String userName);
+    public UsersEntity getUser(String email, String pass);
     public UsersEntity getMentor(int userId);
     public UsersEntity getMentee(int userId);
     public void updateUser(UsersEntity user);
@@ -29,4 +30,6 @@ public interface GCBuddyDao {
     public void addUser(UsersEntity user);
     public void addMentor(MentorsEntity mentor);
     public void addMentee(MenteesEntity mentee);
+
+    UsersEntity getUserByAuth(String authToken);
 }
