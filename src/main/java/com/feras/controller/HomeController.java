@@ -79,4 +79,18 @@ public class HomeController {
                 ModelAndView("profilepage", "message", "Test");
     }
 
+    @RequestMapping("/mentor")
+
+    public ModelAndView mentorPortal() {
+        return new
+                ModelAndView("mmpage", "cList", "Test");
+    }
+
+    @RequestMapping("/mentee")
+
+    public ModelAndView menteePage() {
+        return new
+                ModelAndView("mmpage", "cList", "Test");
+    }
+
 }

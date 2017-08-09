@@ -12,5 +12,7 @@
 </head>
 <body>
 <a href="/homepage">Return to Home</a>
+<a href="/mentor">Mentor</a>
+<a href="/mentee">Mentee</a>
 </body>
 </html>
