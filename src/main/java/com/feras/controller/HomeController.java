@@ -97,4 +97,19 @@ public class HomeController {
                 ModelAndView("mmpage", "cList", menteeList);
     }
 
+    @RequestMapping("/mentorregistration")
+
+    public ModelAndView mentorReg() {
+
+        return new
+                ModelAndView("mentorshipRegistration", "action", "mentor");
+    }
+
+    @RequestMapping("/menteeregistration")
+
+    public ModelAndView menteeReg() {
+        return new
+                ModelAndView("mentorshipRegistration", "action", "mentee");
+    }
+
 }
