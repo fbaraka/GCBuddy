@@ -12,7 +12,7 @@
     <title>Register for the mentorship program</title>
 </head>
 <body>
-<form:form name="mentorRegistration" action="/mentor" method="POST">
+<form:form name="mentorRegistration" action="${action}" method="POST">
 What would you like to mentor or get mentored in? <br>
 <br>
 <input name="languages" type="checkbox" value="Java" tabindex="7">

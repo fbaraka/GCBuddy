@@ -86,7 +86,7 @@ public class HomeController {
                 ModelAndView("profilepage", "message", "Test");
     }
 
-    @RequestMapping("/mentor")
+    @RequestMapping("mentor")
 
     public ModelAndView mentorPortal() {
         ArrayList<UsersEntity> mentorList = dao.getAllUsers();
@@ -94,7 +94,7 @@ public class HomeController {
                 ModelAndView("mmpage", "cList", mentorList);
     }
 
-    @RequestMapping("/mentee")
+    @RequestMapping("mentee")
 
     public ModelAndView menteePage() {
         ArrayList<UsersEntity> menteeList = dao.getAllUsers();
