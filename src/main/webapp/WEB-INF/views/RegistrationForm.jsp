@@ -19,7 +19,7 @@
 <br>
 <h1 class="page-header">Registration Information</h1>
 <div class="form-container">
-    <form:form action="/homepage" role="form">
+    <form:form action="/addUser" role="form">
 
 
         <h3>Part 1</h3>

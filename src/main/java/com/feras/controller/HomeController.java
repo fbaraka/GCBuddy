@@ -54,7 +54,7 @@ public class HomeController {
 
     }
 
-    @RequestMapping(value = "/homepage", method = RequestMethod.POST)
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 
     public String homePage(UsersEntity usersEntity) {
         System.out.println(usersEntity);
@@ -65,6 +65,11 @@ public class HomeController {
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
         return ("homepage");
+    }
+
+    @RequestMapping("/homepage")
+    public String goHome(){
+        return "homepage";
     }
 
     @RequestMapping("/mentorship")
