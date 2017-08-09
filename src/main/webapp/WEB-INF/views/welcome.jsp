@@ -38,7 +38,7 @@
     <style>
         /* CSS used here will be applied after bootstrap.css */
         .jumbotron {
-            color: darkorange;
+            color:deepskyblue;
             position: relative;
             z-index: -2;
         }
