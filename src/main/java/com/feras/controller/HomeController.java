@@ -107,14 +107,14 @@ public class HomeController {
     public ModelAndView mentorReg() {
 
         return new
-                ModelAndView("mentorshipRegistration", "cList", "Mentor Registration");
+                ModelAndView("mentorshipRegistration", "action", "mentor");
     }
 
     @RequestMapping("/menteeregistration")
 
     public ModelAndView menteeReg() {
         return new
-                ModelAndView("mentorshipRegistration", "cList", "Mentee Registration");
+                ModelAndView("mentorshipRegistration", "action", "mentee");
     }
 
 }
