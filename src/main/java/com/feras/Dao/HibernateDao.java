@@ -22,7 +22,20 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public ArrayList<UsersEntity> getAllUsers() {
-        return null;
+        ArrayList<UsersEntity> users = new ArrayList<UsersEntity>();
+        Session session = factory.openSession();
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            users = (ArrayList<UsersEntity>) session.createQuery("FROM UsersEntity").list();
+            transaction.commit();
+        }catch (HibernateException e) {
+            if (transaction != null) transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        return users;
     }
 
     public ArrayList<UsersEntity> getAllMentees() {

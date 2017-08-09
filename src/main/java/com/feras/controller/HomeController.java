@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+
 @Controller
 public class HomeController {
     GCBuddyDao dao = DaoFactory.getInstance(GCBuddyDao.HIBERNATE_DAO);
@@ -82,15 +84,17 @@ public class HomeController {
     @RequestMapping("/mentor")
 
     public ModelAndView mentorPortal() {
+        ArrayList<UsersEntity> mentorList = dao.getAllUsers();
         return new
-                ModelAndView("mmpage", "cList", "Test");
+                ModelAndView("mmpage", "cList", mentorList);
     }
 
     @RequestMapping("/mentee")
 
     public ModelAndView menteePage() {
+        ArrayList<UsersEntity> menteeList = dao.getAllUsers();
         return new
-                ModelAndView("mmpage", "cList", "Test");
+                ModelAndView("mmpage", "cList", menteeList);
     }
 
 }
