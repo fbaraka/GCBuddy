@@ -73,24 +73,24 @@ public class HomeController {
 
     @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
 
-    public String addMentor(MentorsEntity mentorsEntity) {
+    public ModelAndView addMentor(MentorsEntity mentorsEntity) {
 
         loginUser.setAbleToMentor(true);
         mentorsEntity.setMentorId(loginUser.getUserId());
         dao.addMentor(mentorsEntity);
 
-        return ("mmpage");
+        return mentorPortal();
     }
 
 
     @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
-    public String addMentee(MenteesEntity menteesEntity) {
+    public ModelAndView addMentee(MenteesEntity menteesEntity) {
 
         loginUser.setAbleToMentor(false);
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.addMentee(menteesEntity);
 
-        return ("mmpage");
+        return menteePage();
     }
 
 
@@ -123,7 +123,7 @@ public class HomeController {
     @RequestMapping("mentor")
 
     public ModelAndView mentorPortal() {
-        ArrayList<UsersEntity> mentorList = dao.getAllUsers();
+        ArrayList<UsersEntity> mentorList = dao.getAllMentees();
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -131,7 +131,7 @@ public class HomeController {
     @RequestMapping("mentee")
 
     public ModelAndView menteePage() {
-        ArrayList<UsersEntity> menteeList = dao.getAllUsers();
+        ArrayList<UsersEntity> menteeList = dao.getAllMentors();
         return new
                 ModelAndView("mmpage", "cList", menteeList);
     }
