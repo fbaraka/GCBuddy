@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <html>
 <head>
     <title>Register for the mentorship program</title>
 </head>
 <body>
-
+<form:form name="mentorRegistration" action="/mentor" method="POST">
 What would you like to mentor or get mentored in? <br>
 <br>
 <input name="languages" type="checkbox" value="Java" tabindex="7">
@@ -30,7 +31,13 @@ What would you like to mentor or get mentored in? <br>
 <label>Python</label>
 <br>
 <input name="languages" type="checkbox" value="other" tabindex="12">
+    <lable>Other</lable>
+<br>
+<br>
 
+    <button type="submit" class="btn btn-default btn-success btn-lg">Submit</button>
+
+</form:form>
 
 </body>
 </html>
