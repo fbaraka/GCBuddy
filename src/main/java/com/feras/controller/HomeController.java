@@ -18,6 +18,7 @@ import java.util.ArrayList;
 @Controller
 public class HomeController {
     GCBuddyDao dao = DaoFactory.getInstance(GCBuddyDao.HIBERNATE_DAO);
+    UsersEntity loginUser;
 
     @RequestMapping("/")
 
@@ -64,6 +65,7 @@ public class HomeController {
         usersEntity.setIsAbleToMentor(false);
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
+        loginUser=usersEntity;
         return ("homepage");
     }
 
@@ -81,7 +83,14 @@ public class HomeController {
 
     @RequestMapping("/profilepage")
 
-    public ModelAndView profilePage() {
+    public ModelAndView profilePage(Model model) {
+        model.addAttribute("userName", loginUser.getUsername());
+        model.addAttribute("firstName",loginUser.getFirstName());
+        model.addAttribute("lastName",loginUser.getLastName());
+        model.addAttribute("email",loginUser.getEmail());
+        model.addAttribute("BioBlurb",loginUser.getBioBlurb());
+
+
         return new
                 ModelAndView("profilepage", "message", "Test");
     }
@@ -116,5 +125,7 @@ public class HomeController {
         return new
                 ModelAndView("mentorshipRegistration", "action", "mentee");
     }
+
+
 
 }

@@ -23,7 +23,7 @@
 
 <body>
 <!-- multistep form -->
-<form:form action="/homepage" role="form" id="msform">
+<form:form action="/addUser" role="form" id="msform">
     <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Identification Information</li>

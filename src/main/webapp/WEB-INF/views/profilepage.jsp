@@ -208,7 +208,7 @@
 }
 
 .card.hovercard .cardheader {
-    background: url("http://lorempixel.com/850/280/nature/4/");
+    background: imagesrc=https://pbs.twimg.com/profile_images/488696911520464897/_vxJsWQW_400x400.png ;
     background-size: cover;
     height: 135px;
 }
@@ -283,11 +283,12 @@
                 </div>
                 <div class="info">
                     <div class="title">
-                        <a target="_blank" href="http://scripteden.com/">Script Eden</a>
+                        <a target="_blank">${userName}</a>
                     </div>
-                    <div class="desc">Template</div>
-                    <div class="desc">Template</div>
-                    <div class="desc">Template</div>
+                    <div class="desc">${firstName},${lastName}</div>
+                    <div class="desc">${mentormentee}</div>
+                    <div class="desc">${email}</div>
+                    <div class="desc">${BioBlurb}</div>
                 </div>
                 <div class="bottom">
                     <a class="btn btn-primary btn-twitter btn-sm" href="">
@@ -311,32 +312,6 @@
 
     </div>
 </div>
-
-<h1>Profile Info</h1>
-
-
-<input type="text" name="firstName" id="firstName" class="form-control" placeholder="First Name" value="${firstName}" required>
-<br>
-<input type="text" name="lastName" id="lastName" class="form-control" placeholder="Last Name" value="${lastName}" required>
-<br>
-<input type="text" name="username" id="username" class="form-control" placeholder="User Name" required>
-<br>
-<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-<br>
-
-<input type="email" name="email" id="email" class="form-control" placeholder="Email" value="${email}" required>
-<br>
-<input type="email" id="checkEmail" class="form-control" placeholder="Please Re-enter Email" required>
-<br>
-<input type="phone" id="phone" class="form-control" placeholder="Phone" required>
-<br>
-<input type="number" id="zip" class="form-control" placeholder="Zip Code" required>
-<br>
-
-
-
-
-
 
 
 </html>
