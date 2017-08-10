@@ -120,6 +120,8 @@ public class HomeController {
         mentorsEntity.setExtraversion(getExtro(profileJson));
         mentorsEntity.setOpeness(getOpenness(profileJson));
         mentorsEntity.setMentorId(loginUser.getUserId());
+        mentorsEntity.setFirstName(loginUser.getFirstName());
+        mentorsEntity.setLastName(loginUser.getLastName());
         dao.addMentor(mentorsEntity);
 
         return mentorPortal(model);
@@ -136,6 +138,8 @@ public class HomeController {
         menteesEntity.setExtraversion(getExtro(profileJson));
         menteesEntity.setOpeness(getOpenness(profileJson));
         menteesEntity.setMenteeId(loginUser.getUserId());
+        menteesEntity.setFirstName(loginUser.getFirstName());
+        menteesEntity.setLastName(loginUser.getLastName());
         dao.addMentee(menteesEntity);
 
         return menteePage(model);
@@ -263,6 +267,8 @@ public class HomeController {
         menteesEntity.setExtraversion(getExtro(profileJson));
         menteesEntity.setOpeness(getOpenness(profileJson));
         menteesEntity.setMenteeId(loginUser.getUserId());
+        menteesEntity.setFirstName(loginUser.getFirstName());
+        menteesEntity.setLastName(loginUser.getLastName());
         dao.updateMentee(menteesEntity);
 
         return menteePage(model);
@@ -277,6 +283,8 @@ public class HomeController {
         mentorsEntity.setExtraversion(getExtro(profileJson));
         mentorsEntity.setOpeness(getOpenness(profileJson));
         mentorsEntity.setMentorId(loginUser.getUserId());
+        mentorsEntity.setFirstName(loginUser.getFirstName());
+        mentorsEntity.setLastName(loginUser.getLastName());
         dao.updateMentor(mentorsEntity);
 
         return menteePage(model);

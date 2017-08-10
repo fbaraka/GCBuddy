@@ -17,26 +17,9 @@ public class MentorsEntity {
     private Double extraversion;
     private Double emotion;
     private Double conscience;
+    private String firstName;
+    private String lastName;
 
-    public void setOpeness(Double openess) {
-        this.openess = openess;
-    }
-
-    public void setAggreeableness(Double aggreeableness) {
-        this.aggreeableness = aggreeableness;
-    }
-
-    public void setExtraversion(Double extraversion) {
-        this.extraversion = extraversion;
-    }
-
-    public void setEmotion(Double emotion) {
-        this.emotion = emotion;
-    }
-
-    public void setConscience(Double conscience) {
-        this.conscience = conscience;
-    }
 
     @Id
     @Column(name = "mentorId", nullable = false)
@@ -96,11 +79,18 @@ public class MentorsEntity {
         return openess;
     }
 
+    public void setOpeness(Double openess) {
+        this.openess = openess;
+    }
 
     @Basic
     @Column(name = "aggreeableness", nullable = true, precision = 2)
     public Double getAggreeableness() {
         return aggreeableness;
+    }
+
+    public void setAggreeableness(Double aggreeableness) {
+        this.aggreeableness = aggreeableness;
     }
 
     @Basic
@@ -109,10 +99,18 @@ public class MentorsEntity {
         return extraversion;
     }
 
+    public void setExtraversion(Double extraversion) {
+        this.extraversion = extraversion;
+    }
+
     @Basic
     @Column(name = "emotion", nullable = true, precision = 2)
     public Double getEmotion() {
         return emotion;
+    }
+
+    public void setEmotion(Double emotion) {
+        this.emotion = emotion;
     }
 
     @Basic
@@ -121,4 +119,27 @@ public class MentorsEntity {
         return conscience;
     }
 
+    public void setConscience(Double conscience) {
+        this.conscience = conscience;
+    }
+
+    @Basic
+    @Column(name = "firstName", nullable = true, length = 45)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Basic
+    @Column(name = "lastName", nullable = true, length = 45)
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

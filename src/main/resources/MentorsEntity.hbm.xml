@@ -29,5 +29,11 @@
         <property name="conscience">
             <column name="conscience" sql-type="decimal(3,2)" precision="3" scale="2" not-null="true"/>
         </property>
+        <property name="firstName">
+            <column name="firstName" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="lastName">
+            <column name="lastName" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

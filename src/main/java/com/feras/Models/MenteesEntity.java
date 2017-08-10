@@ -17,7 +17,8 @@ public class MenteesEntity {
     private Double extraversion;
     private Double emotion;
     private Double conscience;
-
+    private String firstName;
+    private String lastName;
 
     @Id
     @Column(name = "menteeId", nullable = false)
@@ -119,5 +120,25 @@ public class MenteesEntity {
 
     public void setConscience(Double conscience) {
         this.conscience = conscience;
+    }
+
+    @Basic
+    @Column(name = "firstName", nullable = true, length = 45)
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    @Basic
+    @Column(name = "lastName", nullable = true, length = 45)
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
