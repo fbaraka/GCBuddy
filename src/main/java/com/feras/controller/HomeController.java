@@ -7,6 +7,7 @@ import com.feras.Models.MenteeMentor;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
+import com.feras.Watson.ProfileGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class HomeController {
     @RequestMapping("/")
 
     public ModelAndView helloWorld() {
+        ProfileGenerator profile = new ProfileGenerator();
+        profile.generateProfile("Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans.");
         return new
                 ModelAndView("welcome", "message", "Hello World");
 
@@ -325,6 +332,8 @@ public class HomeController {
         }
         return false;
     }
+
+
 
 
 }
