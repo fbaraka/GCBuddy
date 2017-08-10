@@ -37,6 +37,23 @@
             <lable>Other</lable>
             <br>
             <br>
+            <h4>If you would like to be matched by your personality using IBM Watson technology, Please answer the
+                following questions. (The more detail you use, the better match you will find)</h4><br><br>
+            What are three words you would use to describe yourself and why?<br>
+            <textarea name="answer" cols="117" rows="2" placeholder="Please use no less than 20 words!" style="color: black"></textarea>
+            <hr>
+            How would someone else describe you after meeting you for the first time?<br>
+            <textarea name="answer" cols="117" rows="2" placeholder="Please use no less than 20 words!" style="color: black"></textarea>
+            <hr>
+            Tell us about a time you were met with a challenge. How did you approach the challenge. What was the outcome?<br>
+            <textarea name="answer" cols="117" rows="2" placeholder="Please use no less than 20 words!" style="color: black"></textarea>
+            <hr>
+            Describe your ideal work environment.<br>
+            <textarea name="answer" cols="117" rows="2" placeholder="Please use no less than 20 words!" style="color: black"></textarea>
+            <hr>
+            How do you deal with pressure or stressful situations?<br>
+            <textarea name="answer" cols="117" rows="2" placeholder="Please use no less than 20 words!" style="color: black"></textarea>
+            <hr>
 
             <button type="submit" class="btn btn-default btn-success btn-lg">Submit</button>
 
