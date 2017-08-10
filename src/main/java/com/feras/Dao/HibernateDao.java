@@ -13,6 +13,9 @@ import java.util.ArrayList;
 /*
 Aaron Board
  */
+
+//DAO with CRUD methods used repeatedly throughout the program. Used to simplify
+//program and keep code cleaner
 public class HibernateDao implements GCBuddyDao {
 
     private static SessionFactory factory;
@@ -81,7 +84,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUser(int userId) {
-        UsersEntity user = null;
+        UsersEntity user;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where userId = " + userId+"").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -89,7 +92,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUserByAuth(String authToken) {
-        UsersEntity user = null;
+        UsersEntity user;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where authToken = '" + authToken+"'").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -97,7 +100,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUser(String userName) {
-        UsersEntity user = null;
+        UsersEntity user;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where username = '" + userName+"'").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -106,7 +109,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUser(String email, String pass) {
-        UsersEntity user = null;
+        UsersEntity user;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where email = '" + email+"' and password= '" +pass + "'").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -115,7 +118,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public MentorsEntity getMentor(int userId) {
-        MentorsEntity mentor = null;
+        MentorsEntity mentor;
         Session sessions = factory.openSession();
         mentor = (MentorsEntity) sessions.createQuery("from MentorsEntity where mentorId = " + userId+"").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -123,7 +126,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public MenteesEntity getMentee(int userId) {
-        MenteesEntity mentee = null;
+        MenteesEntity mentee;
         Session sessions = factory.openSession();
         mentee = (MenteesEntity) sessions.createQuery("from MenteesEntity where menteeId = " + userId+"").setMaxResults(1).uniqueResult();
         sessions.close();

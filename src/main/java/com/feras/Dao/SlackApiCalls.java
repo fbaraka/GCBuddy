@@ -12,6 +12,7 @@ Aaron Board
  */
 public class SlackApiCalls {
 
+    //Slack API Method that pulls user information from slack upon login
     public static JSONObject getUserInfo(String token) {
         try {
             URL url = new URL("https://slack.com/api/users.profile.get?token=" + token);
@@ -34,6 +35,9 @@ public class SlackApiCalls {
         return null;
     }
 
+    //Gets authorization token for Slack
+    //Reads the slack URL, finds the client ID, secret, and the access token
+    //Uses those to acquire the authorization token for slack
     public static String getOAuthToken(String code){
 
         //TODO always delete before a push
