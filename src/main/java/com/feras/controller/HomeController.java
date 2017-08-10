@@ -22,6 +22,7 @@ public class HomeController {
     private GCBuddyDao dao = DaoFactory.getInstance(GCBuddyDao.HIBERNATE_DAO);
     private UsersEntity loginUser;
     private String message;
+    private boolean menteeSelected = false;
 
     @RequestMapping("/")
 
@@ -94,7 +95,7 @@ public class HomeController {
         if (dao.getUser(usersEntity.getUsername()) != null) {
             return "RegistrationForm";
         }
-        usersEntity.setIsAbleToMentor(false);
+        usersEntity.setAbleToMentor(false);
         usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getUsername());
@@ -116,7 +117,6 @@ public class HomeController {
     @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
     public ModelAndView addMentee(MenteesEntity menteesEntity) {
 
-        loginUser.setAbleToMentor(false);
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.addMentee(menteesEntity);
 
@@ -169,7 +169,13 @@ public class HomeController {
     @RequestMapping(value = "/mentorregistration", method = RequestMethod.GET)
 
     public ModelAndView mentorReg(Model model) {
+        menteeSelected = false;
         model.addAttribute("action", "addMentor");
+        model.addAttribute("isMentor", !isMentor());
+        model.addAttribute("desc", "mentor");
+        if (isMentee()){
+            model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
+        }
         return new
                 ModelAndView("mentorshipRegistration", "command", new MentorsEntity());
     }
@@ -177,9 +183,75 @@ public class HomeController {
     @RequestMapping(value = "/menteeregistration", method = RequestMethod.GET)
 
     public ModelAndView menteeReg(Model model) {
+        menteeSelected = true;
         model.addAttribute("action", "addMentee");
+        model.addAttribute("isMentor", !isMentee());
+        model.addAttribute("desc", "mentee");
+        if (isMentee()){
+            model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
+        }
         return new
                 ModelAndView("mentorshipRegistration", "command", new MenteesEntity());
+    }
+
+    @RequestMapping(value = "/goToPortal")
+    public String goToPortal(@RequestParam("addMore") boolean addMore){
+        if (addMore){
+            if (menteeSelected){
+                return "redirect:updateMenteeReg";
+            }else {
+                return "redirect:updateMentorReg";
+            }
+        } else {
+            if (menteeSelected){
+                return "redirect:mentee";
+            }else {
+                return "redirect:mentor";
+            }
+        }
+    }
+
+    @RequestMapping(value = "updateMentorReg", method = RequestMethod.GET)
+    public ModelAndView updateMentorReg(Model model) {
+        model.addAttribute("action", "updateMentor");
+        model.addAttribute("isMentor", isMentor());
+        model.addAttribute("desc", "mentor");
+        if (isMentee()){
+            model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
+        }
+        return new
+                ModelAndView("mentorshipRegistration", "command", new MentorsEntity());
+    }
+
+    @RequestMapping(value = "updateMenteeReg", method = RequestMethod.GET)
+
+    public ModelAndView updateMenteeReg(Model model) {
+        model.addAttribute("action", "updateMentee");
+        model.addAttribute("isMentor", isMentee());
+        model.addAttribute("desc", "mentee");
+        if (isMentee()){
+            model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
+        }
+        return new
+                ModelAndView("mentorshipRegistration", "command", new MenteesEntity());
+    }
+
+    @RequestMapping(value = "/updateMentee", method = RequestMethod.POST)
+    public ModelAndView updateMentee(MenteesEntity menteesEntity) {
+
+        menteesEntity.setMenteeId(loginUser.getUserId());
+        dao.updateMentee(menteesEntity);
+
+        return menteePage();
+    }
+
+    @RequestMapping(value = "/updateMentor", method = RequestMethod.POST)
+    public ModelAndView updateMentor(MentorsEntity mentorsEntity) {
+
+        mentorsEntity.setMentorId(loginUser.getUserId());
+        dao.updateMentor(mentorsEntity);
+
+        return menteePage();
     }
 
     private boolean isUserRegistered(String authToken) {
@@ -193,6 +265,29 @@ public class HomeController {
 
     private UsersEntity validEmailAndPass(String email, String pass){
         return dao.getUser(email, pass);
+    }
+
+    private boolean isMentee(){
+        try {
+            UsersEntity test = dao.getUser(dao.getMentee(loginUser.getUserId()).getMenteeId());
+            if (test != null) {
+                return true;
+            }
+        }catch (NullPointerException e){
+                return false;
+            }
+        return false;
+    }
+    private boolean isMentor(){
+        try {
+            UsersEntity test = dao.getUser(dao.getMentor(loginUser.getUserId()).getMentorId());
+            if (test != null) {
+                return true;
+            }
+        }catch (NullPointerException e){
+            return false;
+        }
+        return false;
     }
 
 

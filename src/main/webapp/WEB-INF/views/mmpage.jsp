@@ -14,13 +14,16 @@
 </head>
 <body>
 
-<table>
+<table border="1px">
+    <tr>
+        <td>Name</td>
+        <td>Disciplines</td>
+    </tr>
     <c:forEach items = "${cList}" var = "user">
 
     <tr>
 
-        <td>${user.firstName}</td>
-        <td>${user.lastName}</td>
+        <td>${user.firstName} ${user.lastName}</td>
         <td>${user.languages}</td>
 
     </tr>

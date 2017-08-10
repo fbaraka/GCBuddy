@@ -8,7 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /*
@@ -82,7 +81,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUser(int userId) {
-        UsersEntity user;
+        UsersEntity user = null;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where userId = " + userId+"").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -90,7 +89,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUserByAuth(String authToken) {
-        UsersEntity user;
+        UsersEntity user = null;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where authToken = '" + authToken+"'").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -98,7 +97,7 @@ public class HibernateDao implements GCBuddyDao {
     }
 
     public UsersEntity getUser(String userName) {
-        UsersEntity user;
+        UsersEntity user = null;
         Session sessions = factory.openSession();
         user = (UsersEntity) sessions.createQuery("from UsersEntity where username = '" + userName+"'").setMaxResults(1).uniqueResult();
         sessions.close();
@@ -115,24 +114,65 @@ public class HibernateDao implements GCBuddyDao {
         return user;
     }
 
-    public UsersEntity getMentor(int userId) {
-        return null;
+    public MentorsEntity getMentor(int userId) {
+        MentorsEntity mentor = null;
+        Session sessions = factory.openSession();
+        mentor = (MentorsEntity) sessions.createQuery("from MentorsEntity where mentorId = " + userId+"").setMaxResults(1).uniqueResult();
+        sessions.close();
+        return mentor;
     }
 
-    public UsersEntity getMentee(int userId) {
-        return null;
+    public MenteesEntity getMentee(int userId) {
+        MenteesEntity mentee = null;
+        Session sessions = factory.openSession();
+        mentee = (MenteesEntity) sessions.createQuery("from MenteesEntity where menteeId = " + userId+"").setMaxResults(1).uniqueResult();
+        sessions.close();
+        return mentee;
     }
 
     public void updateUser(UsersEntity user) {
-
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(user);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     public void updateMentor(MentorsEntity mentor) {
-
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(mentor);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     public void updateMentee(MenteesEntity mentee) {
-
+        Session session = factory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            session.update(mentee);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) tx.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     public void deleteUser(int userId) {
