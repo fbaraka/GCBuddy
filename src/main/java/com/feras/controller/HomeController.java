@@ -66,7 +66,7 @@ public class HomeController {
             model.addAttribute("firstName", userProfile.getJSONObject("profile").getString("first_name"));
             model.addAttribute("lastName", userProfile.getJSONObject("profile").getString("last_name"));
             model.addAttribute("authToken", authToken);
-            model.addAttribute("usersId", usersId);
+            model.addAttribute("slackId", usersId);
         } catch (JSONException e) {
             e.printStackTrace();
         }

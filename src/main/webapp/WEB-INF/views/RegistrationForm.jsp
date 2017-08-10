@@ -97,8 +97,8 @@
                   minlength="140" required></textarea><br><br>
         <input type="button" name="previous" class="previous action-button" value="Previous"/>
         <input type="submit" name="submit" class="btn btn-default btn-success btn-lg" value="Submit"/>
-        <input type="hidden" name="AuthToken" value="${authToken}">
-        <input type="hidden" name="SlackId" value="${slackId}">
+        <input type="hidden" name="authToken" value="${authToken}">
+        <input type="hidden" name="slackId" value="${slackId}">
     </fieldset>
 </form:form>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
