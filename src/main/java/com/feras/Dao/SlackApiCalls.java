@@ -1,5 +1,6 @@
 package com.feras.Dao;
 
+import com.feras.Models.UsersEntity;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -91,4 +92,20 @@ public class SlackApiCalls {
         return usersId;
     }
 
+    public static void sendDirectMessage(String code, String usersChannel, String slackId, String slackMessage) {
+
+        URL url = null;
+
+        try {
+             url = new URL("https://slack.com/api/chat.postMessage?token=" + code + "&channel=" + usersChannel + "&text=" + slackMessage + "&as_user=" + slackId + "&pretty=1");
+                url.openStream();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }

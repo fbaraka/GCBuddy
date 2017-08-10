@@ -290,6 +290,12 @@ public class HomeController {
         return menteePage(model);
     }
 
+    @RequestMapping(value = "/sendmessage", method = RequestMethod.GET)
+    public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage){
+        
+        return "";
+    }
+
     private ArrayList<MenteeMentor> getMentorsInfo() {
         ArrayList<MenteeMentor> menteeMentors = new ArrayList<MenteeMentor>();
         for (MentorsEntity mentorsEntity : dao.getAllMentors()) {

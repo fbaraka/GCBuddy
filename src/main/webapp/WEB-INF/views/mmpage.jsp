@@ -25,7 +25,9 @@
 
         <td>${user.firstName} ${user.lastName}</td>
         <td>${user.disciplines}</td>
-        <td>Send a message via Slack: <input type="text" name="message" id="username" placeholder="User Name" required></td>
+        <form name="slackmessage" action="sendmessage">
+        <td>Send a message via Slack: <input type="text" name="slackMessage" id="slackMessage" placeholder="Your message"></td>
+        <td><input type="button" name="submit" value="Submit"/></td></form>
 
     </tr>
 
