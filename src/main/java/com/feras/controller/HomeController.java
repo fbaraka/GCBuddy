@@ -292,7 +292,7 @@ public class HomeController {
 
     @RequestMapping(value = "/sendmessage", method = RequestMethod.GET)
     public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage){
-        
+
         return "";
     }
 

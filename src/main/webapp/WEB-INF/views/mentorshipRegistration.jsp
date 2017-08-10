@@ -63,8 +63,8 @@
         You are a ${desc} in these disciplines: ${disciplines}
         <br>would you like to change these?
         <form:form action="/goToPortal">
-            <input type="radio" name="addMore" value="yes">Yes
-            <input type="radio" name="addMore" value="no">No<br>
+            <input type="radio" name="addMore" value="yes" required>Yes
+            <input type="radio" name="addMore" value="no" required>No<br>
             <button type="submit" class="btn btn-default btn-success btn-lg">Submit</button>
         </form:form>
     </c:otherwise>
