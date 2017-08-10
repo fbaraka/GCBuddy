@@ -7,6 +7,7 @@ import com.feras.Models.MenteeMentor;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
+import com.feras.Watson.ProfileGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -28,6 +29,12 @@ public class HomeController {
     @RequestMapping("/")
 
     public ModelAndView helloWorld() {
+        ProfileGenerator profile = new ProfileGenerator();
+        profile.generateProfile("Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans." +
+                "Greektown coney dog Lions Lions like a rock Pistons New Center. Coney Island Tigers rebirth Chrysler Ilitch family Tigers the big three. Downtown Ford Wayne State University Ford rebirth Corktown Corktown. Quicken Loans Corktown Midtown New Center motor city People Mover People Mover. Corktown like a rock motor city the big three People Mover Downtown Quicken Loans.");
         return new
                 ModelAndView("welcome", "message", "Hello World");
 
@@ -96,8 +103,8 @@ public class HomeController {
         if (dao.getUser(usersEntity.getUsername()) != null) {
             return "RegistrationForm";
         }
-        usersEntity.setAbleToMentor(false);
-        usersEntity.setExperience("a million");
+//        usersEntity.setAbleToMentor(false);
+//        usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getUsername());
         return ("homepage");
@@ -105,9 +112,14 @@ public class HomeController {
 
     @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
 
-    public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model) {
+    public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
 
-        loginUser.setAbleToMentor(true);
+        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+        System.out.println(getAgree(profileJson));
+        System.out.println(getConscience(profileJson));
+        System.out.println(getEmotion(profileJson));
+        System.out.println(getExtro(profileJson));
+        System.out.println(getOpenness(profileJson));
         mentorsEntity.setMentorId(loginUser.getUserId());
         dao.addMentor(mentorsEntity);
 
@@ -116,8 +128,14 @@ public class HomeController {
 
 
     @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
-    public ModelAndView addMentee(MenteesEntity menteesEntity, Model model) {
+    public ModelAndView addMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
 
+        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+        System.out.println(getAgree(profileJson));
+        System.out.println(getConscience(profileJson));
+        System.out.println(getEmotion(profileJson));
+        System.out.println(getExtro(profileJson));
+        System.out.println(getOpenness(profileJson));
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.addMentee(menteesEntity);
 
@@ -238,8 +256,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/updateMentee", method = RequestMethod.POST)
-    public ModelAndView updateMentee(MenteesEntity menteesEntity, Model model) {
-
+    public ModelAndView updateMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
+        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+        System.out.println(getAgree(profileJson));
+        System.out.println(getConscience(profileJson));
+        System.out.println(getEmotion(profileJson));
+        System.out.println(getExtro(profileJson));
+        System.out.println(getOpenness(profileJson));
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.updateMentee(menteesEntity);
 
@@ -247,8 +270,13 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/updateMentor", method = RequestMethod.POST)
-    public ModelAndView updateMentor(MentorsEntity mentorsEntity, Model model) {
-
+    public ModelAndView updateMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
+        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+        System.out.println(getAgree(profileJson));
+        System.out.println(getConscience(profileJson));
+        System.out.println(getEmotion(profileJson));
+        System.out.println(getExtro(profileJson));
+        System.out.println(getOpenness(profileJson));
         mentorsEntity.setMentorId(loginUser.getUserId());
         dao.updateMentor(mentorsEntity);
 
@@ -324,6 +352,54 @@ public class HomeController {
             return false;
         }
         return false;
+    }
+
+    private double getOpenness(JSONObject profileJson){
+        double openness = 0.0;
+        try {
+            openness = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(0).getString("percentile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return openness;
+    }
+    private double getConscience(JSONObject profileJson){
+        double conscience = 0.0;
+        try {
+            conscience = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(1).getString("percentile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return conscience;
+
+    }
+    private double getExtro(JSONObject profileJson){
+        double extro = 0.0;
+        try {
+            extro = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(2).getString("percentile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return extro;
+
+    }
+    private double getEmotion(JSONObject profileJson){
+        double emotion = 0.0;
+        try {
+            emotion = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(4).getString("percentile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return emotion;
+    }
+    private double getAgree(JSONObject profileJson){
+        double agree = 0.0;
+        try {
+            agree = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(3).getString("percentile"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return agree;
     }
 
 
