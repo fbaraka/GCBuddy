@@ -9,14 +9,14 @@ import org.json.JSONObject;
  */
 public class ProfileGenerator {
     public static JSONObject generateProfile(String bio) {
-        JSONObject profile = null;
+        JSONObject profile;
         PersonalityInsights service = new PersonalityInsights("2016-10-20");
-        //Username and Password last for 30 days. After 30 days, program WILL NOT RUN
+        //Username and Password created on Bluemix. Only work for 1000 API calls before becoming invalid
         service.setUsernameAndPassword("a30f0086-4ad9-4ebb-8dd2-5f683c97a295", "LwgIHm54RpQj");
         service.setEndPoint("https://gateway.watsonplatform.net/personality-insights/api");
         Profile watsonProfile = service.getProfile(bio).execute();
         watsonProfile.getPersonality();
-        System.out.println(watsonProfile);
+        profile = new JSONObject(watsonProfile);
         return profile;
     }
 
