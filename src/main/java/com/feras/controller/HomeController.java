@@ -3,6 +3,7 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
+import com.feras.Models.MenteeMentor;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
@@ -77,8 +78,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/logInUser")
-    public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password, Model model){
-        if (validEmailAndPass(email, password) != null){
+    public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password) {
+        if (validEmailAndPass(email, password) != null) {
             loginUser = validEmailAndPass(email, password);
             return "homepage";
         } else {
@@ -104,23 +105,23 @@ public class HomeController {
 
     @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
 
-    public ModelAndView addMentor(MentorsEntity mentorsEntity) {
+    public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model) {
 
         loginUser.setAbleToMentor(true);
         mentorsEntity.setMentorId(loginUser.getUserId());
         dao.addMentor(mentorsEntity);
 
-        return mentorPortal();
+        return mentorPortal(model);
     }
 
 
     @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
-    public ModelAndView addMentee(MenteesEntity menteesEntity) {
+    public ModelAndView addMentee(MenteesEntity menteesEntity, Model model) {
 
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.addMentee(menteesEntity);
 
-        return menteePage();
+        return menteePage(model);
     }
 
 
@@ -152,18 +153,18 @@ public class HomeController {
 
     @RequestMapping("mentor")
 
-    public ModelAndView mentorPortal() {
-        ArrayList<UsersEntity> mentorList = dao.getAllMentees();
+    public ModelAndView mentorPortal(Model model) {
+        ArrayList<MenteeMentor> mentorList = getMenteesInfo();
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
 
     @RequestMapping("mentee")
 
-    public ModelAndView menteePage() {
-        ArrayList<UsersEntity> menteeList = dao.getAllMentors();
+    public ModelAndView menteePage(Model model) {
+        ArrayList<MenteeMentor> mentorList = getMentorsInfo();
         return new
-                ModelAndView("mmpage", "cList", menteeList);
+                ModelAndView("mmpage", "cList", mentorList);
     }
 
     @RequestMapping(value = "/mentorregistration", method = RequestMethod.GET)
@@ -173,7 +174,7 @@ public class HomeController {
         model.addAttribute("action", "addMentor");
         model.addAttribute("isMentor", !isMentor());
         model.addAttribute("desc", "mentor");
-        if (isMentee()){
+        if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
         return new
@@ -187,7 +188,7 @@ public class HomeController {
         model.addAttribute("action", "addMentee");
         model.addAttribute("isMentor", !isMentee());
         model.addAttribute("desc", "mentee");
-        if (isMentee()){
+        if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
         return new
@@ -195,17 +196,17 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/goToPortal")
-    public String goToPortal(@RequestParam("addMore") boolean addMore){
-        if (addMore){
-            if (menteeSelected){
+    public String goToPortal(@RequestParam("addMore") boolean addMore) {
+        if (addMore) {
+            if (menteeSelected) {
                 return "redirect:updateMenteeReg";
-            }else {
+            } else {
                 return "redirect:updateMentorReg";
             }
         } else {
-            if (menteeSelected){
+            if (menteeSelected) {
                 return "redirect:mentee";
-            }else {
+            } else {
                 return "redirect:mentor";
             }
         }
@@ -216,7 +217,7 @@ public class HomeController {
         model.addAttribute("action", "updateMentor");
         model.addAttribute("isMentor", isMentor());
         model.addAttribute("desc", "mentor");
-        if (isMentee()){
+        if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
         return new
@@ -229,7 +230,7 @@ public class HomeController {
         model.addAttribute("action", "updateMentee");
         model.addAttribute("isMentor", isMentee());
         model.addAttribute("desc", "mentee");
-        if (isMentee()){
+        if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
         return new
@@ -237,21 +238,55 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/updateMentee", method = RequestMethod.POST)
-    public ModelAndView updateMentee(MenteesEntity menteesEntity) {
+    public ModelAndView updateMentee(MenteesEntity menteesEntity, Model model) {
 
         menteesEntity.setMenteeId(loginUser.getUserId());
         dao.updateMentee(menteesEntity);
 
-        return menteePage();
+        return menteePage(model);
     }
 
     @RequestMapping(value = "/updateMentor", method = RequestMethod.POST)
-    public ModelAndView updateMentor(MentorsEntity mentorsEntity) {
+    public ModelAndView updateMentor(MentorsEntity mentorsEntity, Model model) {
 
         mentorsEntity.setMentorId(loginUser.getUserId());
         dao.updateMentor(mentorsEntity);
 
-        return menteePage();
+        return menteePage(model);
+    }
+
+    private ArrayList<MenteeMentor> getMentorsInfo() {
+        ArrayList<MenteeMentor> menteeMentors = new ArrayList<MenteeMentor>();
+        for (MentorsEntity mentorsEntity : dao.getAllMentors()) {
+            UsersEntity user = dao.getUser(mentorsEntity.getMentorId());
+            menteeMentors.add(new MenteeMentor(user.getFirstName(), user.getLastName(), mentorsEntity.getDisciplines()));
+        }
+        return menteeMentors;
+    }
+
+    private ArrayList<MenteeMentor> getMenteesInfo() {
+        ArrayList<MenteeMentor> menteeMentors = new ArrayList<MenteeMentor>();
+        for (MenteesEntity menteesEntity : dao.getAllMentees()) {
+            UsersEntity user = dao.getUser(menteesEntity.getMenteeId());
+            menteeMentors.add(new MenteeMentor(user.getFirstName(), user.getLastName(), menteesEntity.getDisciplines()));
+        }
+        return menteeMentors;
+    }
+
+    private ArrayList<String> mentorsDisciplines() {
+        ArrayList<String> mentorsDisciplines = new ArrayList<String>();
+        for (MentorsEntity mentorsEntity : dao.getAllMentors()) {
+            mentorsDisciplines.add(mentorsEntity.getDisciplines());
+        }
+        return mentorsDisciplines;
+    }
+
+    private ArrayList<String> menteesDisciplines() {
+        ArrayList<String> menteesDisciplines = new ArrayList<String>();
+        for (MenteesEntity menteesEntity : dao.getAllMentees()) {
+            menteesDisciplines.add(menteesEntity.getDisciplines());
+        }
+        return menteesDisciplines;
     }
 
     private boolean isUserRegistered(String authToken) {
@@ -263,28 +298,29 @@ public class HomeController {
         return false;
     }
 
-    private UsersEntity validEmailAndPass(String email, String pass){
+    private UsersEntity validEmailAndPass(String email, String pass) {
         return dao.getUser(email, pass);
     }
 
-    private boolean isMentee(){
+    private boolean isMentee() {
         try {
             UsersEntity test = dao.getUser(dao.getMentee(loginUser.getUserId()).getMenteeId());
             if (test != null) {
                 return true;
             }
-        }catch (NullPointerException e){
-                return false;
-            }
+        } catch (NullPointerException e) {
+            return false;
+        }
         return false;
     }
-    private boolean isMentor(){
+
+    private boolean isMentor() {
         try {
             UsersEntity test = dao.getUser(dao.getMentor(loginUser.getUserId()).getMentorId());
             if (test != null) {
                 return true;
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return false;
         }
         return false;

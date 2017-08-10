@@ -75,15 +75,15 @@
         <label id="java">- Java</label>
         <br>
         <br>
-        <input name="languages" type="checkbox" name="HTML/CSS"/>
+        <input name="languages" type="checkbox" value="HTML/CSS"/>
         <label id="htmlcss">- HTML/CSS</label>
         <br>
         <br>
-        <input name="languages" type="checkbox" name="Swift"/>
+        <input name="languages" type="checkbox" value="Swift"/>
         <label id="swift">- Swift</label>
         <br>
         <br>
-        <input name="languages" type="checkbox" name="javascript"/>
+        <input name="languages" type="checkbox" value="javascript"/>
         <label id="javascript">- Javascript</label>
         <br>
         <br>

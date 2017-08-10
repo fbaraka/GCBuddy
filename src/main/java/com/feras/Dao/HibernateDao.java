@@ -38,9 +38,9 @@ public class HibernateDao implements GCBuddyDao {
         return users;
     }
 
-    public ArrayList<UsersEntity> getAllMentees() {
+    public ArrayList<MenteesEntity> getAllMentees() {
         ArrayList<UsersEntity> mentees = new ArrayList<UsersEntity>();
-        ArrayList<MenteesEntity> tempList;
+        ArrayList<MenteesEntity> tempList = null;
         Session session = factory.openSession();
         Transaction transaction = null;
         try {
@@ -56,12 +56,12 @@ public class HibernateDao implements GCBuddyDao {
         } finally {
             session.close();
         }
-        return mentees;
+        return tempList;
     }
 
-    public ArrayList<UsersEntity> getAllMentors() {
+    public ArrayList<MentorsEntity> getAllMentors() {
         ArrayList<UsersEntity> mentors = new ArrayList<UsersEntity>();
-        ArrayList<MentorsEntity> tempList;
+        ArrayList<MentorsEntity> tempList = null;
         Session session = factory.openSession();
         Transaction transaction = null;
         try {
@@ -77,7 +77,7 @@ public class HibernateDao implements GCBuddyDao {
         } finally {
             session.close();
         }
-        return mentors;
+        return tempList;
     }
 
     public UsersEntity getUser(int userId) {

@@ -14,8 +14,8 @@ public interface GCBuddyDao {
     public static final int NOSQL_DAO = 2;
 
     public ArrayList<UsersEntity> getAllUsers();
-    public ArrayList<UsersEntity> getAllMentees();
-    public ArrayList<UsersEntity> getAllMentors();
+    public ArrayList<MenteesEntity> getAllMentees();
+    public ArrayList<MentorsEntity> getAllMentors();
     public UsersEntity getUser(int userId);
     public UsersEntity getUser(String userName);
     public UsersEntity getUser(String email, String pass);

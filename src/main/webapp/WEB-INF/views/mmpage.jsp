@@ -24,7 +24,7 @@
     <tr>
 
         <td>${user.firstName} ${user.lastName}</td>
-        <td>${user.languages}</td>
+        <td>${user.disciplines}</td>
 
     </tr>
 
