@@ -14,5 +14,20 @@
         <property name="disciplines">
             <column name="disciplines" sql-type="varchar(140)" length="140" not-null="true"/>
         </property>
+        <property name="openess">
+            <column name="openess" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="aggreeableness">
+            <column name="aggreeableness" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="extraversion">
+            <column name="extraversion" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="emotion">
+            <column name="emotion" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
+        <property name="conscience">
+            <column name="conscience" sql-type="decimal(10)" precision="10" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

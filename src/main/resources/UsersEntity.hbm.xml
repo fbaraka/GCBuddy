@@ -35,15 +35,17 @@
         <property name="isAlumni">
             <column name="isAlumni" sql-type="bit(1)" not-null="true"/>
         </property>
-        <property name="AuthToken">
-            <column name="AuthToken" sql-type="varchar(60)" not-null="false"/>
+        <property name="authToken">
+            <column name="AuthToken" sql-type="varchar(120)" length="120" not-null="true"/>
         </property>
         <property name="password">
-            <column name="password" sql-type="varchar(45)" not-null="false"/>
+            <column name="password" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
         <property name="email">
-            <column name="email" sql-type="varchar(45)" not-null="false"/>
+            <column name="email" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
-
+        <property name="slackId">
+            <column name="slackId" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
     </class>
 </hibernate-mapping>

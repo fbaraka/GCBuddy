@@ -20,7 +20,12 @@ public class UsersEntity {
     private String AuthToken;
     private String password;
     private String email;
+    private Boolean isAlumni;
+    private String authToken;
+    private String slackId;
 
+    @Basic
+    @Column(name = "email", nullable = true, length = 45)
     public String getEmail() {
         return email;
     }
@@ -29,6 +34,8 @@ public class UsersEntity {
         this.email = email;
     }
 
+    @Basic
+    @Column(name = "password", nullable = true, length = 45)
     public String getPassword() {
         return password;
     }
@@ -37,6 +44,8 @@ public class UsersEntity {
         this.password = password;
     }
 
+    @Basic
+    @Column(name = "AuthToken", nullable = true, length = 120)
     public String getAuthToken() {
         return AuthToken;
     }
@@ -52,8 +61,6 @@ public class UsersEntity {
     public void setIsAbleToMentor(Boolean isAbleToMentor) {
         this.isAbleToMentor = isAbleToMentor;
     }
-
-    private Boolean isAlumni;
 
     public Boolean getIsAlumni() {
         return isAlumni;
@@ -193,5 +200,15 @@ public class UsersEntity {
         result = 31 * result + (experience != null ? experience.hashCode() : 0);
         result = 31 * result + (bioBlurb != null ? bioBlurb.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "slackId", nullable = true, length = 45)
+    public String getSlackId() {
+        return slackId;
+    }
+
+    public void setSlackId(String slackId) {
+        this.slackId = slackId;
     }
 }

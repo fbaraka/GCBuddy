@@ -11,6 +11,11 @@ public class MentorsEntity {
     private int mentorId;
     private String mentorscol;
     private String disciplines;
+    private Double openess;
+    private Double aggreeableness;
+    private Double extraversion;
+    private Double emotion;
+    private Double conscience;
 
     @Id
     @Column(name = "mentorId", nullable = false)
@@ -62,5 +67,55 @@ public class MentorsEntity {
         result = 31 * result + (mentorscol != null ? mentorscol.hashCode() : 0);
         result = 31 * result + (disciplines != null ? disciplines.hashCode() : 0);
         return result;
+    }
+
+    @Basic
+    @Column(name = "openess", nullable = true, precision = 0)
+    public Double getOpeness() {
+        return openess;
+    }
+
+    public void setOpeness(Double openess) {
+        this.openess = openess;
+    }
+
+    @Basic
+    @Column(name = "aggreeableness", nullable = true, precision = 0)
+    public Double getAggreeableness() {
+        return aggreeableness;
+    }
+
+    public void setAggreeableness(Double aggreeableness) {
+        this.aggreeableness = aggreeableness;
+    }
+
+    @Basic
+    @Column(name = "extraversion", nullable = true, precision = 0)
+    public Double getExtraversion() {
+        return extraversion;
+    }
+
+    public void setExtraversion(Double extraversion) {
+        this.extraversion = extraversion;
+    }
+
+    @Basic
+    @Column(name = "emotion", nullable = true, precision = 0)
+    public Double getEmotion() {
+        return emotion;
+    }
+
+    public void setEmotion(Double emotion) {
+        this.emotion = emotion;
+    }
+
+    @Basic
+    @Column(name = "conscience", nullable = true, precision = 0)
+    public Double getConscience() {
+        return conscience;
+    }
+
+    public void setConscience(Double conscience) {
+        this.conscience = conscience;
     }
 }

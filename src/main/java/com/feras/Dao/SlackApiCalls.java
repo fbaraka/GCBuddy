@@ -78,7 +78,7 @@ public class SlackApiCalls {
                 jsonStr += line;
             }
             JSONObject json = new JSONObject(jsonStr);
-            usersId = json.getJSONObject("users").getString("id");
+            usersId = json.getJSONObject("user").getString("id");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (UnsupportedEncodingException e) {
