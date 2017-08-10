@@ -25,6 +25,7 @@
 
         <td>${user.firstName} ${user.lastName}</td>
         <td>${user.disciplines}</td>
+        <td>Send a message via Slack: <input type="text" name="message" id="username" placeholder="User Name" required></td>
 
     </tr>
 

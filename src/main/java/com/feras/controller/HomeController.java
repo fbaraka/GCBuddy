@@ -83,7 +83,7 @@ public class HomeController {
             loginUser = validEmailAndPass(email, password);
             return "homepage";
         } else {
-            message = "WORNG EMAIL OR PASSWORD";
+            message = "WRONG EMAIL OR PASSWORD";
             return "redirect:login";
         }
     }
