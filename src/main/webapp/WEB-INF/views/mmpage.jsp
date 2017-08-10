@@ -30,7 +30,8 @@
     </tr>
 
 </c:forEach></table>
-
-
+<br>
+<br>
+<a href="/homepage">Return to Home</a>
 </body>
 </html>

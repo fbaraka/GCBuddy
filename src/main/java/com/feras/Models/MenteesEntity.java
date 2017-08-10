@@ -1,6 +1,7 @@
 package com.feras.Models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by user on 8/7/2017.
@@ -16,6 +17,7 @@ public class MenteesEntity {
     private Double extraversion;
     private Double emotion;
     private Double conscience;
+
 
     @Id
     @Column(name = "menteeId", nullable = false)
@@ -70,7 +72,7 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "openess", nullable = true, precision = 0)
+    @Column(name = "openess", nullable = true, precision = 2)
     public Double getOpeness() {
         return openess;
     }
@@ -80,7 +82,7 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "aggreeableness", nullable = true, precision = 0)
+    @Column(name = "aggreeableness", nullable = true, precision = 2)
     public Double getAggreeableness() {
         return aggreeableness;
     }
@@ -90,7 +92,7 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "extraversion", nullable = true, precision = 0)
+    @Column(name = "extraversion", nullable = true, precision = 2)
     public Double getExtraversion() {
         return extraversion;
     }
@@ -100,7 +102,7 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "emotion", nullable = true, precision = 0)
+    @Column(name = "emotion", nullable = true, precision = 2)
     public Double getEmotion() {
         return emotion;
     }
@@ -110,7 +112,7 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "conscience", nullable = true, precision = 0)
+    @Column(name = "conscience", nullable = true, precision = 2)
     public Double getConscience() {
         return conscience;
     }

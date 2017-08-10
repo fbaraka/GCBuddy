@@ -1,6 +1,7 @@
 package com.feras.Models;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 /**
  * Created by user on 8/7/2017.
@@ -16,6 +17,26 @@ public class MentorsEntity {
     private Double extraversion;
     private Double emotion;
     private Double conscience;
+
+    public void setOpeness(Double openess) {
+        this.openess = openess;
+    }
+
+    public void setAggreeableness(Double aggreeableness) {
+        this.aggreeableness = aggreeableness;
+    }
+
+    public void setExtraversion(Double extraversion) {
+        this.extraversion = extraversion;
+    }
+
+    public void setEmotion(Double emotion) {
+        this.emotion = emotion;
+    }
+
+    public void setConscience(Double conscience) {
+        this.conscience = conscience;
+    }
 
     @Id
     @Column(name = "mentorId", nullable = false)
@@ -70,52 +91,34 @@ public class MentorsEntity {
     }
 
     @Basic
-    @Column(name = "openess", nullable = true, precision = 0)
+    @Column(name = "openess", nullable = true, precision = 2)
     public Double getOpeness() {
         return openess;
     }
 
-    public void setOpeness(Double openess) {
-        this.openess = openess;
-    }
 
     @Basic
-    @Column(name = "aggreeableness", nullable = true, precision = 0)
+    @Column(name = "aggreeableness", nullable = true, precision = 2)
     public Double getAggreeableness() {
         return aggreeableness;
     }
 
-    public void setAggreeableness(Double aggreeableness) {
-        this.aggreeableness = aggreeableness;
-    }
-
     @Basic
-    @Column(name = "extraversion", nullable = true, precision = 0)
+    @Column(name = "extraversion", nullable = true, precision = 2)
     public Double getExtraversion() {
         return extraversion;
     }
 
-    public void setExtraversion(Double extraversion) {
-        this.extraversion = extraversion;
-    }
-
     @Basic
-    @Column(name = "emotion", nullable = true, precision = 0)
+    @Column(name = "emotion", nullable = true, precision = 2)
     public Double getEmotion() {
         return emotion;
     }
 
-    public void setEmotion(Double emotion) {
-        this.emotion = emotion;
-    }
-
     @Basic
-    @Column(name = "conscience", nullable = true, precision = 0)
+    @Column(name = "conscience", nullable = true, precision = 2)
     public Double getConscience() {
         return conscience;
     }
 
-    public void setConscience(Double conscience) {
-        this.conscience = conscience;
-    }
 }
