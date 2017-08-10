@@ -52,17 +52,21 @@ public class HomeController {
     public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
         String authToken = SlackApiCalls.getOAuthToken(tempCode);
         System.out.println(authToken);
+        String usersId = SlackApiCalls.getUserId(authToken);
+        System.out.println(usersId);
         JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
         if (isUserRegistered(authToken) && !authToken.equalsIgnoreCase("")) {
             loginUser = dao.getUserByAuth(authToken);
             return new ModelAndView("homepage", "", "");
         }
         System.out.println(userProfile);
+
         try {
             model.addAttribute("email", userProfile.getJSONObject("profile").getString("email"));
             model.addAttribute("firstName", userProfile.getJSONObject("profile").getString("first_name"));
             model.addAttribute("lastName", userProfile.getJSONObject("profile").getString("last_name"));
             model.addAttribute("authToken", authToken);
+            model.addAttribute("usersId", usersId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
