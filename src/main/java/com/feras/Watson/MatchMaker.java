@@ -47,6 +47,7 @@ public class MatchMaker {
 
     public static ArrayList<MentorsEntity> narrowMentorbyWatson(MenteesEntity loggedInUser, ArrayList<MentorsEntity> mentors) {
         ArrayList<MentorsEntity> narrowedMentors = narrowMentorByDiscipline(loggedInUser, mentors);
+        ArrayList<MentorsEntity> orderedMentors = new ArrayList<MentorsEntity>();
         for (MentorsEntity mentorsEntity : narrowedMentors) {
             int matchCounter = 0;
             if (loggedInUser.getOpeness() < mentorsEntity.getOpeness()*1.1 && loggedInUser.getOpeness() >
@@ -71,16 +72,18 @@ public class MatchMaker {
             }
 
             if(matchCounter >= 3) {
-                narrowedMentors.remove(mentorsEntity);
-                narrowedMentors.add(0,mentorsEntity);
-            }
+                orderedMentors.add(0, mentorsEntity);
+            } else
+                orderedMentors.add(mentorsEntity);
 
         }
-        return narrowedMentors;
+        return orderedMentors;
     }
 
     public static ArrayList<MenteesEntity> narrowMenteebyWatson(MentorsEntity loggedInUser, ArrayList<MenteesEntity> mentees) {
         ArrayList<MenteesEntity> narrowedMentees = narrowMenteeByDiscipline(loggedInUser, mentees);
+        ArrayList<MenteesEntity> orderedMentees = new ArrayList<MenteesEntity>();
+
         for (MenteesEntity menteesEntity : narrowedMentees) {
             int matchCounter = 0;
             if (loggedInUser.getOpeness() < menteesEntity.getOpeness()*1.1 && loggedInUser.getOpeness() >
@@ -105,11 +108,10 @@ public class MatchMaker {
             }
 
             if(matchCounter >= 3) {
-                narrowedMentees.remove(menteesEntity);
-                narrowedMentees.add(0,menteesEntity);
-            }
+                orderedMentees.add(0, menteesEntity);
+            } else orderedMentees.add(menteesEntity);
 
         }
-        return narrowedMentees;
+        return orderedMentees;
     }
 }
