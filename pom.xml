@@ -91,6 +91,11 @@
             <artifactId>javassist</artifactId>
             <version>3.12.1.GA</version>
         </dependency>
+        <dependency>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>3.7.2</version>
+        </dependency>
 
     </dependencies>
 
