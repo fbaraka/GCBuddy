@@ -7,6 +7,7 @@ import com.feras.Models.MenteeMentor;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
+import com.feras.Watson.MatchMaker;
 import com.feras.Watson.ProfileGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -170,7 +171,7 @@ public class HomeController {
     @RequestMapping("mentor")
 
     public ModelAndView mentorPortal(Model model) {
-        ArrayList<MenteeMentor> mentorList = getMenteesInfo();
+        ArrayList<MenteesEntity> mentorList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -178,7 +179,7 @@ public class HomeController {
     @RequestMapping("mentee")
 
     public ModelAndView menteePage(Model model) {
-        ArrayList<MenteeMentor> mentorList = getMentorsInfo();
+        ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -190,7 +191,7 @@ public class HomeController {
         model.addAttribute("action", "addMentor");
         model.addAttribute("isMentor", !isMentor());
         model.addAttribute("desc", "mentor");
-        if (isMentee()) {
+        if (isMentor()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
         return new
