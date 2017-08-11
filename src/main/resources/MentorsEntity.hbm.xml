@@ -8,8 +8,8 @@
         <id name="mentorId">
             <column name="mentorId" sql-type="int(10) unsigned"/>
         </id>
-        <property name="mentorscol">
-            <column name="Mentorscol" sql-type="varchar(255)" not-null="true"/>
+        <property name="slackId">
+            <column name="slackId" sql-type="varchar(45)" length="45" not-null="true"/>
         </property>
         <property name="disciplines">
             <column name="disciplines" sql-type="varchar(140)" length="140" not-null="true"/>

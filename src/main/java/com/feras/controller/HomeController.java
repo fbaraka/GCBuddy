@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
@@ -290,10 +291,11 @@ public class HomeController {
         return menteePage(model);
     }
 
-    @RequestMapping(value = "/sendmessage", method = RequestMethod.GET)
-    public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage){
-
-        return "";
+    @RequestMapping(value = "/sendmessage")
+    public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request){
+            SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(),slackId,slackMessage,loginUser.getSlackId());
+            String referer = request.getHeader("Referer");
+        return "redirect:"+referer;
     }
 
     private ArrayList<MenteeMentor> getMentorsInfo() {

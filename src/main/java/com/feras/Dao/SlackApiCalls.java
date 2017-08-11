@@ -97,9 +97,10 @@ public class SlackApiCalls {
         URL url = null;
 
         try {
-             url = new URL("https://slack.com/api/chat.postMessage?token=" + code + "&channel=" + usersChannel + "&text=" + slackMessage + "&as_user=" + slackId + "&pretty=1");
-                url.openStream();
+             url = new URL("https://slack.com/api/chat.postMessage?token=" + code + "&channel=" + usersChannel + "&text=" + slackId + "&as_user=" + slackMessage + "&pretty=1");
 
+                url.openStream();
+            System.out.println("message sent!");
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {

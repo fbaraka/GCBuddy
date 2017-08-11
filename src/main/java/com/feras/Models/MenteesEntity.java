@@ -19,6 +19,8 @@ public class MenteesEntity {
     private Double conscience;
     private String firstName;
     private String lastName;
+    private String slackId;
+
 
     @Id
     @Column(name = "menteeId", nullable = false)
@@ -140,5 +142,15 @@ public class MenteesEntity {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Basic
+    @Column(name = "slackId", nullable = true, length = 45)
+    public String getSlackId() {
+        return slackId;
+    }
+
+    public void setSlackId(String slackId) {
+        this.slackId = slackId;
     }
 }

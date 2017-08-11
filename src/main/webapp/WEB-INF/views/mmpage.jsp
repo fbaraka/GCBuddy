@@ -23,12 +23,14 @@
 
     <tr>
 
+        <form action="/sendmessage">
         <td>${user.firstName} ${user.lastName}</td>
         <td>${user.disciplines}</td>
-        <form name="slackmessage" action="sendmessage">
+        <input type="hidden" name="slackId" value="${user.slackId}">
+            <input type="hidden" name="addMore" value="false">
         <td>Send a message via Slack: <input type="text" name="slackMessage" id="slackMessage" placeholder="Your message"></td>
-        <td><input type="button" name="submit" value="Submit"/></td></form>
-
+            <td><input type="submit" value="submit"></td>
+        </form>
     </tr>
 
 </c:forEach></table>
