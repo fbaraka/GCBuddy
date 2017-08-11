@@ -123,6 +123,7 @@ public class HomeController {
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
+        mentorsEntity.setSlackId(loginUser.getSlackId());
         dao.addMentor(mentorsEntity);
 
         return mentorPortal(model);
@@ -141,6 +142,7 @@ public class HomeController {
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
+        menteesEntity.setSlackId(loginUser.getSlackId());
         dao.addMentee(menteesEntity);
 
         return menteePage(model);
