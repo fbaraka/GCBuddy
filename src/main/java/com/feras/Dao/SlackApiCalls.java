@@ -92,21 +92,37 @@ public class SlackApiCalls {
         return usersId;
     }
 
-    public static void sendDirectMessage(String code, String usersChannel, String slackId, String slackMessage) {
+    public static String sendDirectMessage(String code, String usersChannel, String slackId, String slackMessage) {
 
         URL url = null;
+        String statusMessage = null;
 
         try {
              url = new URL("https://slack.com/api/chat.postMessage?token=" + code + "&channel=" + usersChannel + "&text=" + slackId + "&as_user=" + slackMessage + "&pretty=1");
 
-                url.openStream();
-            System.out.println("message sent!");
+            BufferedReader reader;
+            String jsonStr = "";
+            reader = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
+            for (String line; (line = reader.readLine()) != null; ) {
+                jsonStr += line;
+            }
+            JSONObject json = new JSONObject(jsonStr);
+            String status = json.getString("ok");
+
+            if (status.equals("true")){
+                statusMessage = "Message sent!";
+            } else {
+                statusMessage = "Message failed to send!";
+            }
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
 
+        return statusMessage;
     }
 }

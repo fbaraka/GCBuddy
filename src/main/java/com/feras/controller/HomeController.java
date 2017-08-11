@@ -177,6 +177,7 @@ public class HomeController {
 
     public ModelAndView mentorPortal(Model model) {
         ArrayList<MenteesEntity> mentorList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
+        model.addAttribute("msg", message);
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -185,6 +186,7 @@ public class HomeController {
 
     public ModelAndView menteePage(Model model) {
         ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
+        model.addAttribute("msg", message);
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -293,7 +295,7 @@ public class HomeController {
 
     @RequestMapping(value = "/sendmessage")
     public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request){
-            SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(),slackId,slackMessage,loginUser.getSlackId());
+            message = SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(),slackId,slackMessage,loginUser.getSlackId());
             String referer = request.getHeader("Referer");
         return "redirect:"+referer;
     }

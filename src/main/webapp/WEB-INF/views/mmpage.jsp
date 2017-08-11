@@ -34,6 +34,9 @@
     </tr>
 
 </c:forEach></table>
+
+<h5 style="color: green;">${msg}</h5>
+
 <br>
 <br>
 <a href="/homepage">Return to Home</a>
