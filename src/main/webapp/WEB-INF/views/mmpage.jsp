@@ -79,7 +79,7 @@
                         <input type="hidden" name="slackId" value="${user.slackId}">
                         <input type="hidden" name="addMore" value="false">
                         <textarea name="slackMessage" placeholder="Input message here"
-                                  style="width: inherit;"></textarea><br>
+                                  style="width: 100%;"></textarea><br>
                         <input type="submit" value="Send Message" class="btn btn-success">
                     </form>
                 </div>
