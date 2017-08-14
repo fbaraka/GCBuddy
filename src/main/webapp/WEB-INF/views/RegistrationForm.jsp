@@ -8,16 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <!DOCTYPE html>
-<html>
+<html style="background: linear-gradient(rgba(237, 99, 52, .8), rgba(0, 0, 0, .6));">
 <head>
     <meta charset="UTF-8">
-    <title>Multi Step Form with Progress Bar using jQuery and CSS3</title>
-
+    <title>GCBuddy Registration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-
-
     <link rel="stylesheet" href="resources/css/style.css">
-
 
 </head>
 
@@ -36,7 +32,6 @@
         <h3 class="fs-subtitle">Identification Information</h3>
         <input type="text" name="firstName" id="firstName" placeholder="First Name" value="${firstName}" required>
         <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="${lastName}" required>
-        <input type="text" name="username" id="username" placeholder="User Name" required>
         <input type="password" name="password" id="password" placeholder="Password" required>
         <input type="password" name="checkPassWord" placeholder="Confirm Password" required>
         <input type="button" name="next" class="next action-button" value="Next"/>
@@ -46,8 +41,8 @@
         <h3 class="fs-subtitle">Contact Information</h3>
         <input type="email" name="email" id="email" placeholder="Email" value="${email}" required>
         <input type="email" name="checkEmail" id="checkEmail" placeholder="Confirm Email" required>
-        <input type="tel" name="phone" id="phone" placeholder="Phone Number" required>
-        <input type="number" name="zip" id="zip" placeholder="Zip Code" required>
+        <input type="tel" name="phone" id="phone" placeholder="Phone Number">
+        <input type="text" name="zip" id="zip" placeholder="City" required>
         <input type="button" name="previous" class="previous action-button" value="Previous"/>
         <input type="button" name="next" class="next action-button" value="Next"/>
     </fieldset>
@@ -69,34 +64,8 @@
         <input type="radio" name="isAlumni" value="yes"/><label id="radio"> Yes
         <input type="radio" name="isAlumni" value="no"/> No </label>
         <br>
-        <br>
-        What Languages are you familiar with?<br>
-        <input name="languages" type="checkbox" value="java"/>
-        <label id="java">- Java</label>
-        <br>
-        <br>
-        <input name="languages" type="checkbox" value="HTML/CSS"/>
-        <label id="htmlcss">- HTML/CSS</label>
-        <br>
-        <br>
-        <input name="languages" type="checkbox" value="Swift"/>
-        <label id="swift">- Swift</label>
-        <br>
-        <br>
-        <input name="languages" type="checkbox" value="javascript"/>
-        <label id="javascript">- Javascript</label>
-        <br>
-        <br>
-        <input name="languages" type="checkbox" value="other">
-        <label id="other">- Other:</label> <input type="text" id="otherLanguage" class="form-control">
-        <br>
-        <br>
-        Bio:
-        <br>
-        <textarea name="bioBlurb" id="bioBlurb" class="form-control" placeholder="Your blurb in at least 140 characters" maxlength="255"
-                  minlength="140" required></textarea><br><br>
         <input type="button" name="previous" class="previous action-button" value="Previous"/>
-        <input type="submit" name="submit" class="btn btn-default btn-success btn-lg" value="Submit"/>
+        <input type="submit" name="submit" class="next action-button" value="Submit"/>
         <input type="hidden" name="authToken" value="${authToken}">
         <input type="hidden" name="slackId" value="${slackId}">
     </fieldset>
