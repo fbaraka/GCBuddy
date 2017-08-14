@@ -53,7 +53,7 @@ public class HomeController {
         JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
         if (isUserRegistered(authToken) && !authToken.equalsIgnoreCase("")) {
             loginUser = dao.getUserByAuth(authToken);
-            return new ModelAndView("homepage", "", "");
+            return new ModelAndView("redirect:/homepage", "", "");
         }
         System.out.println(userProfile);
 
@@ -81,7 +81,7 @@ public class HomeController {
     public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password) {
         if (validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password)) != null) {
             loginUser = validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password));
-            return "homepage";
+            return "redirect:/homepage";
         } else {
             message = "WRONG EMAIL OR PASSWORD";
             return "redirect:login";
@@ -96,7 +96,7 @@ public class HomeController {
         usersEntity.setPassword(CryptWithMD5.cryptWithMD5(usersEntity.getPassword()));
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
-        return ("homepage");
+        return ("redirect:/homepage");
     }
 
     @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
