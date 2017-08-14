@@ -62,12 +62,9 @@
                 Mentorship Portal
             </h2>
             <p>Interested in becoming a Mentor? Or looking for a Mentor?</p>
-            <%--<div class='stat'>--%>
-                <%--<span>Looking for help!</span>--%>
-            <%--</div>--%>
-            <%--<div class='progress'>--%>
-                <%--<div class='progress_bar'></div>--%>
-            <%--</div>--%>
+            <div class='stockPhoto'>
+                <img src="http://content.newsinc.com/jpg/1391/30574273/34106027.jpg?t=1459763220" width="125" height="70">
+            </div>
             <p>Click below for more information.</p>
         </div>
         <div class='drop'>
