@@ -104,7 +104,7 @@
             font: 25px/60px sans-serif;
             text-align: center;
             text-transform: uppercase;
-            background: #3D79D0;
+            background: rgba(237, 99, 52, .8);
         }
 
         .popScroll form {
@@ -162,11 +162,11 @@
         }
 
         #home {
-            background: #3D79D0;
+            background:rgba(237, 99, 52, .8);
         }
 
         #close {
-            background: #D21111;
+            background: rgb(170,170,170);
         }
 
         .popScroll em {
@@ -182,7 +182,11 @@
         }
 
         #home:hover {
-            background: #1852C7;
+            background: #1ea8b4;
+        }
+
+        .disciplines {
+            color: #1ea8b4;
         }
 
         #close:hover {
@@ -227,9 +231,9 @@
         .ribbon.top-left.ribbon-primary > small {
             *zoom: 1;
             filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0, startColorstr='#FF428BCA', endColorstr='#FF2A6496');
-            background-image: -moz-linear-gradient(top, #428bca 0%, #2a6496 100%);
-            background-image: -webkit-linear-gradient(top, #428bca 0%, #2a6496 100%);
-            background-image: linear-gradient(to bottom, #428bca 0%, #2a6496 100%);
+            background-image: -moz-linear-gradient(top, rgba(237, 99, 52, .8), rgba(237, 99, 52, 1));
+            background-image: -webkit-linear-gradient(top,rgba(237, 99, 52, .8),rgba(237, 99, 52, 1));
+            background-image: linear-gradient(to bottom, rgba(237, 99, 52, .8), rgba(237, 99, 52, 1));
             position: absolute;
             display: block;
             width: 100%;
@@ -239,7 +243,7 @@
             font-weight: bold;
             font-size: 65%;
             color: white;
-            background-color: #428bca;
+            background-color: rgba(237, 99, 52, .8);
             -moz-transform: rotate(-45deg);
             -ms-transform: rotate(-45deg);
             -webkit-transform: rotate(-45deg);
@@ -698,7 +702,7 @@
     </c:when>
     <c:otherwise>
 
-        <
+
         <!-- popup -->
         <div class="popScroll">
             <div class="popup">
@@ -706,14 +710,12 @@
 <small>Hello!</small>
 </span>
                 <h1>Hey there ${desc}</h1>
-                <div class="subscribe-widget">
                     <!-- form -->
-                    <%--<form id="subscribe-form">--%>
+                        <%--<form id="subscribe-form">--%>
                         <%--<input type="email" name="email" placeholder="Your Email Please" class="email-form" required>--%>
                         <%--<button type="submit" class="button">Subscribe</button>--%>
-                    <%--</form>--%>
-                    <p>You are already a ${desc} in theses desciplines: ${disciplines}</p>
-                </div>
+                        <%--</form>--%>
+                    <p>You are already a ${desc} in theses desciplines: <p class="disciplines"> ${disciplines}</p></p>
                 <div id="option">
                     <a href="/goToPortal?addMore=false" id="home" class="boxi">Continue</a>
                     <em>or</em>
