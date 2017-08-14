@@ -52,7 +52,7 @@
 <a href="/homepage">Go to home page</a>
 <br>
 <br>
-<div class="jumbotron" style="background: #1ea8b4; margin-left: 5%; margin-right: 5%">
+<div class="jumbotron" style="background: #1ea8b4; margin-left: 5%; margin-right: 5%; border-radius: 25px">
     <h1 style="text-align: center">
         Your Potential Matches
     </h1>
@@ -62,8 +62,8 @@
 <h5 style="color: green;">${msg}</h5>
 <div class="row" style="background: rgb(170,170,170);">
     <c:forEach items="${cList}" var="user">
-        <div class="col-md-12">
-            <div class="media" style=" margin-left: 5%; margin-right: 5%;">
+        <div class="col-md-6">
+            <div class="media" style=" margin-left: 5%; margin-right: 5%; border-radius: 25px">
                 <a class="pull-left" href="/profilepage">
                     <img class="media-object dp img-circle"
                          src="http://pics3.pof.com/thumbnails/size220/1136/22/57/311935dd6-93d4-46f0-beda-2c9b5a1d1b06.jpg"

@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html >
+<html>
 <head>
 
     <meta charset="UTF-8">
@@ -37,19 +37,23 @@
     <div class="login is-active">
         <form:form action="/logInUser">
             ${msg}<br>
-            <div class="profile"><i class="fa fa-camera fa-2x"></i></div>
+            <div id="gclogo">
+                <img class="circular--square"
+                     src="https://course_report_production.s3.amazonaws.com/rich/rich_files/rich_files/50/s300/grand-circus-logo.jpg"
+                     width="100" height="100">
+            </div>
             <div class="form-element">
-                <span><i class="fa fa-envelope"></i></span><input type="email" placeholder="Your Email Address" name="email"/>
+                <span><i class="fa fa-envelope"></i></span><input type="email" placeholder="Your Email Address"
+                                                                  name="email"/>
             </div>
             <div class="form-element">
                 <span><i class="fa fa-lock"></i></span><input type="password" placeholder=" Password" name="pass"/>
             </div>
-            <button class="btn-login" onclick= "location.href='/homepage';">login</button>
+            <button class="btn-login" onclick="location.href='/homepage';">login</button>
         </form:form>
         </c:if>
-        <br>
         <div id="slackbutton">
-            <h3>${button}</h3>
+            <%--<h3>${button}</h3>--%>
             <a href="https://slack.com/oauth/authorize?&client_id=219461147683.223751169686&scope=chat:write:user,team:read,users:read,users:read.email,users:write,users.profile:read">
                 <img id="slack" alt="Sign in with Slack" height="40" width="172"
                      src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
@@ -57,6 +61,7 @@
             </a>
         </div>
     </div>
+    <br>
 
     <%--<div class="register down">--%>
     <%--<div class="form-element">--%>
