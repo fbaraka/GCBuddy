@@ -45,6 +45,7 @@
         <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"
                 type="video/Mp4"/>
     </video>
+</div>
     <br>
 
 <div class='title'>
