@@ -57,15 +57,8 @@ public class HomeController {
         }
         System.out.println(userProfile);
 
-        try {
-            model.addAttribute("email", userProfile.getJSONObject("profile").getString("email"));
-            model.addAttribute("firstName", userProfile.getJSONObject("profile").getString("first_name"));
-            model.addAttribute("lastName", userProfile.getJSONObject("profile").getString("last_name"));
-            model.addAttribute("authToken", authToken);
-            model.addAttribute("slackId", usersId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        model.addAttribute("authToken", authToken);
+        model.addAttribute("slackId", usersId);
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
     }
 
@@ -100,13 +93,8 @@ public class HomeController {
 
     public String homePage(UsersEntity usersEntity) {
         System.out.println(usersEntity);
-        if (dao.getUser(usersEntity.getUsername()) != null) {
-            return "RegistrationForm";
-        }
-//        usersEntity.setAbleToMentor(false);
-//        usersEntity.setExperience("a million");
         dao.addUser(usersEntity);
-        loginUser = dao.getUser(usersEntity.getUsername());
+        loginUser = dao.getUser(usersEntity.getEmail());
         return ("homepage");
     }
 
@@ -296,58 +284,24 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/sendmessage")
-    public String sendSlackMessage(Model model, @RequestParam ("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request){
-            message = SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(),slackId,slackMessage,loginUser.getSlackId());
+    public String sendSlackMessage(Model model, @RequestParam("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request) {
+        message = SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(), slackId, slackMessage, loginUser.getSlackId());
         return "redirect:messageRedirect";
     }
 
     @RequestMapping("messageRedirect")
-    public ModelAndView messageRedirect(Model model){
-        if (menteeSelected){
+    public ModelAndView messageRedirect(Model model) {
+        if (menteeSelected) {
             ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
             model.addAttribute("msg", message);
             return new
                     ModelAndView("mmpage", "cList", mentorList);
-        }else {
+        } else {
             ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
             model.addAttribute("msg", message);
             return new
                     ModelAndView("mmpage", "cList", menteeList);
         }
-    }
-
-    private ArrayList<MenteeMentor> getMentorsInfo() {
-        ArrayList<MenteeMentor> menteeMentors = new ArrayList<MenteeMentor>();
-        for (MentorsEntity mentorsEntity : dao.getAllMentors()) {
-            UsersEntity user = dao.getUser(mentorsEntity.getMentorId());
-            menteeMentors.add(new MenteeMentor(user.getFirstName(), user.getLastName(), mentorsEntity.getDisciplines()));
-        }
-        return menteeMentors;
-    }
-
-    private ArrayList<MenteeMentor> getMenteesInfo() {
-        ArrayList<MenteeMentor> menteeMentors = new ArrayList<MenteeMentor>();
-        for (MenteesEntity menteesEntity : dao.getAllMentees()) {
-            UsersEntity user = dao.getUser(menteesEntity.getMenteeId());
-            menteeMentors.add(new MenteeMentor(user.getFirstName(), user.getLastName(), menteesEntity.getDisciplines()));
-        }
-        return menteeMentors;
-    }
-
-    private ArrayList<String> mentorsDisciplines() {
-        ArrayList<String> mentorsDisciplines = new ArrayList<String>();
-        for (MentorsEntity mentorsEntity : dao.getAllMentors()) {
-            mentorsDisciplines.add(mentorsEntity.getDisciplines());
-        }
-        return mentorsDisciplines;
-    }
-
-    private ArrayList<String> menteesDisciplines() {
-        ArrayList<String> menteesDisciplines = new ArrayList<String>();
-        for (MenteesEntity menteesEntity : dao.getAllMentees()) {
-            menteesDisciplines.add(menteesEntity.getDisciplines());
-        }
-        return menteesDisciplines;
     }
 
     private boolean isUserRegistered(String authToken) {
@@ -387,7 +341,7 @@ public class HomeController {
         return false;
     }
 
-    private double getOpenness(JSONObject profileJson){
+    private double getOpenness(JSONObject profileJson) {
         double openness = 0.0;
         try {
             openness = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(0).getString("percentile"));
@@ -396,7 +350,8 @@ public class HomeController {
         }
         return openness;
     }
-    private double getConscience(JSONObject profileJson){
+
+    private double getConscience(JSONObject profileJson) {
         double conscience = 0.0;
         try {
             conscience = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(1).getString("percentile"));
@@ -406,7 +361,8 @@ public class HomeController {
         return conscience;
 
     }
-    private double getExtro(JSONObject profileJson){
+
+    private double getExtro(JSONObject profileJson) {
         double extro = 0.0;
         try {
             extro = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(2).getString("percentile"));
@@ -416,7 +372,8 @@ public class HomeController {
         return extro;
 
     }
-    private double getEmotion(JSONObject profileJson){
+
+    private double getEmotion(JSONObject profileJson) {
         double emotion = 0.0;
         try {
             emotion = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(4).getString("percentile"));
@@ -425,7 +382,8 @@ public class HomeController {
         }
         return emotion;
     }
-    private double getAgree(JSONObject profileJson){
+
+    private double getAgree(JSONObject profileJson) {
         double agree = 0.0;
         try {
             agree = Double.parseDouble(profileJson.getJSONArray("personality").getJSONObject(3).getString("percentile"));
@@ -434,6 +392,4 @@ public class HomeController {
         }
         return agree;
     }
-
-
 }

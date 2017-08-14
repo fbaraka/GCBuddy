@@ -99,10 +99,10 @@ public class HibernateDao implements GCBuddyDao {
         return user;
     }
 
-    public UsersEntity getUser(String userName) {
+    public UsersEntity getUser(String email) {
         UsersEntity user;
         Session sessions = factory.openSession();
-        user = (UsersEntity) sessions.createQuery("from UsersEntity where username = '" + userName+"'").setMaxResults(1).uniqueResult();
+        user = (UsersEntity) sessions.createQuery("from UsersEntity where email = '" + email+"'").setMaxResults(1).uniqueResult();
         sessions.close();
 
         return user;
