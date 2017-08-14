@@ -6,19 +6,137 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html >
 <head>
-    <title>Main Home Page</title>
-    <header></header>
+    <style>
+        .jumbotron {
+            color: black;
+            position: relative;
+            z-index: -2;
+        }
+
+        #video-background {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: -1;
+            width: 100%;
+            opacity: 0.5;
+
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>UI Statistic Pop Out CSS</title>
+
+
+
+    <link rel="stylesheet" href="resources/css/newstyle.css">
+
+
 </head>
+
 <body>
-<a href="/mentorship" target="_blank">Should Lead to Mentorship</a>
-<br>
-<a href="/profilepage" target="_blank">Should Lead to Profile Page</a>
+<div class="jumbotron">
+    <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
+        <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"
+                type="video/Mp4"/>
+    </video>
+    <br>
 
-<br>
+<div class='title'>
+    <h1>
+        GCBuddy - Choose an Option Below!
+    </h1>
+    <h2>
+        Need help? Looking for Parking? You came to the right place!
+    </h2>
+</div>
+<div class='ui'>
+    <div class='ui_box'>
+        <div class='ui_box__inner'>
+            <h2>
+                Mentorship Portal
+            </h2>
+            <p>Interested in becoming a Mentor? Or looking for a Mentor?</p>
+            <%--<div class='stat'>--%>
+                <%--<span>Looking for help!</span>--%>
+            <%--</div>--%>
+            <%--<div class='progress'>--%>
+                <%--<div class='progress_bar'></div>--%>
+            <%--</div>--%>
+            <p>Click below for more information.</p>
+        </div>
+        <div class='drop'>
+            <p><a href="mentorship">Mentorship Registration</a></p>
+            <div class='arrow'></div>
+        </div>
+    </div>
+    <div class='ui_box'>
+        <div class='ui_box__inner'>
+            <h2>
+                User Profile
+            </h2>
+            <p>View your Profile</p>
+            <div class='stat_left'>
+                <ul>
+                    <li>
+                        Bio
+                    </li>
+                    <li>
+                        Contact Information
+                    </li>
+                    <li>
+                        Mentor/Mentee Status
+                    </li>
+                    <li>
+                        Coding Languages
+                    </li>
+                </ul>
+            </div>
+            <div class='stockPhoto'>
+                <img src="http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg" width="100" height="100">
+            </div>
+            <p>Click below.</p>
+        </div>
+        <div class='drop'>
+            <p><a href="profilepage">User Profile</a></p>
+            <div class='arrow'>
 
-<iframe src="https://open.spotify.com/embed/user/226xxrllhbqjlluq5gd3ysu5q/playlist/3Jne5FQ9rLi8dl0UN7V2lc" width="300"
-        height="380" frameborder="0" allowtransparency="true"></iframe>
+            </div>
+        </div>
+    </div>
+    <div class='ui_box'>
+        <div class='ui_box__inner'>
+            <h2>
+                Parking Pricing and Locations
+            </h2>
+            <p>User Reported parking</p>
+            <div class='stat'>
+                <span>$$$$</span>
+            </div>
+            <div class='progress'>
+                <div class='progress_bar--two'></div>
+            </div>
+            <p>Click here to view current parking prices nearby!</p>
+        </div>
+        <div class='drop'>
+            <p><a href="">NEED JSP PAGE FOR PARKING</a></p>
+            <div class='arrow'>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<%--<div id="spotify"><iframe src="https://open.spotify.com/embed/user/226xxrllhbqjlluq5gd3ysu5q/playlist/3Jne5FQ9rLi8dl0UN7V2lc" width="300"--%>
+                          <%--height="380" frameborder="0" allowtransparency="true"></iframe></div>--%>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+<script src="resources/js/index.js"></script>
+
 </body>
 </html>

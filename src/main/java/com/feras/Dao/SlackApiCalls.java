@@ -108,6 +108,7 @@ public class SlackApiCalls {
             }
             JSONObject json = new JSONObject(jsonStr);
             String status = json.getString("ok");
+            System.out.println(json);
 
             if (status.equals("true")){
                 statusMessage = "Message sent!";
