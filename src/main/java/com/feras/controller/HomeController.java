@@ -3,10 +3,10 @@ package com.feras.controller;
 import com.feras.Dao.GCBuddyDao;
 import com.feras.Dao.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
-import com.feras.Models.MenteeMentor;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
 import com.feras.Models.UsersEntity;
+import com.feras.PasswordEncryption.CryptWithMD5;
 import com.feras.Watson.MatchMaker;
 import com.feras.Watson.ProfileGenerator;
 import org.json.JSONException;
@@ -79,8 +79,8 @@ public class HomeController {
 
     @RequestMapping(value = "/logInUser")
     public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password) {
-        if (validEmailAndPass(email, password) != null) {
-            loginUser = validEmailAndPass(email, password);
+        if (validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password)) != null) {
+            loginUser = validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password));
             return "homepage";
         } else {
             message = "WRONG EMAIL OR PASSWORD";
@@ -93,6 +93,7 @@ public class HomeController {
 
     public String homePage(UsersEntity usersEntity) {
         System.out.println(usersEntity);
+        usersEntity.setPassword(CryptWithMD5.cryptWithMD5(usersEntity.getPassword()));
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
         return ("homepage");
