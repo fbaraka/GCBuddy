@@ -1,10 +1,12 @@
 package com.feras.controller;
 
+import com.feras.API.ParkWhizApiCalls;
 import com.feras.Dao.GCBuddyDao;
-import com.feras.Dao.SlackApiCalls;
+import com.feras.API.SlackApiCalls;
 import com.feras.DaoFactory.DaoFactory;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
+import com.feras.Models.ParkingInfo;
 import com.feras.Models.UsersEntity;
 import com.feras.PasswordEncryption.CryptWithMD5;
 import com.feras.Watson.MatchMaker;
@@ -34,6 +36,17 @@ public class HomeController {
         message = "";
         return new
                 ModelAndView("welcome", "message", "Hello World");
+
+    }
+
+    @RequestMapping("/parking")
+
+    public ModelAndView parking() {
+        ArrayList<ParkingInfo> information = ParkWhizApiCalls.getParking();
+
+
+        return new
+                ModelAndView("parking", "c_List", information);
 
     }
 

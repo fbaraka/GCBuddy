@@ -122,7 +122,7 @@
             <p>Click here to view current parking prices nearby!</p>
         </div>
         <div class='drop'>
-            <p><a href="">NEED JSP PAGE FOR PARKING</a></p>
+            <p><a href="parking">Parking Information</a></p>
             <div class='arrow'>
             </div>
         </div>
