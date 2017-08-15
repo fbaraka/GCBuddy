@@ -42,6 +42,12 @@ public class HomeController {
         return "dontLook";
     }
 
+    @RequestMapping("/addtoslack")
+
+    public String slackPermissions() {
+        return "addToSlack";
+    }
+
 
     @RequestMapping(value = "/RegistrationForm", method = RequestMethod.GET)
 
@@ -96,7 +102,7 @@ public class HomeController {
         usersEntity.setPassword(CryptWithMD5.cryptWithMD5(usersEntity.getPassword()));
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
-        return ("redirect:/homepage");
+        return ("redirect:https://slack.com/oauth/authorize?scope=chat:write:user&client_id=219461147683.223751169686&redirect_uri=http://localhost:8080/homepage");
     }
 
     @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
@@ -169,6 +175,7 @@ public class HomeController {
     public ModelAndView mentorPortal(Model model) {
         ArrayList<MenteesEntity> mentorList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
         model.addAttribute("msg", message);
+        message = "";
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
@@ -178,6 +185,7 @@ public class HomeController {
     public ModelAndView menteePage(Model model) {
         ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
         model.addAttribute("msg", message);
+        message = "";
         return new
                 ModelAndView("mmpage", "cList", mentorList);
     }
