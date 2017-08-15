@@ -31,6 +31,7 @@ public class HomeController {
     @RequestMapping("/")
 
     public ModelAndView helloWorld() {
+        message = "";
         return new
                 ModelAndView("welcome", "message", "Hello World");
 
@@ -73,6 +74,7 @@ public class HomeController {
         model.addAttribute("button", "Sign in with Slack");
         model.addAttribute("isLogin", true);
         model.addAttribute("msg", message);
+        message = "";
         return "login";
     }
 
@@ -146,6 +148,7 @@ public class HomeController {
 
     @RequestMapping("/homepage")
     public String goHome() {
+        message = "";
         return "homepage";
     }
 
@@ -164,7 +167,6 @@ public class HomeController {
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
         model.addAttribute("BioBlurb", loginUser.getBioBlurb());
-
 
         return new
                 ModelAndView("profilepage", "message", "Test");
