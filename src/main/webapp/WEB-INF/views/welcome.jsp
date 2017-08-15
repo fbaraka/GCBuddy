@@ -14,7 +14,7 @@
     <!--IMPORTANT: sets the page to width od the device and sets the zoom level-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>GCBuddy</title>
 
     <!-- Bootstrap -->
     <!-- Latest compiled and minified CSS -->
@@ -90,17 +90,8 @@
     <a href="/login">
         <button type="button" class="btn-lg btn-primary">Sign in here</button>
     </a>
-    <br>
-    <br>
-    Don't have an account? <a class="text-center" href="/signUp">
-    <br>
-    <button type="button" class="btn btn-primary">Register here</button>
 </center>
 
-</div>
-
-
-<br>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
