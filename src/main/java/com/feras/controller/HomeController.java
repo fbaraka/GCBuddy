@@ -188,7 +188,11 @@ public class HomeController {
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
-        model.addAttribute("userPic", loginUser.getPhotoUrl());
+        if(!loginUser.getPhotoUrl().equals("")) {
+            model.addAttribute("userPic", loginUser.getPhotoUrl());
+        } else {
+            model.addAttribute("userPic", "https://secure.gravatar.com/avatar/a0e220c31d928457ac8a9754d2f75968.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0015-72.png");
+        }
 
         return new
                 ModelAndView("profilepage", "message", "Test");

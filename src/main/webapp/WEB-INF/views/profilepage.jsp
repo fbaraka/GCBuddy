@@ -27,19 +27,19 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="coach-card">
-                <img src=<"${userPic}">
+                <img src="${userPic}" width="100" height="100">
 
                 <div class="row coach-info">
                     <div class="col-md-1"></div>
                     <div class="col-md-5 ">
-                        <div class="coach-info-text">
+                            <h2 style="text-align: center">
                         <span class="grey-text">
                             ${firstName}
                         </span><br>
-                            <span class="white-text">
-                                ${lastName}
-                            </span>
-                        </div>
+                                <span class="white-text">
+                                    ${lastName}
+                                </span>
+                            </h2>
                         <hr class="sep-line">
                     </div>
                     <div class="col-md-5">
@@ -105,3 +105,5 @@
     </center>
 
 </div>
+</body>
+</html>
