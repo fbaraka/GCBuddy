@@ -8,7 +8,9 @@ import java.util.ArrayList;
 /**
  * Created by michaelgleeson on 8/10/17.
  */
+//Where we're using all the Watson data to generate our Mentor/Mentee matches
 public class MatchMaker {
+    //Moves through the list of Mentees, compares each Discipline to the Mentor's, and narrows down to users who match
     private static ArrayList<MenteesEntity> narrowMenteeByDiscipline(MentorsEntity loggedInUser, ArrayList<MenteesEntity> mentees){
         ArrayList<MenteesEntity> narrowedMentees = new ArrayList<MenteesEntity>();
         try {
@@ -30,6 +32,7 @@ public class MatchMaker {
         return narrowedMentees;
     }
 
+    //Moves through the list of Mentors, compares each Discipline to the Mentee's, and narrows down to users who match
     private static ArrayList<MentorsEntity> narrowMentorByDiscipline(MenteesEntity loggedInUser, ArrayList<MentorsEntity> mentors){
         ArrayList<MentorsEntity> narrowedMentors = new ArrayList<MentorsEntity>();
         try {
@@ -51,6 +54,9 @@ public class MatchMaker {
         return narrowedMentors;
     }
 
+    //Now we cycle through the narrowedMentors list, comparing each Watson parameter
+    //If the Mentee is within 10% of the User's percentiles, Match counter increments by 1
+    //With 3 or more Match points, they're considered a match, and a new list is created and arranged by percentile
     public static ArrayList<MentorsEntity> narrowMentorbyWatson(MenteesEntity loggedInUser, ArrayList<MentorsEntity> mentors) {
         ArrayList<MentorsEntity> narrowedMentors = narrowMentorByDiscipline(loggedInUser, mentors);
         ArrayList<MentorsEntity> orderedMentors = new ArrayList<MentorsEntity>();
@@ -90,6 +96,9 @@ public class MatchMaker {
         return orderedMentors;
     }
 
+    //Now we cycle through the narrowedMentees list, comparing each Watson parameter
+    //If the Mentor is within 10% of the User's percentiles, Match counter increments by 1
+    //With 3 or more Match points, they're considered a match, and a new list is created and arranged by percentile
     public static ArrayList<MenteesEntity> narrowMenteebyWatson(MentorsEntity loggedInUser, ArrayList<MenteesEntity> mentees) {
         ArrayList<MenteesEntity> narrowedMentees = narrowMenteeByDiscipline(loggedInUser, mentees);
         ArrayList<MenteesEntity> orderedMentees = new ArrayList<MenteesEntity>();

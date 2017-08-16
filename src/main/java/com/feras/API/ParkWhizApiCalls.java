@@ -23,35 +23,19 @@ import java.util.ArrayList;
  */
 public class ParkWhizApiCalls {
 
-    public static JSONObject parkingSearch() {
-//        try {
-//            URL url = new URL("http://api.parkwhiz.com/search/?key=b6a76a06d63d66ef9bbceebedd6c0c656b5bbc17&lat=42.335849&lng=-83.049848");
-//
-//            BufferedReader reader;
-//            String jsonStr = "";
-//            reader = new BufferedReader(new InputStreamReader(url.openStream()));
-//            for (String line; (line = reader.readLine()) != null; ) {
-//                jsonStr += line;
-//            }
-//            System.out.println(jsonStr);
-//
-//            return new JSONObject(jsonStr);
-//        } catch (FileNotFoundException e) {
-//            return null;
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
+    //Method accesses ParkWhiz API, pulling back a JSON object of data
+    private static JSONObject parkingSearch() {
         String prodCenter = null;
         try {
             //the HttpClient Interface represents the contract for the Http Request execution
             HttpClient client = HttpClientBuilder.create().build();
+
             //HttpHost holds variables needed for the connection DEFAULT PORTS:  http: 80, https: 443
             HttpHost host = new HttpHost("api.parkwhiz.com", 443, "https");
+
             //HttpGet retrieves the info identified by the request URI (in the form of an Entity
             HttpGet getPage = new HttpGet("/search/?key=b6a76a06d63d66ef9bbceebedd6c0c656b5bbc17&lat=42.335849&lng=-83.049848");
+
             //execute the http request and pull the response back
             String jsonStr = "";
             HttpResponse response = client.execute(host, getPage);
@@ -71,6 +55,9 @@ public class ParkWhizApiCalls {
         return null;
     }
 
+    //Here, we parse through the JSON object of data we just got, and store the information we actually care about.
+    //Inside the For Loop, we go through the array, and pull each piece of information
+    //This information goes to our Model, passes through our Getters, and is displayed on the parking.jsp Page in a table
     public static ArrayList<ParkingInfo> getParking(){
         ArrayList<ParkingInfo> parkingInfo = new ArrayList<ParkingInfo>();
         JSONObject json = parkingSearch();

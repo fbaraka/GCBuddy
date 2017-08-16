@@ -8,6 +8,7 @@ import org.json.JSONObject;
  * Created by michaelgleeson on 8/10/17.
  */
 public class ProfileGenerator {
+    //Method that pulls all information from Watson
     public static JSONObject generateProfile(String bio) {
         JSONObject profile;
         PersonalityInsights service = new PersonalityInsights("2016-10-20");
@@ -15,7 +16,7 @@ public class ProfileGenerator {
         service.setUsernameAndPassword("a30f0086-4ad9-4ebb-8dd2-5f683c97a295", "LwgIHm54RpQj");
         service.setEndPoint("https://gateway.watsonplatform.net/personality-insights/api");
         Profile watsonProfile = service.getProfile(bio).execute();
-        watsonProfile.getPersonality();
+//        watsonProfile.getPersonality();
         profile = new JSONObject(watsonProfile);
         return profile;
     }
