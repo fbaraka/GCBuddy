@@ -158,6 +158,29 @@ public class HomeController {
                 ModelAndView("profilepage", "message", "Test");
     }//
 
+    @RequestMapping(value = "/deleteUser")
+
+    public String deleteUser() {
+        dao.deleteUser(loginUser.getUserId());
+        return ("redirect:/");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
+
+    @RequestMapping(value = "/deleteMentor")
+
+    public String deleteMentor() {
+        dao.deleteMentor(loginUser.getUserId());
+        return ("redirect:/homepage");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
+
+    @RequestMapping(value = "/deleteMentee")
+
+    public String deleteMentee() {
+        dao.deleteMentee(loginUser.getUserId());
+        return ("redirect:/homepage");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping("/parking")
     public ModelAndView parking() {

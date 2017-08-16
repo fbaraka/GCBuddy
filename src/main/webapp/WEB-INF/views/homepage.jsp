@@ -40,6 +40,11 @@
 </head>
 
 <body>
+<a href="/deleteUser">Delete Account</a>
+<br>
+<a href="/deleteMentor">Delete Mentor</a>
+<br>
+<a href="/deleteMentee">Delete Mentee</a>
 <div class="jumbotron">
     <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
         <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"
@@ -130,8 +135,6 @@
 </div>
 <br>
 <br>
-<%--<div id="spotify"><iframe src="https://open.spotify.com/embed/user/226xxrllhbqjlluq5gd3ysu5q/playlist/3Jne5FQ9rLi8dl0UN7V2lc" width="300"--%>
-                          <%--height="380" frameborder="0" allowtransparency="true"></iframe></div>--%>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="resources/js/index.js"></script>
