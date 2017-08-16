@@ -29,6 +29,7 @@ public class HomeController {
     private UsersEntity loginUser;
     private String message;
     private boolean menteeSelected = false;
+    // the interface for the GCbuddyDao, outlines the methods for the Dao
 
 
     //Welcome Page, which leads to Login JSP(/login)
@@ -37,10 +38,11 @@ public class HomeController {
         message = "";
         return new
                 ModelAndView("welcome");
+        //Displays the welcome page, which takes us to the login page.
 
     }
 
-    //
+    //Leads to the login page
     @RequestMapping(value = "/login")
     public String login(Model model) {
         model.addAttribute("msg", message);
@@ -57,6 +59,7 @@ public class HomeController {
         } else {
             message = "WRONG EMAIL OR PASSWORD";
             return "redirect:login";
+            //Logins in user with e-mail and password, only if the e-mail and password is already in database.
         }
     }
 
@@ -65,6 +68,7 @@ public class HomeController {
     public String getToken() {
         return "dontLook";
     }
+    //directs oyu to the don't look page, which logs your auth token.
 
 
     @RequestMapping(value = "/RegistrationForm", method = RequestMethod.GET)
@@ -72,14 +76,19 @@ public class HomeController {
     public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
         String authToken = SlackApiCalls.getOAuthToken(tempCode);
         System.out.println(authToken);
+        //prints out the auth token from the dontlook page
         String usersId = SlackApiCalls.getUserId(authToken);
         System.out.println(usersId);
+        // prints out the userid from slack
         JSONObject userProfile = SlackApiCalls.getUserInfo(authToken);
         if (isUserRegistered(authToken) && !authToken.equalsIgnoreCase("")) {
+            // checks to see if the user is already in the data base, and if they are just automatically logs them in.
             loginUser = dao.getUserByAuth(authToken);
             return new ModelAndView("redirect:/homepage", "", "");
+
         }
         System.out.println(userProfile);
+        // prints the user profile lines for debugging purposes
         try {
             model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
         } catch (JSONException e) {
@@ -87,14 +96,11 @@ public class HomeController {
         }
         model.addAttribute("authToken", authToken);
         model.addAttribute("slackId", usersId);
+        // populated hidden fields in the user registration form to make UsersEntity.
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
+        // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
     }
 
-    @RequestMapping("/addtoslack")
-
-    public String slackPermissions() {
-        return "addToSlack";
-    }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 
@@ -105,25 +111,26 @@ public class HomeController {
         loginUser = dao.getUser(usersEntity.getEmail());
         return ("redirect:https://slack.com/oauth/authorize?scope=chat:write:user&client_id=219461147683.223751169686&redirect_uri=http://localhost:8080/homepage");
     }
+    //takes in the user entity, encrypts the password and stores this information in the database.
 
 
     @RequestMapping("/homepage")
     public String goHome(Model model) {
-        message = "";
         try {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } catch (NullPointerException E) {
             model.addAttribute("userPic", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
-        }
+        } // if the logged in user doesnt have a photo from slack, a generic photo is produced in its place.
         return "homepage";
     }
+    // after being stored in the database the user is returned to the homepage
 
     @RequestMapping("/mentorship")
 
-    public ModelAndView mentorPage() {
-        return new
-                ModelAndView("mentorship", "message", "Test");
-    }
+    public String mentorPage() {
+        return "mentorship";
+               
+    } // takes user to mentorship page where they can sign up to be a mentor or mentee.
 
 
     @RequestMapping("/profilepage")
@@ -141,7 +148,7 @@ public class HomeController {
 
         return new
                 ModelAndView("profilepage", "message", "Test");
-    }
+    }//
 
 
     @RequestMapping("/parking")

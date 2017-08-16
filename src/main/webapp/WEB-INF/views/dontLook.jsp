@@ -22,7 +22,7 @@
     document.getElementById('tempCode').value = code;
     window.onload = function(){
         document.forms['temp'].submit();
-    }
+    } //the page sumbits the tempcode and return the authtoken and takes you to the homepage.
 </script>
 </body>
 </html>

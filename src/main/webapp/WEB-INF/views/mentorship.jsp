@@ -27,9 +27,6 @@
         <a href="/menteeregistration" class="cta">Let's Go</a>
     </div>
 </div>
-<%--<a href="/homepage">Return to Home</a>--%>
-<%--<a href="/mentorregistration">Mentor</a>--%>
-<%--<a href="/menteeregistration">Mentee</a>--%>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 
 <script src="resources/js/mmJs.js"></script>
