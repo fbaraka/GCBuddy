@@ -89,16 +89,8 @@ public class HomeController {
     @RequestMapping(value = "/login")
     public String login(Model model) {
         model.addAttribute("button", "Sign in with Slack");
-        model.addAttribute("isLogin", true);
         model.addAttribute("msg", message);
         message = "";
-        return "login";
-    }
-
-    @RequestMapping(value = "/signUp")
-    public String signUp(Model model) {
-        model.addAttribute("button", "Connect with Slack");
-        model.addAttribute("isLogin", false);
         return "login";
     }
 
@@ -116,7 +108,7 @@ public class HomeController {
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 
-    public String homePage(UsersEntity usersEntity) {
+    public String addUser(UsersEntity usersEntity) {
         System.out.println(usersEntity);
         usersEntity.setPassword(CryptWithMD5.cryptWithMD5(usersEntity.getPassword()));
         dao.addUser(usersEntity);
@@ -128,12 +120,14 @@ public class HomeController {
 
     public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
 
-        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-        mentorsEntity.setAggreeableness(getAgree(profileJson));
-        mentorsEntity.setConscience(getConscience(profileJson));
-        mentorsEntity.setEmotion(getEmotion(profileJson));
-        mentorsEntity.setExtraversion(getExtro(profileJson));
-        mentorsEntity.setOpeness(getOpenness(profileJson));
+        if (answer.split(" ").length > 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            mentorsEntity.setAggreeableness(getAgree(profileJson));
+            mentorsEntity.setConscience(getConscience(profileJson));
+            mentorsEntity.setEmotion(getEmotion(profileJson));
+            mentorsEntity.setExtraversion(getExtro(profileJson));
+            mentorsEntity.setOpeness(getOpenness(profileJson));
+        }
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
@@ -147,12 +141,14 @@ public class HomeController {
     @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
     public ModelAndView addMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
 
-        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-        menteesEntity.setAggreeableness(getAgree(profileJson));
-        menteesEntity.setConscience(getConscience(profileJson));
-        menteesEntity.setEmotion(getEmotion(profileJson));
-        menteesEntity.setExtraversion(getExtro(profileJson));
-        menteesEntity.setOpeness(getOpenness(profileJson));
+        if (answer.split(" ").length > 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            menteesEntity.setAggreeableness(getAgree(profileJson));
+            menteesEntity.setConscience(getConscience(profileJson));
+            menteesEntity.setEmotion(getEmotion(profileJson));
+            menteesEntity.setExtraversion(getExtro(profileJson));
+            menteesEntity.setOpeness(getOpenness(profileJson));
+        }
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
@@ -168,9 +164,9 @@ public class HomeController {
         message = "";
         try {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
-        }catch (NullPointerException E){
-                model.addAttribute("userPic", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
-            }
+        } catch (NullPointerException E) {
+            model.addAttribute("userPic", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+        }
         return "homepage";
     }
 
@@ -188,7 +184,7 @@ public class HomeController {
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
-        if(!loginUser.getPhotoUrl().equals("")) {
+        if (!loginUser.getPhotoUrl().equals("")) {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } else {
             model.addAttribute("userPic", "https://secure.gravatar.com/avatar/a0e220c31d928457ac8a9754d2f75968.jpg?s=72&d=https%3A%2F%2Fa.slack-edge.com%2F66f9%2Fimg%2Favatars%2Fava_0015-72.png");
@@ -201,11 +197,11 @@ public class HomeController {
     @RequestMapping("mentor")
 
     public ModelAndView mentorPortal(Model model) {
-        ArrayList<MenteesEntity> mentorList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
+        ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
         model.addAttribute("msg", message);
         message = "";
         return new
-                ModelAndView("mmpage", "cList", mentorList);
+                ModelAndView("mmpage", "cList", menteeList);
     }
 
     @RequestMapping("mentee")
@@ -290,12 +286,14 @@ public class HomeController {
 
     @RequestMapping(value = "/updateMentee", method = RequestMethod.POST)
     public ModelAndView updateMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
-        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-        menteesEntity.setAggreeableness(getAgree(profileJson));
-        menteesEntity.setConscience(getConscience(profileJson));
-        menteesEntity.setEmotion(getEmotion(profileJson));
-        menteesEntity.setExtraversion(getExtro(profileJson));
-        menteesEntity.setOpeness(getOpenness(profileJson));
+        if (answer.split(" ").length > 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            menteesEntity.setAggreeableness(getAgree(profileJson));
+            menteesEntity.setConscience(getConscience(profileJson));
+            menteesEntity.setEmotion(getEmotion(profileJson));
+            menteesEntity.setExtraversion(getExtro(profileJson));
+            menteesEntity.setOpeness(getOpenness(profileJson));
+        }
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
@@ -306,12 +304,14 @@ public class HomeController {
 
     @RequestMapping(value = "/updateMentor", method = RequestMethod.POST)
     public ModelAndView updateMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
-        JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-        mentorsEntity.setAggreeableness(getAgree(profileJson));
-        mentorsEntity.setConscience(getConscience(profileJson));
-        mentorsEntity.setEmotion(getEmotion(profileJson));
-        mentorsEntity.setExtraversion(getExtro(profileJson));
-        mentorsEntity.setOpeness(getOpenness(profileJson));
+        if (answer.split(" ").length > 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            mentorsEntity.setAggreeableness(getAgree(profileJson));
+            mentorsEntity.setConscience(getConscience(profileJson));
+            mentorsEntity.setEmotion(getEmotion(profileJson));
+            mentorsEntity.setExtraversion(getExtro(profileJson));
+            mentorsEntity.setOpeness(getOpenness(profileJson));
+        }
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());

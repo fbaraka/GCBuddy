@@ -32,26 +32,25 @@
     </video>
 </div>
 <br>
-<c:if test="${isLogin}">
 <div class="wrapper">
     <div class="login is-active">
         <form:form action="/logInUser">
-            ${msg}<br>
             <div id="gclogo">
                 <img class="circular--square"
                      src="https://course_report_production.s3.amazonaws.com/rich/rich_files/rich_files/50/s300/grand-circus-logo.jpg"
                      width="100" height="100">
             </div>
             <div class="form-element">
+
+                <h4 style="color: red">${msg}</h4><br>
                 <span><i class="fa fa-envelope"></i></span><input type="email" placeholder="Your Email Address"
                                                                   name="email"/>
             </div>
             <div class="form-element">
                 <span><i class="fa fa-lock"></i></span><input type="password" placeholder=" Password" name="pass"/>
             </div>
-            <button class="btn-login" onclick="location.href='/homepage';">login</button>
+            <button class="btn-login" type="submit">login</button>
         </form:form>
-        </c:if>
         <div id="slackbutton">
             <%--<h3>${button}</h3>--%>
             <a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=219461147683.223751169686&redirect_uri=http://localhost:8080/dontLook">
