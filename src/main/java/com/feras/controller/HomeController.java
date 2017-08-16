@@ -30,36 +30,40 @@ public class HomeController {
     private String message;
     private boolean menteeSelected = false;
 
-    @RequestMapping("/")
 
+    //Welcome Page, which leads to Login JSP(/login)
+    @RequestMapping("/")
     public ModelAndView helloWorld() {
         message = "";
         return new
-                ModelAndView("welcome", "message", "Hello World");
+                ModelAndView("welcome");
 
     }
 
-    @RequestMapping("/parking")
+    //
+    @RequestMapping(value = "/login")
+    public String login(Model model) {
+        model.addAttribute("msg", message);
+        message = "";
+        return "login";
+    }
 
-    public ModelAndView parking() {
-        ArrayList<ParkingInfo> information = ParkWhizApiCalls.getParking();
-
-
-        return new
-                ModelAndView("parking", "c_List", information);
-
+    //Login Page
+    @RequestMapping(value = "/logInUser")
+    public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password) {
+        if (validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password)) != null) {
+            loginUser = validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password));
+            return "redirect:/homepage";
+        } else {
+            message = "WRONG EMAIL OR PASSWORD";
+            return "redirect:login";
+        }
     }
 
     @RequestMapping("/dontLook")
 
     public String getToken() {
         return "dontLook";
-    }
-
-    @RequestMapping("/addtoslack")
-
-    public String slackPermissions() {
-        return "addToSlack";
     }
 
 
@@ -86,25 +90,11 @@ public class HomeController {
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
     }
 
-    @RequestMapping(value = "/login")
-    public String login(Model model) {
-        model.addAttribute("button", "Sign in with Slack");
-        model.addAttribute("msg", message);
-        message = "";
-        return "login";
-    }
+    @RequestMapping("/addtoslack")
 
-    @RequestMapping(value = "/logInUser")
-    public String logUserIn(@RequestParam("email") String email, @RequestParam("pass") String password) {
-        if (validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password)) != null) {
-            loginUser = validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password));
-            return "redirect:/homepage";
-        } else {
-            message = "WRONG EMAIL OR PASSWORD";
-            return "redirect:login";
-        }
+    public String slackPermissions() {
+        return "addToSlack";
     }
-
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
 
@@ -114,48 +104,6 @@ public class HomeController {
         dao.addUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
         return ("redirect:https://slack.com/oauth/authorize?scope=chat:write:user&client_id=219461147683.223751169686&redirect_uri=http://localhost:8080/homepage");
-    }
-
-    @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
-
-    public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
-
-        if (answer.split(" ").length > 100) {
-            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-            mentorsEntity.setAggreeableness(getAgree(profileJson));
-            mentorsEntity.setConscience(getConscience(profileJson));
-            mentorsEntity.setEmotion(getEmotion(profileJson));
-            mentorsEntity.setExtraversion(getExtro(profileJson));
-            mentorsEntity.setOpeness(getOpenness(profileJson));
-        }
-        mentorsEntity.setMentorId(loginUser.getUserId());
-        mentorsEntity.setFirstName(loginUser.getFirstName());
-        mentorsEntity.setLastName(loginUser.getLastName());
-        mentorsEntity.setSlackId(loginUser.getSlackId());
-        dao.addMentor(mentorsEntity);
-
-        return mentorPortal(model);
-    }
-
-
-    @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
-    public ModelAndView addMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
-
-        if (answer.split(" ").length > 100) {
-            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
-            menteesEntity.setAggreeableness(getAgree(profileJson));
-            menteesEntity.setConscience(getConscience(profileJson));
-            menteesEntity.setEmotion(getEmotion(profileJson));
-            menteesEntity.setExtraversion(getExtro(profileJson));
-            menteesEntity.setOpeness(getOpenness(profileJson));
-        }
-        menteesEntity.setMenteeId(loginUser.getUserId());
-        menteesEntity.setFirstName(loginUser.getFirstName());
-        menteesEntity.setLastName(loginUser.getLastName());
-        menteesEntity.setSlackId(loginUser.getSlackId());
-        dao.addMentee(menteesEntity);
-
-        return menteePage(model);
     }
 
 
@@ -177,6 +125,7 @@ public class HomeController {
                 ModelAndView("mentorship", "message", "Test");
     }
 
+
     @RequestMapping("/profilepage")
 
     public ModelAndView profilePage(Model model) {
@@ -194,24 +143,15 @@ public class HomeController {
                 ModelAndView("profilepage", "message", "Test");
     }
 
-    @RequestMapping("mentor")
 
-    public ModelAndView mentorPortal(Model model) {
-        ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
-        model.addAttribute("msg", message);
-        message = "";
+    @RequestMapping("/parking")
+    public ModelAndView parking() {
+        ArrayList<ParkingInfo> information = ParkWhizApiCalls.getParking();
+
+
         return new
-                ModelAndView("mmpage", "cList", menteeList);
-    }
+                ModelAndView("parking", "c_List", information);
 
-    @RequestMapping("mentee")
-
-    public ModelAndView menteePage(Model model) {
-        ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
-        model.addAttribute("msg", message);
-        message = "";
-        return new
-                ModelAndView("mmpage", "cList", mentorList);
     }
 
     @RequestMapping(value = "/mentorregistration", method = RequestMethod.GET)
@@ -284,6 +224,47 @@ public class HomeController {
                 ModelAndView("mentorshipRegistration", "command", new MenteesEntity());
     }
 
+    @RequestMapping(value = "/addMentor", method = RequestMethod.POST)
+
+    public ModelAndView addMentor(MentorsEntity mentorsEntity, Model model, @RequestParam("answer") String answer) {
+
+        if (answer.split(" ").length >= 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            mentorsEntity.setAggreeableness(getAgree(profileJson));
+            mentorsEntity.setConscience(getConscience(profileJson));
+            mentorsEntity.setEmotion(getEmotion(profileJson));
+            mentorsEntity.setExtraversion(getExtro(profileJson));
+            mentorsEntity.setOpeness(getOpenness(profileJson));
+        }
+        mentorsEntity.setMentorId(loginUser.getUserId());
+        mentorsEntity.setFirstName(loginUser.getFirstName());
+        mentorsEntity.setLastName(loginUser.getLastName());
+        mentorsEntity.setSlackId(loginUser.getSlackId());
+        dao.addMentor(mentorsEntity);
+
+        return mentorPortal(model);
+    }
+
+    @RequestMapping(value = "/addMentee", method = RequestMethod.POST)
+    public ModelAndView addMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
+
+        if (answer.split(" ").length >= 100) {
+            JSONObject profileJson = ProfileGenerator.generateProfile(answer);
+            menteesEntity.setAggreeableness(getAgree(profileJson));
+            menteesEntity.setConscience(getConscience(profileJson));
+            menteesEntity.setEmotion(getEmotion(profileJson));
+            menteesEntity.setExtraversion(getExtro(profileJson));
+            menteesEntity.setOpeness(getOpenness(profileJson));
+        }
+        menteesEntity.setMenteeId(loginUser.getUserId());
+        menteesEntity.setFirstName(loginUser.getFirstName());
+        menteesEntity.setLastName(loginUser.getLastName());
+        menteesEntity.setSlackId(loginUser.getSlackId());
+        dao.addMentee(menteesEntity);
+
+        return menteePage(model);
+    }
+
     @RequestMapping(value = "/updateMentee", method = RequestMethod.POST)
     public ModelAndView updateMentee(MenteesEntity menteesEntity, Model model, @RequestParam("answer") String answer) {
         if (answer.split(" ").length > 100) {
@@ -318,6 +299,26 @@ public class HomeController {
         dao.updateMentor(mentorsEntity);
 
         return menteePage(model);
+    }
+
+    @RequestMapping("mentor")
+
+    public ModelAndView mentorPortal(Model model) {
+        ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
+        model.addAttribute("msg", message);
+        message = "";
+        return new
+                ModelAndView("mmpage", "cList", menteeList);
+    }
+
+    @RequestMapping("mentee")
+
+    public ModelAndView menteePage(Model model) {
+        ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
+        model.addAttribute("msg", message);
+        message = "";
+        return new
+                ModelAndView("mmpage", "cList", mentorList);
     }
 
     @RequestMapping(value = "/sendmessage")

@@ -52,7 +52,6 @@
             <button class="btn-login" type="submit">login</button>
         </form:form>
         <div id="slackbutton">
-            <%--<h3>${button}</h3>--%>
             <a href="https://slack.com/oauth/authorize?scope=identity.basic&client_id=219461147683.223751169686&redirect_uri=http://localhost:8080/dontLook">
                 <img id="slack" alt="Sign in with Slack" height="40" width="172"
                      src="https://platform.slack-edge.com/img/sign_in_with_slack.png"
