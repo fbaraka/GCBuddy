@@ -24,31 +24,31 @@
 
 <div class="row">
     <center>
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-sm-4">
             <div class="coach-card">
-                <img src="${userPic}" width="100" height="100">
-
+                <img src=${userPic}
+                     class="coach-img">
                 <div class="row coach-info">
                     <div class="col-md-1"></div>
                     <div class="col-md-5 ">
-                            <h2 style="text-align: center">
+                        <div class="coach-info-text">
                         <span class="grey-text">
-                            ${firstName}
-                        </span><br>
-                                <span class="white-text">
-                                    ${lastName}
-                                </span>
-                            </h2>
+
+                        </span>
+                            <span  class="white-text" >
+                                <div class= text-align:"center"> </div>
+                            ${firstName} ${lastName}
+                        </span>
+                        </div>
                         <hr class="sep-line">
                     </div>
                     <div class="col-md-5">
                         <div class="coach-info-text">
                         <span class="grey-text">
-                            ${Mentor/Mentee}
+                            Bootcamp
                         </span><br>
                             <span class="white-text">
-                            Mentor
+                            ${bootCamp}
                         </span>
                         </div>
                         <hr class="sep-line">
@@ -57,51 +57,31 @@
                 <div class="coach-details">
                     <div class="row">
                         <div class="col-sm-6">
-                            <span class="coach-name"><p>${firstName},${lastName}</p></span>
-                            <span class="coach-job"><p>${email}</p></span>
+                            <span class="coach-name"><p>${email}</p></span>
+                            <span class="coach-job"><p>${languages}</p></span>
                         </div>
                         <div class="col-sm-6">
-                            <img src="" width="50">
                         </div>
                     </div>
                 </div>
-                <div class="coach-desc">
-                    <div class="row">
-                        <div class="row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-3 tarrif">
-                            <span class="pers-count">
-                                Langauge
-                            </span><br>
-                                <span class="pers-tarrif">
-                                Java
-                            </span>
-                            </div>
-                            <div class="col-sm-3 tarrif">
-                            <span class="pers-count">
-                                Langauge
-                            </span><br>
-                                <span class="pers-tarrif">
-                                JavaScript
-                            </span>
-                            </div>
-                            <div class="col-sm-3 tarrif-no-right">
-                            <span class="pers-count">
-                                Language
-                            </span><br>
-                                <span class="pers-tarrif">
-                                HTML/CSS
-                            </span>
-                            </div>
-                        </div>
 
-                        <div class="coach-reserve-btn">
-                            <a href="#" class="btn btn-danger btn-block"><a href="/homepage">Return to Home</a></a>
+                    <div class="coach-desc-text">
+                        <div class="row">
+                            Originaire de Saint Gervais, j’ai 19 ans et je
+                            suis passionné par le ski.
+                            je passe le diplôme de monitorat ESF.
+                            De bons conseils et je peux accompagner
+                            des skieurs de tout niveaux.
                         </div>
+                    </div>
+                    <div class="coach-reserve-btn">
+                        <a href="#" class="btn btn-danger btn-block">RESERVER</a>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4"></div>
+        </div>
+</div>
+
     </center>
 
 </div>

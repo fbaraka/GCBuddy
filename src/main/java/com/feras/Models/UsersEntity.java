@@ -24,6 +24,7 @@ public class UsersEntity {
     private String authToken;
     private String slackId;
     private String photoUrl;
+    private String city;
 
     @Basic
     @Column(name = "email", nullable = true, length = 45)

@@ -148,6 +148,10 @@ public class HomeController {
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
+        model.addAttribute("bootcamp", loginUser.getBootcamp());
+        model.addAttribute("mentor",loginUser.getLanguages());
+        model.addAttribute("languages",loginUser.getBootcamp());
+
         if (!loginUser.getPhotoUrl().equals("")) {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } else {
