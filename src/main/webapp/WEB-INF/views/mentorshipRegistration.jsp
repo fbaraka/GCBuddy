@@ -744,7 +744,7 @@
                 <h1>Hey there ${desc}</h1>
                     <!-- form -->
                         <%--<form id="subscribe-form">--%>
-                        <%--<input type="email" name="email" placeholder="Your Email Please" class="email-form" required>--%>
+                        <%--<input type="email" locationName="email" placeholder="Your Email Please" class="email-form" required>--%>
                         <%--<button type="submit" class="button">Subscribe</button>--%>
                         <%--</form>--%>
                     <p>You are already a ${desc} in theses desciplines: <p class="disciplines"> ${disciplines}</p></p>
