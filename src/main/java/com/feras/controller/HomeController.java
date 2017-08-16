@@ -9,8 +9,8 @@ import com.feras.Models.MentorsEntity;
 import com.feras.Models.ParkingInfo;
 import com.feras.Models.UsersEntity;
 import com.feras.PasswordEncryption.CryptWithMD5;
-import com.feras.Watson.MatchMaker;
-import com.feras.Watson.ProfileGenerator;
+import com.feras.API.Watson.MatchMaker;
+import com.feras.API.Watson.ProfileGenerator;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -30,15 +30,17 @@ public class HomeController {
     private String message;
     private boolean menteeSelected = false;
     // the interface for the GCbuddyDao, outlines the methods for the Dao
-
+    // there is also a global variable of UsersEntity, called loginUser. We use this in order to assign who is logged in at
+    //   -- time. This is how we know what information to call from our database. This is all set in /RegistrationForm or /logInUser
+    // the global String variable message is used throughout our program to display status messages of certain functions.
 
     //Welcome Page, which leads to Login JSP(/login)
     @RequestMapping("/")
-    public ModelAndView helloWorld() {
-        message = "";
-        return new
-                ModelAndView("welcome");
-        //Displays the welcome page, which takes us to the login page.
+    public String helloWorld() {
+
+        return "welcome";
+        // Displays the welcome page, which takes us to the login page.
+
 
     }
 
@@ -57,9 +59,14 @@ public class HomeController {
             loginUser = validEmailAndPass(email, CryptWithMD5.cryptWithMD5(password));
             return "redirect:/homepage";
         } else {
+
             message = "WRONG EMAIL OR PASSWORD";
             return "redirect:login";
             //Logins in user with e-mail and password, only if the e-mail and password is already in database.
+            // validEmailAndPass returns a userEntity, using the requestparams in logUserIn, which is then assigned to the loginUser global variable.
+            // validEmailAndPass also checks to see if there is a null value for the user.
+            // the redirects are in if/else statements, to point the user in the right direction.
+
         }
     }
 
@@ -68,13 +75,14 @@ public class HomeController {
     public String getToken() {
         return "dontLook";
     }
-    //directs oyu to the don't look page, which logs your auth token.
+    //directs you to the don't look page, which logs your auth token.
+    //refer to our dontLook.jsp to see the javascript that grabs the temporary token.
 
 
     @RequestMapping(value = "/RegistrationForm", method = RequestMethod.GET)
 
     public ModelAndView RegistrationForm(Model model, @RequestParam("tempCode") String tempCode) {
-        String authToken = SlackApiCalls.getOAuthToken(tempCode);
+        String authToken = SlackApiCalls.getOAuthToken(tempCode); // this is where we convert the tempCode into an authToken, refer to the method getAuthToken to see how this is done
         System.out.println(authToken);
         //prints out the auth token from the dontlook page
         String usersId = SlackApiCalls.getUserId(authToken);
@@ -363,6 +371,7 @@ public class HomeController {
     private UsersEntity validEmailAndPass(String email, String pass) {
         return dao.getUser(email, pass);
     }
+    // only used in our logUserIn method to check our database for a particular user, passing in the above parameters
 
     private boolean isMentee() {
         try {

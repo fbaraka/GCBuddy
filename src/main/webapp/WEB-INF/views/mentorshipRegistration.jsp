@@ -658,77 +658,7 @@
 <c:choose>
     <c:when test="${isMentor}">
         <form:form name="mentorRegistration" action="${action}" method="POST">
-            <!-- progressbar -->
-            <ul id="progressbar">
-                <li class="active">Mentorship</li>
-                <li>Smart Profile 1/2</li>
-                <li>Smart Profile 2/2</li>
-            </ul>
-            <!-- fieldsets -->
-            <fieldset>
-                <h2 class="fs-title">Mentorship Registration</h2>
-                <h3 class="fs-subtitle">Languages</h3>
-                What disciplines are you proficient in? <br>
-                <br>
-                <br>
-                <input name="disciplines" type="checkbox" value="Java" tabindex="7" autofocus>
-                <label>Java</label>
-                <br>
-                <br>
-                <input name="disciplines" type="checkbox" value="C#/.Net" tabindex="8">
-                <label>C#/.Net</label>
-                <br>
-                <br>
-                <input name="disciplines" type="checkbox" value="Javascript" tabindex="9">
-                <label>Javascript</label>
-                <br>
-                <br>
-                <input name="disciplines" type="checkbox" value="HTML/CSS" tabindex="10">
-                <label>HTML/CSS</label>
-                <br>
-                <br>
-                <input name="disciplines" type="checkbox" value="Python" tabindex="11">
-                <label>Python</label>
-                <br>
-                <br>
-                <br>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Smart Profile 1/2</h2>
-                <h3 class="fs-subtitle">Questions</h3>
-                If you would like to be matched by your personality using IBM Watson technology, Please answer the
-                following questions. (The more detail you use, the better match you will find)<br><br>
-                What are three words you would use to describe yourself and why?<br>
-                <textarea name="answer" cols="30" rows="3" placeholder="Please use no less than 20 words!"
-                          style="color: black"></textarea>
-                <br>
-                How would someone else describe you after meeting you for the first time?<br>
-                <textarea name="answer" cols="30" rows="2" placeholder="Please use no less than 20 words!"
-                          style="color: black"></textarea>
-                <br>
-                <input type="button" name="previous" class="previous action-button" value="Previous"/>
-                <input type="button" name="next" class="next action-button" value="Next"/>
-            </fieldset>
-            <fieldset>
-                <h2 class="fs-title">Smart Profile 2/2</h2>
-                <h3 class="fs-subtitle">Questions</h3>
-                <br>
-                Tell us about a time you were met with a challenge. How did you approach the challenge. What was the outcome?<br>
-                <textarea name="answer" cols="30" rows="2" placeholder="Please use no less than 20 words!"
-                          style="color: black"></textarea>
-                <br>
-                Describe your ideal work environment.<br>
-                <textarea name="answer" cols="30" rows="2" placeholder="Please use no less than 20 words!"
-                          style="color: black"></textarea>
-                <br>
-                How do you deal with pressure or stressful situations?<br>
-                <textarea name="answer" cols="30" rows="2" placeholder="Please use no less than 20 words!"
-                          style="color: black"></textarea>
-                <br>
-                <input type="button" name="previous" class="previous action-button" value="Previous"/>
-                <input type="submit" name="submit" class="next action-button" value="Submit"/>
-            </fieldset>
+
 
         </form:form>
     </c:when>
@@ -791,6 +721,5 @@
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 
-<script src="resources/js/index.js"></script>
 </body>
 </html>

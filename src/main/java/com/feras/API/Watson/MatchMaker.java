@@ -1,8 +1,7 @@
-package com.feras.Watson;
+package com.feras.API.Watson;
 
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
-import com.feras.Models.UsersEntity;
 
 import java.util.ArrayList;
 
