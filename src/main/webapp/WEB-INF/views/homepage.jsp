@@ -96,7 +96,7 @@
                 </ul>
             </div>
             <div class='stockPhoto'>
-                <img src="http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg" width="100" height="100">
+                <img src="${userPic}" width="100" height="100">
             </div>
             <p>Click below.</p>
         </div>

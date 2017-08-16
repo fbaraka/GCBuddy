@@ -27,7 +27,7 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="coach-card">
-                <img src=<"https://pbs.twimg.com/profile_images/488696911520464897/_vxJsWQW.png">
+                <img src=<"${userPic}">
 
                 <div class="row coach-info">
                     <div class="col-md-1"></div>

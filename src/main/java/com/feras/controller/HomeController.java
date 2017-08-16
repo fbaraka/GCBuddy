@@ -1,8 +1,8 @@
 package com.feras.controller;
 
 import com.feras.API.ParkWhizApiCalls;
-import com.feras.Dao.GCBuddyDao;
 import com.feras.API.SlackApiCalls;
+import com.feras.Dao.GCBuddyDao;
 import com.feras.DaoFactory.DaoFactory;
 import com.feras.Models.MenteesEntity;
 import com.feras.Models.MentorsEntity;
@@ -76,7 +76,11 @@ public class HomeController {
             return new ModelAndView("redirect:/homepage", "", "");
         }
         System.out.println(userProfile);
-
+        try {
+            model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         model.addAttribute("authToken", authToken);
         model.addAttribute("slackId", usersId);
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
@@ -160,8 +164,13 @@ public class HomeController {
 
 
     @RequestMapping("/homepage")
-    public String goHome() {
+    public String goHome(Model model) {
         message = "";
+        try {
+            model.addAttribute("userPic", loginUser.getPhotoUrl());
+        }catch (NullPointerException E){
+                model.addAttribute("userPic", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+            }
         return "homepage";
     }
 
@@ -179,7 +188,7 @@ public class HomeController {
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
-        model.addAttribute("BioBlurb", loginUser.getBioBlurb());
+        model.addAttribute("userPic", loginUser.getPhotoUrl());
 
         return new
                 ModelAndView("profilepage", "message", "Test");
@@ -318,11 +327,13 @@ public class HomeController {
         if (menteeSelected) {
             ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
             model.addAttribute("msg", message);
+            message = "";
             return new
                     ModelAndView("mmpage", "cList", mentorList);
         } else {
             ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
             model.addAttribute("msg", message);
+            message = "";
             return new
                     ModelAndView("mmpage", "cList", menteeList);
         }

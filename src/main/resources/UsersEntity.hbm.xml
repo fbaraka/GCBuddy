@@ -23,15 +23,6 @@
         <property name="languages">
             <column name="Languages" sql-type="varchar(140)" length="140" not-null="true"/>
         </property>
-        <property name="experience">
-            <column name="Experience" sql-type="varchar(140)" length="140" not-null="true"/>
-        </property>
-        <property name="bioBlurb">
-            <column name="BioBlurb" sql-type="varchar(255)" not-null="true"/>
-        </property>
-        <property name="isAbleToMentor">
-            <column name="isAbleToMentor" sql-type="bit(1)" not-null="true"/>
-        </property>
         <property name="isAlumni">
             <column name="isAlumni" sql-type="bit(1)" not-null="true"/>
         </property>
@@ -46,6 +37,9 @@
         </property>
         <property name="slackId">
             <column name="slackId" sql-type="varchar(45)" length="45" not-null="true"/>
+        </property>
+        <property name="photoUrl">
+            <column name="photoUrl" sql-type="varchar(140)" length="255" not-null="true"/>
         </property>
     </class>
 </hibernate-mapping>

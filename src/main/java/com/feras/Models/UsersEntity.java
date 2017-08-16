@@ -23,6 +23,7 @@ public class UsersEntity {
     private Boolean isAlumni;
     private String authToken;
     private String slackId;
+    private String photoUrl;
 
     @Basic
     @Column(name = "email", nullable = true, length = 45)
@@ -130,35 +131,6 @@ public class UsersEntity {
         this.languages = languages;
     }
 
-    @Basic
-    @Column(name = "Experience", nullable = true, length = 140)
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
-    }
-
-    @Basic
-    @Column(name = "BioBlurb", nullable = true, length = 255)
-    public String getBioBlurb() {
-        return bioBlurb;
-    }
-
-    public void setBioBlurb(String bioBlurb) {
-        this.bioBlurb = bioBlurb;
-    }
-
-    @Basic
-    @Column(name = "isAbleToMentor", nullable = true)
-    public Boolean getAbleToMentor() {
-        return isAbleToMentor;
-    }
-
-    public void setAbleToMentor(Boolean ableToMentor) {
-        isAbleToMentor = ableToMentor;
-    }
 
     @Basic
     @Column(name = "isAlumni", nullable = true)
@@ -210,5 +182,15 @@ public class UsersEntity {
 
     public void setSlackId(String slackId) {
         this.slackId = slackId;
+    }
+
+    @Basic
+    @Column(name = "photoUrl", nullable = true, length = 255)
+    public String getPhotoUrl() {
+        return photoUrl;
+    }
+
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 }

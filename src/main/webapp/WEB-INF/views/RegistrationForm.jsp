@@ -68,6 +68,7 @@
         <input type="submit" name="submit" class="next action-button" value="Submit"/>
         <input type="hidden" name="authToken" value="${authToken}">
         <input type="hidden" name="slackId" value="${slackId}">
+        <input type="hidden" name="photoUrl" value="${photoUrl}">
     </fieldset>
 </form:form>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
