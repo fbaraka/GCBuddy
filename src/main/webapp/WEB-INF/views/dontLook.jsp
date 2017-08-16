@@ -16,13 +16,13 @@
 </form>
 
 <script>
-    var url_string = window.location.href;
-    var url = new URL(url_string);
-    var code = url.searchParams.get("code");
-    document.getElementById('tempCode').value = code;
-    window.onload = function(){
+    var url_string = window.location.href; // this is a command used in javascript in order to assign the url in the current window as a variable
+    var url = new URL(url_string); // we then take that url_string and assign it as a url here
+    var code = url.searchParams.get("code"); // a search happens through the url for the word "code"
+    document.getElementById('tempCode').value = code; // this is where we grab the "element" (the hidden text field) and place the variable "code" from above, inside
+    window.onload = function(){ // this is how we automatically submit the page, and the form, right when it loads up.
         document.forms['temp'].submit();
-    } //the page sumbits the tempcode and return the authtoken and takes you to the homepage.
+    } //the page submits the tempcode and then takes us to the RegistrationForm.jsp, which is in the action of the form
 </script>
 </body>
 </html>

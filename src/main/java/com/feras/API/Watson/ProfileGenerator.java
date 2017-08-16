@@ -1,4 +1,4 @@
-package com.feras.Watson;
+package com.feras.API.Watson;
 
 import com.ibm.watson.developer_cloud.personality_insights.v3.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
