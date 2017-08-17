@@ -35,6 +35,11 @@ public class HomeController {
     //   -- time. This is how we know what information to call from our database. This is all set in /RegistrationForm or /logInUser
     // the global String variable message is used throughout our program to display status messages of certain functions.
 
+
+    /**
+     * LOGIN/LOGOUT/REGISTRATION
+     * Beginning of Authentication Methods
+     */
     //Welcome Page, which leads to Login JSP(/login)
     @RequestMapping("/")
     public String helloWorld() {
@@ -120,7 +125,31 @@ public class HomeController {
         // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
     }
 
+    private boolean isUserRegistered(String authToken) {
+        for (UsersEntity user : dao.getAllUsers()) {
+            if (user.getAuthToken().equals(authToken)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
+    private UsersEntity validEmailAndPass(String email, String pass) {
+        return dao.getUser(email, pass);
+    }
+    // only used in our logUserIn method to check our database for a particular user, passing in the above parameters
+
+    /**
+     * LOGIN/LOGOUT/REGISTRATION
+     * End of Authentication Methods
+     */
+
+
+    /**
+     *
+     * BEGINNING OF CRUD OPERATIONS
+     * Everything here interacts with the Database
+     */
     //added this method to update the users info, created a copy of the RegisterForm.jsp named updateForm and changed a few things
     @RequestMapping(value = "/editUser", method = RequestMethod.GET)
 
@@ -166,7 +195,41 @@ public class HomeController {
     }
     //takes in the user entity, encrypts the password and stores this information in the database.
 
+    @RequestMapping(value = "/deleteUser")
 
+    public String deleteUser() {
+        dao.deleteUser(loginUser.getUserId());
+        return ("redirect:/");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
+
+    @RequestMapping(value = "/deleteMentor")
+
+    public String deleteMentor() {
+        dao.deleteMentor(loginUser.getUserId());
+        return ("redirect:/profilepage");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
+
+    @RequestMapping(value = "/deleteMentee")
+
+    public String deleteMentee() {
+        dao.deleteMentee(loginUser.getUserId());
+        return ("redirect:/profilepage");
+    }
+    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
+    /**
+     *
+     * END OF CRUD OPERATIONS
+     * Everything here interacts with the Database
+     */
+
+
+    /**
+     * BEGINNING OF HOMEPAGE
+     * Everything from here branches off of the Homepage
+     *
+     */
     @RequestMapping("/homepage")
     public String goHome(Model model) {
 
@@ -237,31 +300,7 @@ public class HomeController {
 
         return new
                 ModelAndView("profilepage", "message", "Test");
-    }//
-
-    @RequestMapping(value = "/deleteUser")
-
-    public String deleteUser() {
-        dao.deleteUser(loginUser.getUserId());
-        return ("redirect:/");
     }
-    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
-
-    @RequestMapping(value = "/deleteMentor")
-
-    public String deleteMentor() {
-        dao.deleteMentor(loginUser.getUserId());
-        return ("redirect:/profilepage");
-    }
-    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
-
-    @RequestMapping(value = "/deleteMentee")
-
-    public String deleteMentee() {
-        dao.deleteMentee(loginUser.getUserId());
-        return ("redirect:/profilepage");
-    }
-    //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping("/parking")
     public ModelAndView parking(Model model) {
@@ -276,7 +315,17 @@ public class HomeController {
                 ModelAndView("parking", "c_List", information);
 
     }
+    /**
+     * END OF HOMEPAGE
+     * Everything from here branches off of the Homepage
+     *
+     */
 
+    /**
+     *
+     * BEGINNING OF MENTORSHIP PORTAL
+     * Includes CRUD operations for Mentor/Mentee
+     */
     @RequestMapping(value = "/mentorregistration", method = RequestMethod.GET)
 
     public ModelAndView mentorReg(Model model) {
@@ -490,43 +539,6 @@ public class HomeController {
                 ModelAndView("mmpage", "cList", mentorList);
     }
 
-    @RequestMapping(value = "/sendmessage")
-    public String sendSlackMessage(Model model, @RequestParam("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request) {
-        message = SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(), slackId, slackMessage, loginUser.getSlackId());
-        return "redirect:messageRedirect";
-    }
-
-    @RequestMapping("messageRedirect")
-    public ModelAndView messageRedirect(Model model) {
-        if (menteeSelected) {
-            ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
-            model.addAttribute("msg", message);
-            message = "";
-            return new
-                    ModelAndView("mmpage", "cList", mentorList);
-        } else {
-            ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
-            model.addAttribute("msg", message);
-            message = "";
-            return new
-                    ModelAndView("mmpage", "cList", menteeList);
-        }
-    }
-
-    private boolean isUserRegistered(String authToken) {
-        for (UsersEntity user : dao.getAllUsers()) {
-            if (user.getAuthToken().equals(authToken)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private UsersEntity validEmailAndPass(String email, String pass) {
-        return dao.getUser(email, pass);
-    }
-    // only used in our logUserIn method to check our database for a particular user, passing in the above parameters
-
     private boolean isMentee() {
         try {
             UsersEntity test = dao.getUser(dao.getMentee(loginUser.getUserId()).getMenteeId());
@@ -550,7 +562,57 @@ public class HomeController {
         }
         return false;
     }
+    /**
+     *
+     * END OF MENTORSHIP PORTAL
+     * Includes CRUD operations for Mentor/Mentee
+     */
 
+    /**
+     *
+     * BEGINNING
+     * MESSAGING OPERATIONS
+     *
+     *
+     *
+     */
+    @RequestMapping(value = "/sendmessage")
+    public String sendSlackMessage(Model model, @RequestParam("slackMessage") String slackMessage, @RequestParam("slackId") String slackId, HttpServletRequest request) {
+        message = SlackApiCalls.sendDirectMessage(loginUser.getAuthToken(), slackId, slackMessage, loginUser.getSlackId());
+        return "redirect:messageRedirect";
+    }
+
+    @RequestMapping("messageRedirect")
+    public ModelAndView messageRedirect(Model model) {
+        if (menteeSelected) {
+            ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
+            model.addAttribute("msg", message);
+            message = "";
+            return new
+                    ModelAndView("mmpage", "cList", mentorList);
+        } else {
+            ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
+            model.addAttribute("msg", message);
+            message = "";
+            return new
+                    ModelAndView("mmpage", "cList", menteeList);
+        }
+    }
+    /**
+     *
+     * END
+     * MESSAGING OPERATIONS
+     *
+     *
+     *
+     */
+
+
+    /**
+     *
+     * Beginning of Watson API
+     * Each method takes a JSON object, and returns the respective value
+     */
     private double getOpenness(JSONObject profileJson) {
         double openness = 0.0;
         try {
@@ -602,4 +664,9 @@ public class HomeController {
         }
         return agree;
     }
+    /**
+     *
+     * End of Watson API
+     * Each method takes a JSON object, and returns the respective value
+     */
 }
