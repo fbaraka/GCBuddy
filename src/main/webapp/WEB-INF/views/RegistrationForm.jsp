@@ -42,7 +42,6 @@
         <h3 class="fs-subtitle">Contact Information</h3>
         <input type="email" name="email" id="email" placeholder="Email" value="${email}" required>
         <input type="email" name="checkEmail" id="checkEmail" placeholder="Confirm Email" required>
-        <input type="tel" name="phone" id="phone" placeholder="Phone Number">
         <input type="text" name="city" id="city" placeholder="City" required>
         <input type="button" name="previous" class="previous action-button" value="Previous"/>
         <input type="button" name="next" class="next action-button" value="Next"/>

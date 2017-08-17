@@ -50,7 +50,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body style="background: #E2E4E6;">
+<body style="background: #E2E4E6;" onload="displayMessage()">
 
 <%--navbar was taken from bootstraps site and tweaked for our purpose--%>
 <%--it needs the bootstrap imports to work--%>
@@ -89,7 +89,7 @@
     <h4 style="text-align: center">This list is ordered using IBM Watson technology to match personalities based on the answers you provided in the mentorship registration.</h4>
 </div>
 
-<h5 style="color: green;">${msg}</h5>
+<h5 style="color: green;" id="msg">${msg}</h5>
 <div class="row" style="background: #E2E4E6;">
     <c:forEach items="${cList}" var="user">
         <div class="col-md-6">
@@ -118,6 +118,15 @@
     </c:forEach>
 </div>
 
+<script>
+    var message = document.getElementById("msg").innerText;
+
+    function displayMessage() {
+        if (message != "") {
+            alert(message);
+        }
+    }
+</script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
 <!-- Latest compiled and minified JavaScript -->
