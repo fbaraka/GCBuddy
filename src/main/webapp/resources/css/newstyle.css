@@ -154,7 +154,7 @@ body .ui_box h2 {
   font-size: 16px;
   margin: -4px 0px 3px 0px;
 }
-body .ui_box p {
+body .ui_box p, #uprof {
   font-size: 11px;
   color: #b6b6b6;
   clear: left;

@@ -79,6 +79,9 @@
             <div class='arrow'></div>
         </div>
     </div>
+
+
+
     <div class='ui_box'>
         <div class='ui_box__inner'>
             <h2>
@@ -100,19 +103,31 @@
                         Coding Languages
                     </li>
                 </ul>
-            </div>
-            <div class='stockPhoto'>
-                <img src="${userPic}" width="100" height="100">
-            </div>
-            <p>Click below.</p>
-        </div>
-        <div class='drop'>
-            <p><a href="profilepage">User Profile</a></p>
-            <div class='arrow'>
 
             </div>
+
+            <div class='stockPhoto'>
+                <img src="${userPic}" width="100" height="100">
+
+            </div>
+
+
         </div>
+
+        <%--<div class='drop'>--%>
+            <%--&lt;%&ndash;<button type="button" onclick="profilepage">View Your Profile</button>&ndash;%&gt;--%>
+            <%--&lt;%&ndash;<input type="button" value="View Your Profile">&ndash;%&gt;--%>
+            <%--<a style="height:100%" href="profilepage">View Your Profile</a>--%>
+            <%--&lt;%&ndash;<div class='arrow'></div>&ndash;%&gt;--%>
+        <%--</div>--%>
+        <div class='drop'>
+            <p><a href="profilepage">View Profile</a></p>
+            <div class='arrow'></div>
+        </div>
+
     </div>
+
+
     <div class='ui_box'>
         <div class='ui_box__inner'>
             <h2>
