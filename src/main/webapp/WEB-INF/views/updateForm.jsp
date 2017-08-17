@@ -11,7 +11,7 @@
 <html style="background: linear-gradient(rgba(237, 99, 52, .8), rgba(0, 0, 0, .6));">
 <head>
     <meta charset="UTF-8">
-    <title>GCBuddy Registration</title>
+    <title>Edit profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="resources/css/style.css">
@@ -20,7 +20,9 @@
 
 <body>
 <!-- multistep form -->
-<form:form action="/addUser" role="form" id="msform">
+
+<%--all I did in this form was take out the option to update password and change the action to updateUser--%>
+<form:form action="/updateUser" role="form" id="msform">
     <!-- progressbar -->
     <ul id="progressbar">
         <li class="active">Identification Information</li>
@@ -29,16 +31,14 @@
     </ul>
     <!-- fieldsets -->
     <fieldset>
-        <h2 class="fs-title">Create your account</h2>
+        <h2 class="fs-title">Update your account</h2>
         <h3 class="fs-subtitle">Identification Information</h3>
         <input type="text" name="firstName" id="firstName" placeholder="First Name" value="${firstName}" required>
         <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="${lastName}" required>
-        <input type="password" name="password" id="password" placeholder="Password" required>
-        <input type="password" name="checkPassWord" placeholder="Confirm Password" required>
         <input type="button" name="next" class="next action-button" value="Next"/>
     </fieldset>
     <fieldset>
-        <h2 class="fs-title">Create your account</h2>
+        <h2 class="fs-title">Update your account</h2>
         <h3 class="fs-subtitle">Contact Information</h3>
         <input type="email" name="email" id="email" placeholder="Email" value="${email}" required>
         <input type="email" name="checkEmail" id="checkEmail" placeholder="Confirm Email" required>
@@ -47,7 +47,7 @@
         <input type="button" name="next" class="next action-button" value="Next"/>
     </fieldset>
     <fieldset>
-        <h2 class="fs-title">Create your account</h2>
+        <h2 class="fs-title">Update your account</h2>
         <h3 class="fs-subtitle">About Yourself</h3>
         Which bootcamp are you in or have taken? :
 

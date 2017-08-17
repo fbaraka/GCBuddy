@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 
 @Controller
@@ -70,6 +71,14 @@ public class HomeController {
         }
     }
 
+
+    //This method logs our =user out by setting the global loginUser variable to null and sending them to the welcome page
+    @RequestMapping("/logout")
+    public String logout(){
+        loginUser = null;
+        return "welcome";
+    }
+
     @RequestMapping("/dontLook")
 
     public String getToken() {
@@ -97,6 +106,8 @@ public class HomeController {
         }
         System.out.println(userProfile);
         // prints the user profile lines for debugging purposes
+
+        model.addAttribute("action", "/addUser");
         try {
             model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
         } catch (JSONException e) {
@@ -108,6 +119,40 @@ public class HomeController {
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
         // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
     }
+
+
+    //added this method to update the users info, created a copy of the RegisterForm.jsp named updateForm and changed a few things
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+
+    public ModelAndView editUser(Model model) {
+        JSONObject userProfile = SlackApiCalls.getUserInfo(loginUser.getAuthToken());
+        //if the user doesnt have an authtoken this will set the picture to our default pic
+        try {
+            model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            model.addAttribute("photoUrl","http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+            model.addAttribute("photoUrl", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+        }
+        model.addAttribute("authToken", loginUser.getAuthToken());
+        model.addAttribute("slackId", loginUser.getSlackId());
+        // populated hidden fields in the user registration form to make UsersEntity.
+        return new ModelAndView("updateForm", "command", new UsersEntity());
+        // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+
+    public String updateUser(UsersEntity usersEntity) {
+        System.out.println(usersEntity);
+        usersEntity.setUserId(loginUser.getUserId());
+        dao.updateUser(usersEntity);
+        loginUser = dao.getUser(usersEntity.getEmail());
+        return ("/profilepage");
+    }
+    //this is the same as the addUser method but instead does an update for the user. and it doesnt need to ask for permissions again and doesnt need to encrypt the password
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
@@ -124,6 +169,11 @@ public class HomeController {
 
     @RequestMapping("/homepage")
     public String goHome(Model model) {
+
+        //added this conditional check to the homepage to make sure there is actually a user logged in, if not, it sends them to the welcome page
+        if (loginUser == null){
+            return "welcome";
+        }
         try {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } catch (NullPointerException E) {
@@ -144,10 +194,41 @@ public class HomeController {
     @RequestMapping("/profilepage")
 
     public ModelAndView profilePage(Model model) {
-        model.addAttribute("userName", loginUser.getUsername());
+
+        //declaring a local boolean variable to determine if the user has a valid personality profile built up
+        boolean hasPersonality = false;
+        //if the user is a mentee then they have a valid personality built by watson
+        //if they do we will addy the traits so the user can see them, I multiplied them by 100 to show them as a percent
+        if (isMentee()) {
+            hasPersonality = true;
+            model.addAttribute("open", dao.getMentee(loginUser.getUserId()).getOpeness()*100);
+            model.addAttribute("extra", dao.getMentee(loginUser.getUserId()).getExtraversion()*100);
+            model.addAttribute("agree", dao.getMentee(loginUser.getUserId()).getAggreeableness()*100);
+            model.addAttribute("conscience", dao.getMentee(loginUser.getUserId()).getConscience()*100);
+            model.addAttribute("emotion", dao.getMentee(loginUser.getUserId()).getEmotion()*100);
+            model.addAttribute("menteeDisc", dao.getMentee(loginUser.getUserId()).getDisciplines());
+        }
+        //if the user is a mentor then they have a valid personality built by watson
+        //if they do we will addy the traits so the user can see them, I multiplied them by 100 to show them as a percent
+        if (isMentor()) {
+            hasPersonality = true;
+            model.addAttribute("open", dao.getMentor(loginUser.getUserId()).getOpeness()*100);
+            model.addAttribute("extra", dao.getMentor(loginUser.getUserId()).getExtraversion()*100);
+            model.addAttribute("agree", dao.getMentor(loginUser.getUserId()).getAggreeableness()*100);
+            model.addAttribute("conscience", dao.getMentor(loginUser.getUserId()).getConscience()*100);
+            model.addAttribute("emotion", dao.getMentor(loginUser.getUserId()).getEmotion()*100);
+            model.addAttribute("mentorDisc", dao.getMentor(loginUser.getUserId()).getDisciplines());
+        }
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
+        model.addAttribute("bootCamp", loginUser.getBootcamp());
+
+        //if the user isnt a mentor or mentee certain divs on the profile card will not show
+        model.addAttribute("isMentor", isMentor());
+        model.addAttribute("isMentee", isMentee());
+        model.addAttribute("hasPersonality", hasPersonality);
+
         if (!loginUser.getPhotoUrl().equals("")) {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } else {
@@ -170,7 +251,7 @@ public class HomeController {
 
     public String deleteMentor() {
         dao.deleteMentor(loginUser.getUserId());
-        return ("redirect:/homepage");
+        return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
@@ -178,13 +259,17 @@ public class HomeController {
 
     public String deleteMentee() {
         dao.deleteMentee(loginUser.getUserId());
-        return ("redirect:/homepage");
+        return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping("/parking")
-    public ModelAndView parking() {
+    public ModelAndView parking(Model model) {
         ArrayList<ParkingInfo> information = ParkWhizApiCalls.getParking();
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
 
 
         return new
@@ -199,6 +284,10 @@ public class HomeController {
         model.addAttribute("action", "addMentor");
         model.addAttribute("isMentor", !isMentor());
         model.addAttribute("desc", "mentor");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentor()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
@@ -213,6 +302,10 @@ public class HomeController {
         model.addAttribute("action", "addMentee");
         model.addAttribute("isMentor", !isMentee());
         model.addAttribute("desc", "mentee");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
@@ -242,6 +335,10 @@ public class HomeController {
         model.addAttribute("action", "updateMentor");
         model.addAttribute("isMentor", isMentor());
         model.addAttribute("desc", "mentor");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
@@ -255,6 +352,10 @@ public class HomeController {
         model.addAttribute("action", "updateMentee");
         model.addAttribute("isMentor", isMentee());
         model.addAttribute("desc", "mentee");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
@@ -278,6 +379,12 @@ public class HomeController {
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
         mentorsEntity.setSlackId(loginUser.getSlackId());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        mentorsEntity.setCity(loginUser.getCity());
+        mentorsEntity.setPhotoUrl(loginUser.getPhotoUrl());
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         dao.addMentor(mentorsEntity);
 
         return mentorPortal(model);
@@ -298,6 +405,12 @@ public class HomeController {
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
         menteesEntity.setSlackId(loginUser.getSlackId());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        menteesEntity.setCity(loginUser.getCity());
+        menteesEntity.setPhotoUrl(loginUser.getPhotoUrl());
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         dao.addMentee(menteesEntity);
 
         return menteePage(model);
@@ -312,10 +425,16 @@ public class HomeController {
             menteesEntity.setEmotion(getEmotion(profileJson));
             menteesEntity.setExtraversion(getExtro(profileJson));
             menteesEntity.setOpeness(getOpenness(profileJson));
+            //added these attributes to account for the nav bar
+            model.addAttribute("firstName",  loginUser.getFirstName());
+            model.addAttribute("lastName",  loginUser.getLastName());
         }
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        menteesEntity.setCity(loginUser.getCity());
+        menteesEntity.setPhotoUrl(loginUser.getPhotoUrl());
         dao.updateMentee(menteesEntity);
 
         return menteePage(model);
@@ -330,10 +449,16 @@ public class HomeController {
             mentorsEntity.setEmotion(getEmotion(profileJson));
             mentorsEntity.setExtraversion(getExtro(profileJson));
             mentorsEntity.setOpeness(getOpenness(profileJson));
+            //added these attributes to account for the nav bar
+            model.addAttribute("firstName",  loginUser.getFirstName());
+            model.addAttribute("lastName",  loginUser.getLastName());
         }
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        mentorsEntity.setCity(loginUser.getCity());
+        mentorsEntity.setPhotoUrl(loginUser.getPhotoUrl());
         dao.updateMentor(mentorsEntity);
 
         return menteePage(model);
@@ -344,6 +469,9 @@ public class HomeController {
     public ModelAndView mentorPortal(Model model) {
         ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
         model.addAttribute("msg", message);
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         message = "";
         return new
                 ModelAndView("mmpage", "cList", menteeList);
@@ -354,6 +482,9 @@ public class HomeController {
     public ModelAndView menteePage(Model model) {
         ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
         model.addAttribute("msg", message);
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         message = "";
         return new
                 ModelAndView("mmpage", "cList", mentorList);

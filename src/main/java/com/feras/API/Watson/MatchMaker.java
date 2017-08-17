@@ -18,7 +18,8 @@ public class MatchMaker {
             for (MenteesEntity mentee : mentees) {
                 boolean isMatch = false;
                 for (String discipline : disc) {
-                    if (mentee.getDisciplines().contains(discipline)) {
+                    //added an extra conditio here to make sure the user thats logged in isnt added to the list
+                    if (mentee.getDisciplines().contains(discipline) && mentee.getMenteeId() != loggedInUser.getMentorId()) {
                         isMatch = true;
                     }
                 }
@@ -40,7 +41,8 @@ public class MatchMaker {
             for (MentorsEntity mentor : mentors) {
                 boolean isMatch = false;
                 for (String discipline : disc) {
-                    if (mentor.getDisciplines().contains(discipline)) {
+                    //added an extra conditio here to make sure the user thats logged in isnt added to the list
+                    if (mentor.getDisciplines().contains(discipline) && mentor.getMentorId() != loggedInUser.getMenteeId()) {
                         isMatch = true;
                     }
                 }

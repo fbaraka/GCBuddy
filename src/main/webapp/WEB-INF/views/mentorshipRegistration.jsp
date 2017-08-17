@@ -9,8 +9,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html style="background: linear-gradient(rgba(199, 199, 199, .8), rgba(232, 232, 232, .6));">
-<html>
+<html style="background: #E2E4E6;">
 <head>
     <meta charset="UTF-8">
     <title>Register for the mentorship program</title>
@@ -653,12 +652,44 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" href="resources/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body>
+<body style="background: #E2E4E6;">
+<%--navbar was taken from bootstraps site and tweaked for our purpose--%>
+<%--it needs the bootstrap imports to work--%>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/homepage">GC Buddy</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/mentorship">Mentorship Portal</a></li>
+                <li><a href="/parking">Parking</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">Signed in as <a href="/profilepage" class="navbar-link">${firstName} ${lastName}</a></p>
+            <%--added this button to let the user logout--%>
+            <a href="/logout"><button type="button" class="btn btn-default navbar-btn navbar-right">Logout</button></a>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 
 <c:choose>
     <c:when test="${isMentor}">
-        <form:form name="mentorRegistration" action="${action}" method="POST">
+        <form:form name="mentorRegistration" action="${action}" method="POST" role="form" id="msform">
             <ul id="progressbar">
                 <li class="active">Mentorship</li>
                 <li>Smart Profile 1/2</li>
@@ -694,6 +725,7 @@
                 <br>
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
+
             <fieldset>
                 <h2 class="fs-title">Smart Profile 1/2</h2>
                 <h3 class="fs-subtitle">Questions</h3>
@@ -710,6 +742,7 @@
                 <input type="button" name="previous" class="previous action-button" value="Previous"/>
                 <input type="button" name="next" class="next action-button" value="Next"/>
             </fieldset>
+
             <fieldset>
                 <h2 class="fs-title">Smart Profile 2/2</h2>
                 <h3 class="fs-subtitle">Questions</h3>
@@ -790,6 +823,13 @@
 </script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+
+<script src="resources/js/index.js"></script>
+
 
 </body>
 </html>

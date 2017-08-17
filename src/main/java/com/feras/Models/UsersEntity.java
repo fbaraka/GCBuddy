@@ -14,9 +14,6 @@ public class UsersEntity {
     private String username;
     private String bootcamp;
     private String languages;
-    private String experience;
-    private String bioBlurb;
-    private Boolean isAbleToMentor;
     private String AuthToken;
     private String password;
     private String email;
@@ -24,6 +21,17 @@ public class UsersEntity {
     private String authToken;
     private String slackId;
     private String photoUrl;
+    private String city;
+
+    @Basic
+    @Column(name = "city", nullable = true, length = 140)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     @Basic
     @Column(name = "email", nullable = true, length = 45)
@@ -53,14 +61,6 @@ public class UsersEntity {
 
     public void setAuthToken(String authToken) {
         AuthToken = authToken;
-    }
-
-    public Boolean getIsAbleToMentor() {
-        return isAbleToMentor;
-    }
-
-    public void setIsAbleToMentor(Boolean isAbleToMentor) {
-        this.isAbleToMentor = isAbleToMentor;
     }
 
     public Boolean getIsAlumni() {
@@ -122,17 +122,6 @@ public class UsersEntity {
     }
 
     @Basic
-    @Column(name = "Languages", nullable = true, length = 140)
-    public String getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(String languages) {
-        this.languages = languages;
-    }
-
-
-    @Basic
     @Column(name = "isAlumni", nullable = true)
     public Boolean getAlumni() {
         return isAlumni;
@@ -155,8 +144,6 @@ public class UsersEntity {
         if (username != null ? !username.equals(that.username) : that.username != null) return false;
         if (bootcamp != null ? !bootcamp.equals(that.bootcamp) : that.bootcamp != null) return false;
         if (languages != null ? !languages.equals(that.languages) : that.languages != null) return false;
-        if (experience != null ? !experience.equals(that.experience) : that.experience != null) return false;
-        if (bioBlurb != null ? !bioBlurb.equals(that.bioBlurb) : that.bioBlurb != null) return false;
 
         return true;
     }
@@ -169,8 +156,6 @@ public class UsersEntity {
         result = 31 * result + (username != null ? username.hashCode() : 0);
         result = 31 * result + (bootcamp != null ? bootcamp.hashCode() : 0);
         result = 31 * result + (languages != null ? languages.hashCode() : 0);
-        result = 31 * result + (experience != null ? experience.hashCode() : 0);
-        result = 31 * result + (bioBlurb != null ? bioBlurb.hashCode() : 0);
         return result;
     }
 
