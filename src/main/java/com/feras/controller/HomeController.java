@@ -208,24 +208,24 @@ public class HomeController {
 
     @RequestMapping(value = "/deleteUser")
 
-    public String deleteUser(int userId) {
-        dao.deleteUser(userId);
+    public String deleteUser(@CookieValue("userId") String userId) {
+        dao.deleteUser(Integer.parseInt(userId));
         return ("redirect:/");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping(value = "/deleteMentor")
 
-    public String deleteMentor(int userId) {
-        dao.deleteMentor(userId);
+    public String deleteMentor(@CookieValue("userId") String userId) {
+        dao.deleteMentor(Integer.parseInt(userId));
         return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping(value = "/deleteMentee")
 
-    public String deleteMentee(int userId) {
-        dao.deleteMentee(userId);
+    public String deleteMentee(@CookieValue("userId") String userId) {
+        dao.deleteMentee(Integer.parseInt(userId));
         return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
