@@ -46,6 +46,9 @@
                 <li><a href="/parking">Parking</a></li>
             </ul>
             <p class="navbar-text navbar-right">Signed in as <a href="/profilepage" class="navbar-link">${firstName} ${lastName}</a></p>
+
+            <%--added this button to let the user logout--%>
+            <a href="/logout"><button type="button" class="btn btn-default navbar-btn navbar-right">Logout</button></a>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
@@ -60,7 +63,7 @@
                         <div class="coach-info-text">
                             <span class="white-text">
                                 <div class=text-align:"center">${firstName} ${lastName}</div><br>
-                                <h4>email: ${email}</h4><br>
+                                <h4>${email}</h4><br>
                                 <h4>city: ${city}</h4>
                             </span>
                         </div>

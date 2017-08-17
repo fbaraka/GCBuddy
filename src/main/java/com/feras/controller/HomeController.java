@@ -70,6 +70,14 @@ public class HomeController {
         }
     }
 
+
+    //This method logs our =user out by setting the global loginUser variable to null and sending them to the welcome page
+    @RequestMapping("/logout")
+    public String logout(){
+        loginUser = null;
+        return "welcome";
+    }
+
     @RequestMapping("/dontLook")
 
     public String getToken() {
@@ -124,6 +132,11 @@ public class HomeController {
 
     @RequestMapping("/homepage")
     public String goHome(Model model) {
+
+        //added this conditional check to the homepage to make sure there is actually a user logged in, if not, it sends them to the welcome page
+        if (loginUser == null){
+            return "welcome";
+        }
         try {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
         } catch (NullPointerException E) {

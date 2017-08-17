@@ -681,6 +681,8 @@
                 <li><a href="/parking">Parking</a></li>
             </ul>
             <p class="navbar-text navbar-right">Signed in as <a href="/profilepage" class="navbar-link">${firstName} ${lastName}</a></p>
+            <%--added this button to let the user logout--%>
+            <a href="/logout"><button type="button" class="btn btn-default navbar-btn navbar-right">Logout</button></a>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
 </nav>
