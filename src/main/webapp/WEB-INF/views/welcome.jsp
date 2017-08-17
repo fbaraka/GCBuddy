@@ -35,27 +35,8 @@
 
 
     <title>Login</title>
-    <style>
-        /* CSS used here will be applied after bootstrap.css */
-        .jumbotron {
-            color: black;
-            position: relative;
-            z-index: -2;
-        }
 
-        #video-background {
-            position: fixed;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: 0;
-            overflow: hidden;
-            z-index: -1;
-            width: 100%;
-            opacity: 0.5;
-
-        }
-    </style>
+    <link rel="stylesheet" href="resources/css/welcomeStyle.css">
 
 
 </head>
@@ -68,22 +49,17 @@
 <div class="jumbotron">
 
     <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
-
-
         <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"
                 type="video/Mp4"/>
     </video>
-
-
     <h1 class="text-center">Welcome to Grand Circus Buddy!</h1>
 
     <p class="text-center">The app where Alumni and Current Students meet!</p>
 
 
-    <!--add image -->
+
     <br>
 </div>
-
 
 
 <center>
