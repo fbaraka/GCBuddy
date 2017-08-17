@@ -181,9 +181,11 @@ public class HibernateDao implements GCBuddyDao {
     public void deleteUser(int userId) {
         Session session = factory.openSession();
         Transaction tx = null;
+        //creating a local variable to store the entity first seemed to fix the null pointer exceptions
+        UsersEntity usersEntity = getUser(userId);
         try {
             tx = session.beginTransaction();
-            session.delete(getUser(userId));
+            session.delete(usersEntity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -198,9 +200,11 @@ public class HibernateDao implements GCBuddyDao {
     public void deleteMentor(int userId) {
         Session session = factory.openSession();
         Transaction tx = null;
+        //creating a local variable to store the entity first seemed to fix the null pointer exceptions
+        MentorsEntity mentorsEntity = getMentor(userId);
         try {
             tx = session.beginTransaction();
-            session.delete(getMentor(userId));
+            session.delete(mentorsEntity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -215,9 +219,11 @@ public class HibernateDao implements GCBuddyDao {
     public void deleteMentee(int userId) {
         Session session = factory.openSession();
         Transaction tx = null;
+        //creating a local variable to store the entity first seemed to fix the null pointer exceptions
+        MenteesEntity menteesEntity = getMentee(userId);
         try {
             tx = session.beginTransaction();
-            session.delete(getMentee(userId));
+            session.delete(menteesEntity);
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();

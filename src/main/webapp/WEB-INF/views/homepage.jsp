@@ -40,11 +40,6 @@
 </head>
 
 <body>
-<a href="/deleteUser">Delete Account</a>
-<br>
-<a href="/deleteMentor">Delete Mentor</a>
-<br>
-<a href="/deleteMentee">Delete Mentee</a>
 <div class="jumbotron">
     <video id="video-background" autoplay="true" loop="loop" preload="metadata" muted="muted">
         <source src="http://www.grandcircus.co/wp-content/themes/grandcircus/_assets/grand-circus-detroit-homepage-reel-sm.mp4"

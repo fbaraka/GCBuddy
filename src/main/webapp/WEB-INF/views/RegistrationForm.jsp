@@ -13,6 +13,7 @@
     <meta charset="UTF-8">
     <title>GCBuddy Registration</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="resources/css/style.css">
 
 </head>
@@ -42,7 +43,7 @@
         <input type="email" name="email" id="email" placeholder="Email" value="${email}" required>
         <input type="email" name="checkEmail" id="checkEmail" placeholder="Confirm Email" required>
         <input type="tel" name="phone" id="phone" placeholder="Phone Number">
-        <input type="text" name="zip" id="zip" placeholder="City" required>
+        <input type="text" name="city" id="city" placeholder="City" required>
         <input type="button" name="previous" class="previous action-button" value="Previous"/>
         <input type="button" name="next" class="next action-button" value="Next"/>
     </fieldset>

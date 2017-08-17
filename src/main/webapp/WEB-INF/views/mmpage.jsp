@@ -43,15 +43,43 @@
             -webkit-transform: rotate(360deg);
             -webkit-font-smoothing: antialiased;
         }
+
     </style>
 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<body style="background: rgb(170,170,170);">
-<a href="/homepage">Go to home page</a>
-<br>
-<br>
+<body style="background: #E2E4E6;">
+
+<%--navbar was taken from bootstraps site and tweaked for our purpose--%>
+<%--it needs the bootstrap imports to work--%>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/homepage">GC Buddy</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/mentorship">Mentorship Portal</a></li>
+                <li><a href="/parking">Parking</a></li>
+            </ul>
+            <p class="navbar-text navbar-right">Signed in as <a href="/profilepage" class="navbar-link">${firstName} ${lastName}</a></p>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
 <div class="jumbotron" style="background: #1ea8b4; margin-left: 5%; margin-right: 5%; border-radius: 25px">
     <h1 style="text-align: center">
         Your Potential Matches
@@ -60,7 +88,7 @@
 </div>
 
 <h5 style="color: green;">${msg}</h5>
-<div class="row" style="background: rgb(170,170,170);">
+<div class="row" style="background: #E2E4E6;">
     <c:forEach items="${cList}" var="user">
         <div class="col-md-6">
             <div class="media" style=" margin-left: 5%; margin-right: 5%; border-radius: 25px">
@@ -88,6 +116,12 @@
     </c:forEach>
 </div>
 
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js'></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

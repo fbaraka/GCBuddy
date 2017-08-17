@@ -214,8 +214,12 @@ public class HomeController {
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
     @RequestMapping("/parking")
-    public ModelAndView parking() {
+    public ModelAndView parking(Model model) {
         ArrayList<ParkingInfo> information = ParkWhizApiCalls.getParking();
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
 
 
         return new
@@ -230,6 +234,10 @@ public class HomeController {
         model.addAttribute("action", "addMentor");
         model.addAttribute("isMentor", !isMentor());
         model.addAttribute("desc", "mentor");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentor()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
@@ -244,6 +252,10 @@ public class HomeController {
         model.addAttribute("action", "addMentee");
         model.addAttribute("isMentor", !isMentee());
         model.addAttribute("desc", "mentee");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
@@ -273,6 +285,10 @@ public class HomeController {
         model.addAttribute("action", "updateMentor");
         model.addAttribute("isMentor", isMentor());
         model.addAttribute("desc", "mentor");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentor(loginUser.getUserId()).getDisciplines());
         }
@@ -286,6 +302,10 @@ public class HomeController {
         model.addAttribute("action", "updateMentee");
         model.addAttribute("isMentor", isMentee());
         model.addAttribute("desc", "mentee");
+
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         if (isMentee()) {
             model.addAttribute("disciplines", dao.getMentee(loginUser.getUserId()).getDisciplines());
         }
@@ -309,6 +329,9 @@ public class HomeController {
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
         mentorsEntity.setSlackId(loginUser.getSlackId());
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         dao.addMentor(mentorsEntity);
 
         return mentorPortal(model);
@@ -329,6 +352,9 @@ public class HomeController {
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
         menteesEntity.setSlackId(loginUser.getSlackId());
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         dao.addMentee(menteesEntity);
 
         return menteePage(model);
@@ -343,6 +369,9 @@ public class HomeController {
             menteesEntity.setEmotion(getEmotion(profileJson));
             menteesEntity.setExtraversion(getExtro(profileJson));
             menteesEntity.setOpeness(getOpenness(profileJson));
+            //added these attributes to account for the nav bar
+            model.addAttribute("firstName",  loginUser.getFirstName());
+            model.addAttribute("lastName",  loginUser.getLastName());
         }
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
@@ -361,6 +390,9 @@ public class HomeController {
             mentorsEntity.setEmotion(getEmotion(profileJson));
             mentorsEntity.setExtraversion(getExtro(profileJson));
             mentorsEntity.setOpeness(getOpenness(profileJson));
+            //added these attributes to account for the nav bar
+            model.addAttribute("firstName",  loginUser.getFirstName());
+            model.addAttribute("lastName",  loginUser.getLastName());
         }
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
