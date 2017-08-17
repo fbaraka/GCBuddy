@@ -56,6 +56,12 @@
         Need help? Looking for Parking? You came to the right place!
     </h2>
 </div>
+<center>
+    <a href="/logout">
+        <button type="button" class="btn-lg btn-primary">Logout</button>
+    </a>
+</center>
+
 <div class='ui'>
     <div class='ui_box'>
         <div class='ui_box__inner'>

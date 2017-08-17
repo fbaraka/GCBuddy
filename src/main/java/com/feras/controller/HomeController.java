@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Null;
 import java.util.ArrayList;
 
 @Controller
@@ -105,6 +106,8 @@ public class HomeController {
         }
         System.out.println(userProfile);
         // prints the user profile lines for debugging purposes
+
+        model.addAttribute("action", "/addUser");
         try {
             model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
         } catch (JSONException e) {
@@ -116,6 +119,41 @@ public class HomeController {
         return new ModelAndView("RegistrationForm", "command", new UsersEntity());
         // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
     }
+
+
+    //added this method to update the users info, created a copy of the RegisterForm.jsp named updateForm and changed a few things
+    @RequestMapping(value = "/editUser", method = RequestMethod.GET)
+
+    public ModelAndView editUser(Model model) {
+        JSONObject userProfile = SlackApiCalls.getUserInfo(loginUser.getAuthToken());
+        //if the user doesnt have an authtoken this will set the picture to our default pic
+        try {
+            model.addAttribute("photoUrl", userProfile.getJSONObject("profile").getString("image_72"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            model.addAttribute("photoUrl","http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+            model.addAttribute("photoUrl", "http://www.pgconnects.com/helsinki/wp-content/uploads/sites/3/2015/07/generic-profile-grey-380x380.jpg");
+        }
+        model.addAttribute("authToken", loginUser.getAuthToken());
+        model.addAttribute("slackId", loginUser.getSlackId());
+        // populated hidden fields in the user registration form to make UsersEntity.
+        return new ModelAndView("updateForm", "command", new UsersEntity());
+        // refers to the model name command which references the spring form and creates a new user entity that allows us to store data in the database.
+    }
+
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+
+    public String updateUser(UsersEntity usersEntity) {
+        System.out.println(usersEntity);
+        usersEntity.setUserId(loginUser.getUserId());
+
+        dao.updateUser(usersEntity);
+        loginUser = dao.getUser(usersEntity.getEmail());
+        return ("/profilepage");
+    }
+    //this is the same as the addUser method but instead does an update for the user. and it doesnt need to ask for permissions again and doesnt need to encrypt the password
 
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)

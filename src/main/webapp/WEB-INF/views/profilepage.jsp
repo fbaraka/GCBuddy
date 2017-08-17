@@ -151,6 +151,9 @@
                 </c:if>
                 <hr class="sep-line">
                 <div class="coach-reserve-btn">
+                    <a href="/editUser" class="btn btn-warning btn-block">Edit account</a>
+                </div>
+                <div class="coach-reserve-btn">
                     <a href="/deleteUser" class="btn btn-danger btn-block">Delete account</a>
                 </div>
         </div>
