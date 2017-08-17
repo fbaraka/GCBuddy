@@ -55,6 +55,7 @@
 
 <center>
 <div class="row">
+    <div class="col-lg-3"></div>
         <div class="col-lg-6 coach-card">
                 <img src=${userPic}
                              class="coach-img">
@@ -157,6 +158,7 @@
                     <a href="/deleteUser" class="btn btn-danger btn-block">Delete account</a>
                 </div>
         </div>
+    <div class="col-lg-3"></div>
 </div>
 </center>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>

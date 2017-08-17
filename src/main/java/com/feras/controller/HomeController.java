@@ -150,7 +150,7 @@ public class HomeController {
         usersEntity.setUserId(loginUser.getUserId());
         dao.updateUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
-        return ("/profilepage");
+        return ("redirect:/homepage");
     }
     //this is the same as the addUser method but instead does an update for the user. and it doesnt need to ask for permissions again and doesnt need to encrypt the password
 
