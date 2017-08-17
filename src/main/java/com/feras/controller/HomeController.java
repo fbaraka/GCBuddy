@@ -144,13 +144,40 @@ public class HomeController {
     @RequestMapping("/profilepage")
 
     public ModelAndView profilePage(Model model) {
-        model.addAttribute("userName", loginUser.getUsername());
+
+        //declaring a local boolean variable to determine if the user has a valid personality profile built up
+        boolean hasPersonality = false;
+        //if the user is a mentee then they have a valid personality built by watson
+        //if they do we will addy the traits so the user can see them, I multiplied them by 100 to show them as a percent
+        if (isMentee()) {
+            hasPersonality = true;
+            model.addAttribute("open", dao.getMentee(loginUser.getUserId()).getOpeness()*100);
+            model.addAttribute("extra", dao.getMentee(loginUser.getUserId()).getExtraversion()*100);
+            model.addAttribute("agree", dao.getMentee(loginUser.getUserId()).getAggreeableness()*100);
+            model.addAttribute("conscience", dao.getMentee(loginUser.getUserId()).getConscience()*100);
+            model.addAttribute("emotion", dao.getMentee(loginUser.getUserId()).getEmotion()*100);
+            model.addAttribute("menteeDisc", dao.getMentee(loginUser.getUserId()).getDisciplines());
+        }
+        //if the user is a mentor then they have a valid personality built by watson
+        //if they do we will addy the traits so the user can see them, I multiplied them by 100 to show them as a percent
+        if (isMentor()) {
+            hasPersonality = true;
+            model.addAttribute("open", dao.getMentor(loginUser.getUserId()).getOpeness()*100);
+            model.addAttribute("extra", dao.getMentor(loginUser.getUserId()).getExtraversion()*100);
+            model.addAttribute("agree", dao.getMentor(loginUser.getUserId()).getAggreeableness()*100);
+            model.addAttribute("conscience", dao.getMentor(loginUser.getUserId()).getConscience()*100);
+            model.addAttribute("emotion", dao.getMentor(loginUser.getUserId()).getEmotion()*100);
+            model.addAttribute("mentorDisc", dao.getMentor(loginUser.getUserId()).getDisciplines());
+        }
         model.addAttribute("firstName", loginUser.getFirstName());
         model.addAttribute("lastName", loginUser.getLastName());
         model.addAttribute("email", loginUser.getEmail());
-        model.addAttribute("bootcamp", loginUser.getBootcamp());
-        model.addAttribute("mentor",loginUser.getLanguages());
-        model.addAttribute("languages",loginUser.getBootcamp());
+        model.addAttribute("bootCamp", loginUser.getBootcamp());
+
+        //if the user isnt a mentor or mentee certain divs on the profile card will not show
+        model.addAttribute("isMentor", isMentor());
+        model.addAttribute("isMentee", isMentee());
+        model.addAttribute("hasPersonality", hasPersonality);
 
         if (!loginUser.getPhotoUrl().equals("")) {
             model.addAttribute("userPic", loginUser.getPhotoUrl());
