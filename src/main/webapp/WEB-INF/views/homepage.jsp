@@ -52,9 +52,6 @@
     <h1>
         GCBuddy - Choose an Option Below!
     </h1>
-    <h2>
-        Need help? Looking for Parking? You came to the right place!
-    </h2>
 </div>
 <center>
     <a href="/logout">
@@ -103,28 +100,15 @@
                         Coding Languages
                     </li>
                 </ul>
-
             </div>
-
             <div class='stockPhoto'>
                 <img src="${userPic}" width="100" height="100">
-
             </div>
-
-
         </div>
-
-        <%--<div class='drop'>--%>
-            <%--&lt;%&ndash;<button type="button" onclick="profilepage">View Your Profile</button>&ndash;%&gt;--%>
-            <%--&lt;%&ndash;<input type="button" value="View Your Profile">&ndash;%&gt;--%>
-            <%--<a style="height:100%" href="profilepage">View Your Profile</a>--%>
-            <%--&lt;%&ndash;<div class='arrow'></div>&ndash;%&gt;--%>
-        <%--</div>--%>
         <div class='drop'>
             <p><a href="profilepage">View Profile</a></p>
             <div class='arrow'></div>
         </div>
-
     </div>
 
 

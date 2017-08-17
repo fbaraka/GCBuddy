@@ -106,7 +106,7 @@
                         <div>
                             <div class="coach-info-text" style="text-align: center">
                                 <span class="gray-text">
-                                    You are a mentee for these languages:<br>
+                                    You are a Mentee for these languages:<br>
                                     <span class="gray-text" style="color: #1ea8b4">
                                             ${menteeDisc}
                                     </span>
@@ -114,7 +114,7 @@
                             </div>
                         </div><br>
                         <center>
-                            <a href="/deleteMentee" class="btn-sm btn-danger">Remove yourself from mentee pool</a>
+                            <a href="/deleteMentee" class="btn-sm btn-danger">Remove yourself from Mentee Pool</a>
                         </center>
                         <hr class="sep-line">
                     </c:if>
@@ -129,8 +129,8 @@
                     <div class="coach-desc-text">
                         <div>
                             <span class="coach-name" style="text-align: center"><h2>Personality Profile</h2></span>
-                            <p>These numbers are generated based on your answers when you first sign up in the mentorship portal as either a mentee or mentor.</p>
-                            <p>To change your answers go to the mentorship portal and select "Edit Disciplines".</p>
+                            <p>These numbers are generated based on your answers when you sign up in the Mentorship Portal as either a Mentee or Mentor.</p>
+                            <p>To change your answers go to the Mentorship Portal and select "Edit Disciplines".</p>
                         </div>
                     </div>
                 </div>

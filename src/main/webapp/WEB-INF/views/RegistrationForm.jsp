@@ -50,19 +50,17 @@
         <h2 class="fs-title">Create your account</h2>
         <h3 class="fs-subtitle">About Yourself</h3>
         Which bootcamp are you in or have taken? :
-
-
         <%--had to add a name to the select tag so it would store in the user entity--%>
         <select name="bootcamp">
             <option value="blankChoice" selected disabled>Choose One</option>
             <option value="cNet">C#/.Net</option>
             <option value="facebook">Facebook</option>
-            <option value="frontend">Frontend</option>
+            <option value="frontend">Front-End</option>
             <option value="java">Java</option>
         </select>
         <br>
         <br>
-        Are you an Alumnus?
+        Are you a Grand Circus Alumnus?
         <br>
         <input type="radio" name="isAlumni" value="yes"/><label id="radio"> Yes
         <input type="radio" name="isAlumni" value="no"/> No </label>
