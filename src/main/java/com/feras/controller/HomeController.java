@@ -148,7 +148,6 @@ public class HomeController {
     public String updateUser(UsersEntity usersEntity) {
         System.out.println(usersEntity);
         usersEntity.setUserId(loginUser.getUserId());
-
         dao.updateUser(usersEntity);
         loginUser = dao.getUser(usersEntity.getEmail());
         return ("/profilepage");
@@ -252,7 +251,7 @@ public class HomeController {
 
     public String deleteMentor() {
         dao.deleteMentor(loginUser.getUserId());
-        return ("redirect:/homepage");
+        return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
@@ -260,7 +259,7 @@ public class HomeController {
 
     public String deleteMentee() {
         dao.deleteMentee(loginUser.getUserId());
-        return ("redirect:/homepage");
+        return ("redirect:/profilepage");
     }
     //Allows user to delete themselves from the Database, and redirects them to the Welcome Page
 
@@ -380,6 +379,9 @@ public class HomeController {
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
         mentorsEntity.setSlackId(loginUser.getSlackId());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        mentorsEntity.setCity(loginUser.getCity());
+        mentorsEntity.setPhotoUrl(loginUser.getPhotoUrl());
         //added these attributes to account for the nav bar
         model.addAttribute("firstName",  loginUser.getFirstName());
         model.addAttribute("lastName",  loginUser.getLastName());
@@ -403,6 +405,9 @@ public class HomeController {
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
         menteesEntity.setSlackId(loginUser.getSlackId());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        menteesEntity.setCity(loginUser.getCity());
+        menteesEntity.setPhotoUrl(loginUser.getPhotoUrl());
         //added these attributes to account for the nav bar
         model.addAttribute("firstName",  loginUser.getFirstName());
         model.addAttribute("lastName",  loginUser.getLastName());
@@ -427,6 +432,9 @@ public class HomeController {
         menteesEntity.setMenteeId(loginUser.getUserId());
         menteesEntity.setFirstName(loginUser.getFirstName());
         menteesEntity.setLastName(loginUser.getLastName());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        menteesEntity.setCity(loginUser.getCity());
+        menteesEntity.setPhotoUrl(loginUser.getPhotoUrl());
         dao.updateMentee(menteesEntity);
 
         return menteePage(model);
@@ -448,6 +456,9 @@ public class HomeController {
         mentorsEntity.setMentorId(loginUser.getUserId());
         mentorsEntity.setFirstName(loginUser.getFirstName());
         mentorsEntity.setLastName(loginUser.getLastName());
+        //added these next two lines to pass the photoURL and city from the users table to the mentee/mentor table
+        mentorsEntity.setCity(loginUser.getCity());
+        mentorsEntity.setPhotoUrl(loginUser.getPhotoUrl());
         dao.updateMentor(mentorsEntity);
 
         return menteePage(model);
@@ -458,6 +469,9 @@ public class HomeController {
     public ModelAndView mentorPortal(Model model) {
         ArrayList<MenteesEntity> menteeList = MatchMaker.narrowMenteebyWatson(dao.getMentor(loginUser.getUserId()), dao.getAllMentees());
         model.addAttribute("msg", message);
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         message = "";
         return new
                 ModelAndView("mmpage", "cList", menteeList);
@@ -468,6 +482,9 @@ public class HomeController {
     public ModelAndView menteePage(Model model) {
         ArrayList<MentorsEntity> mentorList = MatchMaker.narrowMentorbyWatson(dao.getMentee(loginUser.getUserId()), dao.getAllMentors());
         model.addAttribute("msg", message);
+        //added these attributes to account for the nav bar
+        model.addAttribute("firstName",  loginUser.getFirstName());
+        model.addAttribute("lastName",  loginUser.getLastName());
         message = "";
         return new
                 ModelAndView("mmpage", "cList", mentorList);

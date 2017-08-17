@@ -96,12 +96,12 @@
             <div class="media" style=" margin-left: 5%; margin-right: 5%; border-radius: 25px">
                 <a class="pull-left" href="/profilepage">
                     <img class="media-object dp img-circle"
-                         src="http://pics3.pof.com/thumbnails/size220/1136/22/57/311935dd6-93d4-46f0-beda-2c9b5a1d1b06.jpg"
+                         src="${user.photoUrl}"
                          style="width: 100px;height:100px;">
                 </a>
                 <div class="media-body">
                     <h4 class="media-heading">${user.firstName} ${user.lastName}
-                        <small style="color: #1ea8b4;"> Detroit, MI</small>
+                        <small style="color: #1ea8b4;"> ${user.city}</small>
                     </h4>
                     <h5 style="color: #1ea8b4">${user.disciplines}</h5>
                     <hr style="margin:8px auto">

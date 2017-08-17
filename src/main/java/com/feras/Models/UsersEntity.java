@@ -24,6 +24,16 @@ public class UsersEntity {
     private String city;
 
     @Basic
+    @Column(name = "city", nullable = true, length = 140)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Basic
     @Column(name = "email", nullable = true, length = 45)
     public String getEmail() {
         return email;
@@ -110,17 +120,6 @@ public class UsersEntity {
     public void setBootcamp(String bootcamp) {
         this.bootcamp = bootcamp;
     }
-
-    @Basic
-    @Column(name = "Languages", nullable = true, length = 140)
-    public String getLanguages() {
-        return languages;
-    }
-
-    public void setLanguages(String languages) {
-        this.languages = languages;
-    }
-
 
     @Basic
     @Column(name = "isAlumni", nullable = true)

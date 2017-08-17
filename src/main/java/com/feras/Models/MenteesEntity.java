@@ -21,6 +21,7 @@ public class MenteesEntity {
     private String lastName;
     private String slackId;
     private String photoUrl;
+    private String city;
 
     @Id
     @Column(name = "menteeId", nullable = false)
@@ -31,7 +32,6 @@ public class MenteesEntity {
     public void setMenteeId(int menteeId) {
         this.menteeId = menteeId;
     }
-
 
     @Basic
     @Column(name = "disciplines", nullable = true, length = 140)
@@ -146,12 +146,22 @@ public class MenteesEntity {
     }
 
     @Basic
-    @Column(name = "photoUrl", nullable = true, length = 140)
+    @Column(name = "photoUrl", nullable = true, length = 255)
     public String getPhotoUrl() {
         return photoUrl;
     }
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
+    }
+
+    @Basic
+    @Column(name = "city", nullable = true, length = 45)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }
